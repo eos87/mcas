@@ -1,0 +1,23 @@
+# Django settings for MCAS project.
+import os
+
+PROJECT_DIR = os.path.dirname(__file__)
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+
+ADMINS = (
+     ('User Name', 'user@email.com'),
+)
+
+MANAGERS = ADMINS
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'DB',                      # Or path to database file if using sqlite3.
+        'USER': 'user',                      # Not used with sqlite3.
+        'PASSWORD': 'pass',                  # Not used with sqlite3.
+        'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '3306',                      # Set to empty string for default. Not used with sqlite3.
+    }
+}
