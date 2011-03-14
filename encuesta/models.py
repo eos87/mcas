@@ -169,3 +169,87 @@ class Conocimiento(models.Model):
 
     class Meta:
         verbose_name_plural = u'Conocimientos'
+
+class PorqueAbuso(models.Model):
+    nombre = models.CharField(max_length=50)
+
+    def __unicode__(self):
+        return u'%s' % self.nombre
+
+    class Meta:
+        verbose_name = u'Porque el abuso'
+        verbose_name_plural = u'Porque el abuso'
+
+class QuePiensa(models.Model):
+    nombre = models.CharField(max_length=50)
+
+    def __unicode__(self):
+        return u'%s' % self.nombre
+
+    class Meta:
+        verbose_name = u'Pensamiento sobre abuso'
+        verbose_name_plural = u'Pensamientos sobre abuso'
+
+class QuePiensaVictima(models.Model):
+    nombre = models.CharField(max_length=50)
+
+    def __unicode__(self):
+        return u'%s' % self.nombre
+
+    class Meta:
+        verbose_name = u'Pensamiento sobre abusados'
+        verbose_name_plural = u'Pensamientos sobre abusados'
+
+class Actitud(models.Model):
+    porque_abuso = models.ManyToManyField(PorqueAbuso, verbose_name=u'¿Por qué cree que se da el abuso sexual?')
+    que_piensa = models.ManyToManyField(QuePiensa, verbose_name=u'¿Qué piensa usted sobre las personas que abusan sexualmente de los niños?')
+    que_piensa_victimas = models.ManyToManyField(QuePiensaVictima, verbose_name=u'¿Qué piensa sobre las personas que han sido víctimas de abuso sexual?')
+    familia_ensena = models.IntegerField(choices=SI_NO, verbose_name=u'¿Estaría usted de acuerdo que en la Familia se enseña a los niños, niñas y adolescentes a prevenir el abuso sexual?')
+    escuela_ensena = models.IntegerField(choices=SI_NO, verbose_name=u'¿Estaría usted de acuerdo que en la Escuela se enseña a los niños, niñas y adolescentes a prevenir el abuso sexual?')
+    encuesta = models.ForeignKey(Encuesta)
+
+    def __unicode__(self):
+        return u'Actitud %s' % self.id
+
+    class Meta:
+        verbose_name_plural = u'Actitudes'
+
+class QueHaria(models.Model):
+    nombre = models.CharField(max_length=50)
+
+    def __unicode__(self):
+        return u'%s' % self.nombre
+
+    class Meta:
+        verbose_name_plural = u'Que haría'
+
+class QueHacePrevenir(models.Model):
+    nombre = models.CharField(max_length=50)
+
+    def __unicode__(self):
+        return u'%s' % self.nombre
+
+    class Meta:
+        verbose_name_plural = u'Que hace usted para prevenir'
+
+class ComoParticipo(models.Model):
+    nombre = models.CharField(max_length=50)
+
+    def __unicode__(self):
+        return u'%s' % self.nombre
+
+    class Meta:
+        verbose_name_plural = u'Como participo'
+
+class Practica(models.Model):
+    que_haria = models.ManyToManyField(QueHaria, verbose_name=u'¿Qué haría usted si conociera de una situacion de abuso sexual?')
+    que_hago_prevenir = models.ManyToManyField(QueHacePrevenir, verbose_name=u'¿Qué hace usted para prevenir el abuso sexual?')
+    participa_prevenir = models.IntegerField(choices=SI_NO, verbose_name=u'¿Usted participa o ha participado en algún tipo de organización que previene el abuso sexual?')
+    como = models.ManyToManyField(ComoParticipo, verbose_name=u'¿Cómo participa?', blank=True, null=True)
+    encuesta = models.ForeignKey(Encuesta)
+
+    def __unicode__(self):
+        return u'Práctica %s' % self.id
+
+    class Meta:
+        verbose_name_plural = u'Prácticas'
