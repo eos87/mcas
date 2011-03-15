@@ -64,7 +64,7 @@ class Encuesta(models.Model):
     no_hijas = models.IntegerField(default=0)
     no_hijos = models.IntegerField(default=0)
     iglesia = models.IntegerField(choices=SI_NO)
-    que_iglesia = models.CharField(verbose_name='¿A que iglesia o congregación asiste?', default='', blank=True)
+    que_iglesia = models.CharField(verbose_name='¿A que iglesia o congregación asiste?', default='', blank=True, max_length=200)
     importancia_religion = models.IntegerField(choices=IMPORTANCIA_RELIGION)
 
     class Meta:
@@ -253,3 +253,41 @@ class Practica(models.Model):
 
     class Meta:
         verbose_name_plural = u'Prácticas'
+
+PROBLEMA = ((1, 'No es un problema'), (2, 'Es un problema'), (3, 'Es un problema grave'), (4, 'Aquí no sucede'))
+DONDE_VAN = ((1, 'A otro municipio o comunidad'), (2, 'Paga un abogado o un/a psicólogo/a particular'), (3, 'No hace nada'), (4, 'No sabe'))
+
+class LugarAtencion(models.Model):
+    nombre = models.CharField(max_length=50)
+
+    def __unicode__(self):
+        return u'%s' % self.nombre
+
+    class Meta:
+        verbose_name = u'Lugar de atención'
+        verbose_name_plural = u'Lugares de atención'
+
+class TipoAtencion(models.Model):
+    nombre = models.CharField(max_length=50)
+
+    def __unicode__(self):
+        return u'%s' % self.nombre
+
+    class Meta:
+        verbose_name = u'Tipo de atención'
+        verbose_name_plural = u'Tipos de atención'
+
+class EstadoActual(models.Model):
+    problema_comunidad = models.IntegerField(choices=PROBLEMA, verbose_name=u'¿Usted considera que el abuso sexual es un problema en su comunidad?')
+    problema_pais = models.IntegerField(choices=PROBLEMA, verbose_name=u'¿Usted considera que el abuso sexual es un problema en el país?')
+    personas_atienden = models.IntegerField(choices=SI_NO, verbose_name=u'¿Sabe si hay lugares o personas en esta comunidad que atienden a niños/as, adolescentes que vivieron abuso sexual?')
+    lugares = models.ManyToManyField(LugarAtencion, blank=True, null=True, verbose_name=u'¿En qué lugares de su comunidad se atienden a niños/as, adolescentes que vivieron abuso sexual?')
+    tipo_atencion = models.ManyToManyField(TipoAtencion, blank=True, null=True, verbose_name=u'¿Usted sabe que tipo de atención brindan en esos lugares?')
+    donde_van = models.IntegerField(choices=DONDE_VAN, verbose_name=u'¿Si no hay ningún lugar en su comunidad donde se atiende a las personas víctimas de abuso sexual a dónde van para recibir atención?')
+    encuesta = models.ForeignKey(Encuesta)
+
+    def __unicode__(self):
+        return u'Estado actual %s' % self.id
+
+    class Meta:
+        verbose_name_plural = u'Estado Actual'
