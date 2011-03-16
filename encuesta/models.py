@@ -291,3 +291,85 @@ class EstadoActual(models.Model):
 
     class Meta:
         verbose_name_plural = u'Estado Actual'
+
+class QueFamilia(models.Model):
+    nombre = models.CharField(max_length=50)
+
+    def __unicode__(self):
+        return u'%s' % self.nombre
+
+    class Meta:
+        verbose_name = u'Que familia'
+        verbose_name_plural = u'Que familias'
+
+class QuienDebe(models.Model):
+    nombre = models.CharField(max_length=50)
+
+    def __unicode__(self):
+        return u'%s' % self.nombre
+
+    class Meta:
+        verbose_name = u'Quien debe aplicar medida'
+        verbose_name_plural = u'Quienes deben aplicar medidas'
+
+class MensajeTransmiten(models.Model):
+    nombre = models.CharField(max_length=80)
+
+    def __unicode__(self):
+        return u'%s' % self.nombre
+
+    class Meta:
+        verbose_name = u'Mensaje que transmiten'
+        verbose_name_plural = u'Mensajes que transmiten'
+
+SI_NO_SABE = ((1, 'Si'), (2, 'No'), (3, 'No sabe'))
+
+class Rol(models.Model):
+    nombre = models.CharField(max_length=100)
+
+    class Meta:
+        abstract = True
+
+class RolMedio(Rol):
+    class Meta:
+        verbose_name = u'Rol de medios'
+        verbose_name_plural = u'Roles de medios'
+
+class RolIglesia(Rol):
+    class Meta:
+        verbose_name = u'Rol de la iglesia'
+        verbose_name_plural = u'Roles de la iglesias'
+
+class RolEstado(Rol):
+    class Meta:
+        verbose_name = u'Rol del estado'
+        verbose_name_plural = u'Roles del estado'
+
+class RolOng(Rol):
+    class Meta:
+        verbose_name = u'Rol de las ONG'
+        verbose_name_plural = u'Roles de las ONGs'
+
+class RolEmpresa(Rol):
+    class Meta:
+        verbose_name = u'Rol de las Empresas'
+        verbose_name_plural = u'Roles de las Empresas'
+
+class Percepcion(models.Model):
+    conoce_abusados = models.IntegerField(choices=SI_NO, verbose_name=u'¿Ha conocido de niños, niñas o adolescentes que hayan sido abusados sexualmente?')
+    que_familia = models.ManyToManyField(QueFamilia, verbose_name=u'¿En cuál de las siguientes familias se da más frecuentemente el abuso sexual?')
+    quien_debe = models.ManyToManyField(QuienDebe, verbose_name=u'¿Según usted, quiénes deben ser los encargados de aplicar medidas de prevención y atención sobre abuso sexual?')
+    mensaje = models.ManyToManyField(MensajeTransmiten, verbose_name=u'¿Cuál de los siguientes mensajes cree que las personas adultas les transmiten a las niñas, niños y adolescentes?')
+    defender = models.IntegerField(choices=SI_NO_SABE, verbose_name=u'¿Cree usted que si la población se organizará para defender los derechos')
+    rol_medios = models.ManyToManyField(RolMedio, verbose_name=u'¿Qué piensa sobre el rol de los medios de comunicación en cuanto al abuso sexual?')
+    rol_iglesia = models.ManyToManyField(RolIglesia, verbose_name=u'¿Qué piensa sobre el rol de la iglesia en cuanto al abuso sexual?')
+    rol_estado = models.ManyToManyField(RolEstado, verbose_name=u'¿Qué piensa sobre el rol del estado en cuanto al abuso sexual?')
+    rol_ongs = models.ManyToManyField(RolOng, verbose_name=u'¿Qué piensa sobre el rol de las organizaciones no gubernamentales en cuanto al abuso sexual?')
+    rol_empresas = models.ManyToManyField(RolEmpresa, verbose_name=u'¿Qué piensa sobre el rol de las empresas privadas en cuanto al abuso sexual?')
+    encuesta = models.ForeignKey(Encuesta)
+
+    def __unicode__(self):
+        return u'Percepción %s' % self.id
+
+    class Meta:
+        verbose_name_plural = u'Percepciones'
