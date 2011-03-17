@@ -54,7 +54,7 @@ class Encuesta(models.Model):
     codigo = models.CharField(max_length=30)
     fecha = models.DateField()
     area_reside = models.IntegerField(verbose_name=u'En que área reside', choices=AREA_RESIDE)
-    departamento = models.ForeignKey(Departamento)
+    #departamento = models.ForeignKey(Departamento)
     municipio = models.ForeignKey(Municipio)
     comunidad = models.ForeignKey(Comunidad, verbose_name=u'Comunidad/Barrio')
     sexo = models.IntegerField(choices=SEXO)

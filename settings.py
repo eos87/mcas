@@ -11,7 +11,7 @@ TIME_ZONE = 'America/Chicago'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-NI'
 
 SITE_ID = 1
 
@@ -21,7 +21,7 @@ USE_I18N = True
 
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale
-USE_L10N = True
+USE_L10N = False
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
@@ -58,9 +58,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'mcas.urls'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    PROJECT_DIR + '/templates',
 )
 
 INSTALLED_APPS = (
@@ -71,5 +69,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',    
     'django.contrib.admin',
     'south',
-    'encuesta',
+    'mcas.encuesta',
+    'mcas.lugar',
 )
