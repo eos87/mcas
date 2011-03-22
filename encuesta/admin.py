@@ -65,6 +65,8 @@ class EncuestaAdmin(admin.ModelAdmin):
         css = {
             "all": ("/files/css/especial.css", )
         }
+    save_on_top = True
+    actions_on_top = True
     fields = ['organizacion', 'codigo', 'recolector', 'fecha', 'area_reside', 'municipio', 'comunidad', 'sexo', 'edad', 'escolaridad', 'estado_civil',
         'no_hijas', 'no_hijos', 'iglesia', 'que_iglesia', 'importancia_religion']
     inlines = [FamiliaInline, ConocimientoInline, ActitudInline, PracticaInline, EstadoActualInline, PercepcionlInline]
