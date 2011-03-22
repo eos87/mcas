@@ -373,7 +373,7 @@ class Percepcion(models.Model):
     que_familia = models.ManyToManyField(QueFamilia, verbose_name=u'¿En cuál de las siguientes familias se da más frecuentemente el abuso sexual?')
     quien_debe = models.ManyToManyField(QuienDebe, verbose_name=u'¿Según usted, quiénes deben ser los encargados de aplicar medidas de prevención y atención sobre abuso sexual?')
     mensaje = models.ManyToManyField(MensajeTransmiten, verbose_name=u'¿Cuál de los siguientes mensajes cree que las personas adultas les transmiten a las niñas, niños y adolescentes?')
-    defender = models.IntegerField(choices=SI_NO_SABE, verbose_name=u'¿Cree usted que si la población se organizará para defender los derechos')
+    defender = models.IntegerField(choices=SI_NO_SABE, verbose_name=u'¿Cree usted que si la población se organizará para defender los derechos humanos, de niños/as y adolescentes, el abuso se disminuiría?')
     rol_medios = models.ManyToManyField(RolMedio, verbose_name=u'¿Qué piensa sobre el rol de los medios de comunicación en cuanto al abuso sexual?')
     rol_iglesia = models.ManyToManyField(RolIglesia, verbose_name=u'¿Qué piensa sobre el rol de la iglesia en cuanto al abuso sexual?')
     rol_estado = models.ManyToManyField(RolEstado, verbose_name=u'¿Qué piensa sobre el rol del estado en cuanto al abuso sexual?')

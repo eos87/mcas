@@ -67,6 +67,9 @@ class EncuestaAdmin(admin.ModelAdmin):
         }
     save_on_top = True
     actions_on_top = True
+    list_display = ['organizacion', 'codigo', 'recolector', 'fecha', 'municipio']
+    search_fields = ['codigo', 'recolector__nombre_completo' , 'organizacion__nombre_corto', 'organizacion__nombre']
+    #list_filter = ['organizacion', 'municipio', 'comunidad']
     fields = ['organizacion', 'codigo', 'recolector', 'fecha', 'area_reside', 'municipio', 'comunidad', 'sexo', 'edad', 'escolaridad', 'estado_civil',
         'no_hijas', 'no_hijos', 'iglesia', 'que_iglesia', 'importancia_religion']
     inlines = [FamiliaInline, ConocimientoInline, ActitudInline, PracticaInline, EstadoActualInline, PercepcionlInline]
