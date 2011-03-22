@@ -169,7 +169,7 @@ class Conocimiento(models.Model):
     quien_abusa = models.ManyToManyField(Abusador, verbose_name=u'¿Usted sabe quienes son los que abusan sexualmente de niñas, niños y adolescentes?')
     que_hacer = models.ManyToManyField(QueHacer, verbose_name=u'¿Sabe usted que se puede hacer para prevenir el abuso sexual?')
     conoce_ley = models.IntegerField(choices=SI_NO, verbose_name=u'¿Conoce sobre leyes que castigan a las personas que abusan sexualmente de los niños, niñas y adolescentes?')
-    nombre_ley = models.ManyToManyField(Ley, blank=True, null=True)
+    nombre_ley = models.ManyToManyField(Ley, blank=True, null=True, verbose_name=u'Mencione cuales leyes conoce?')
     donde_aprendio = models.ManyToManyField(DondeAprendio, verbose_name=u'¿Dónde aprendió usted sobre abuso sexual?')
     donde_informarse = models.ManyToManyField(DondeInformarse, verbose_name=u'¿Dónde cree que podría informarse sobre el tema?')
     encuesta = models.ForeignKey(Encuesta)
