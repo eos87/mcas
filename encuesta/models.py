@@ -323,7 +323,7 @@ class QuienDebe(models.Model):
         verbose_name_plural = u'Quienes deben aplicar medidas'
 
 class MensajeTransmiten(models.Model):
-    nombre = models.CharField(max_length=80)
+    nombre = models.CharField(max_length=100)
 
     def __unicode__(self):
         return u'%s' % self.nombre
