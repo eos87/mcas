@@ -1,11 +1,13 @@
 from django.conf.urls.defaults import *
+from django.views.generic.simple import direct_to_template
 from mcas.settings import *
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
 
-urlpatterns = patterns('',    
+urlpatterns = patterns('',
+    (r'^$', direct_to_template, {'template': 'index.html'}),
     (r'^admin/', include(admin.site.urls)),
 )
 
