@@ -181,7 +181,7 @@ class Conocimiento(models.Model):
         verbose_name_plural = u'Conocimientos'
 
 class PorqueAbuso(models.Model):
-    nombre = models.CharField(max_length=50)
+    nombre = models.CharField(max_length=100)
 
     def __unicode__(self):
         return u'%s' % self.nombre
@@ -191,7 +191,7 @@ class PorqueAbuso(models.Model):
         verbose_name_plural = u'Porque el abuso'
 
 class QuePiensa(models.Model):
-    nombre = models.CharField(max_length=50)
+    nombre = models.CharField(max_length=100)
 
     def __unicode__(self):
         return u'%s' % self.nombre
@@ -201,7 +201,7 @@ class QuePiensa(models.Model):
         verbose_name_plural = u'Pensamientos sobre abuso'
 
 class QuePiensaVictima(models.Model):
-    nombre = models.CharField(max_length=50)
+    nombre = models.CharField(max_length=100)
 
     def __unicode__(self):
         return u'%s' % self.nombre
