@@ -32,6 +32,7 @@ class PercepcionlInline(admin.StackedInline):
     model = Percepcion
     max_num = 1
 
+admin.site.register(Comunidad)
 admin.site.register(Organizacion)
 admin.site.register(Encuestador)
 admin.site.register(ViveCon)
