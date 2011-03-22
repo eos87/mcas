@@ -154,12 +154,22 @@ class DondeInformarse(models.Model):
     class Meta:
         verbose_name_plural = u'Donde informarse'
 
+class Ley(models.Model):
+    nombre = models.CharField(max_length=80)
+
+    def __unicode__(self):
+        return u'%s' % self.nombre
+
+    class Meta:
+        verbose_name_plural = u'Leyes'
+
 class Conocimiento(models.Model):
     abuso = models.ManyToManyField(Abuso, verbose_name=u'¿Qué es para usted abuso sexual?')
     lugares = models.ManyToManyField(LugarAbuso, verbose_name=u'¿Sabe en que lugares puede ocurrir el abuso sexual?')
     quien_abusa = models.ManyToManyField(Abusador, verbose_name=u'¿Usted sabe quienes son los que abusan sexualmente de niñas, niños y adolescentes?')
     que_hacer = models.ManyToManyField(QueHacer, verbose_name=u'¿Sabe usted que se puede hacer para prevenir el abuso sexual?')
     conoce_ley = models.IntegerField(choices=SI_NO, verbose_name=u'¿Conoce sobre leyes que castigan a las personas que abusan sexualmente de los niños, niñas y adolescentes?')
+    nombre_ley = models.ManyToManyField(Ley, blank=True, null=True)
     donde_aprendio = models.ManyToManyField(DondeAprendio, verbose_name=u'¿Dónde aprendió usted sobre abuso sexual?')
     donde_informarse = models.ManyToManyField(DondeInformarse, verbose_name=u'¿Dónde cree que podría informarse sobre el tema?')
     encuesta = models.ForeignKey(Encuesta)

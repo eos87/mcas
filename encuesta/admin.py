@@ -8,7 +8,7 @@ class FamiliaInline(admin.StackedInline):
     max_num = 1
 
 class ConocimientoInline(admin.StackedInline):
-    fields = ['abuso', 'lugares', 'quien_abusa', 'que_hacer', 'conoce_ley', 'donde_aprendio', 'donde_informarse', ]
+    fields = ['abuso', 'lugares', 'quien_abusa', 'que_hacer', 'conoce_ley', 'nombre_ley', 'donde_aprendio', 'donde_informarse', ]
     model = Conocimiento
     max_num = 1
 
