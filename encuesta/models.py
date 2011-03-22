@@ -337,6 +337,9 @@ SI_NO_SABE = ((1, 'Si'), (2, 'No'), (3, 'No sabe'))
 class Rol(models.Model):
     nombre = models.CharField(max_length=100)
 
+    def __unicode__(self):
+        return u'%s' % self.nombre
+    
     class Meta:
         abstract = True
 
