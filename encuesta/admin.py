@@ -32,8 +32,22 @@ class PercepcionlInline(admin.StackedInline):
     model = Percepcion
     max_num = 1
 
+class OrganizacionAdmin(admin.ModelAdmin):
+    def queryset(self, request):
+        if request.user.is_superuser:
+            return Organizacion.objects.all()
+        return Organizacion.objects.filter(usuario=request.user)
+
+    def get_form(self, request, obj=None, ** kwargs):
+        if request.user.is_superuser:
+            form = super(OrganizacionAdmin, self).get_form(self, request, ** kwargs)
+        else:
+            form = super(OrganizacionAdmin, self).get_form(self, request, ** kwargs)
+            form.base_fields['usuario'].queryset = User.objects.filter(pk=request.user.pk)
+        return form
+
 admin.site.register(Comunidad)
-admin.site.register(Organizacion)
+admin.site.register(Organizacion, OrganizacionAdmin)
 admin.site.register(Encuestador)
 admin.site.register(ViveCon)
 admin.site.register(Abuso)
@@ -61,6 +75,19 @@ admin.site.register(RolOng)
 admin.site.register(RolEmpresa)
 
 class EncuestaAdmin(admin.ModelAdmin):
+    def queryset(self, request):
+        if request.user.is_superuser:
+            return Encuesta.objects.all()
+        return Encuesta.objects.filter(user=request.user)
+
+    def get_form(self, request, obj=None, ** kwargs):
+        if request.user.is_superuser:
+            form = super(EncuestaAdmin, self).get_form(self, request, ** kwargs)
+        else:
+            form = super(EncuestaAdmin, self).get_form(self, request, ** kwargs)
+            form.base_fields['user'].queryset = User.objects.filter(pk=request.user.pk)
+        return form
+
     class Media:
         css = {
             "all": ("/files/css/especial.css", )
@@ -70,7 +97,7 @@ class EncuestaAdmin(admin.ModelAdmin):
     list_display = ['organizacion', 'codigo', 'recolector', 'fecha', 'municipio']
     search_fields = ['codigo', 'recolector__nombre_completo' , 'organizacion__nombre_corto', 'organizacion__nombre']
     #list_filter = ['organizacion', 'municipio', 'comunidad']
-    fields = ['organizacion', 'codigo', 'recolector', 'fecha', 'area_reside', 'municipio', 'comunidad', 'sexo', 'edad', 'escolaridad', 'estado_civil',
+    fields = ['user', 'organizacion', 'codigo', 'recolector', 'fecha', 'area_reside', 'municipio', 'comunidad', 'sexo', 'edad', 'escolaridad', 'estado_civil',
         'no_hijas', 'no_hijos', 'iglesia', 'que_iglesia', 'importancia_religion']
     inlines = [FamiliaInline, ConocimientoInline, ActitudInline, PracticaInline, EstadoActualInline, PercepcionlInline]
 

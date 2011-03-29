@@ -1,16 +1,17 @@
 # -*- coding: UTF-8 -*-
 from django.db import models
+from django.contrib.auth.models import User
 from mcas.lugar.models import *
 
 class Organizacion(models.Model):
     nombre = models.CharField(max_length=250)
     nombre_corto = models.CharField(max_length=50, default='', verbose_name='Siglas/Nombre Corto')
+    usuario = models.ForeignKey(User)
 #    direccion = models.CharField(max_length=200, blank=True, default='')
 #    correo = models.EmailField(blank=True, default='')
 #    website = models.URLField(blank=True, default='')
 #    telefono = models.CharField(max_length=20, blank=True, default='')
 #    contacto = models.CharField(max_length=150, blank=True, default='')
-#    usuario = models.ForeignKey(User)
 #    pais = models.ForeignKey(Pais)
 #    departamento = models.ForeignKey(Departamento, verbose_name='Departamento')
 #    municipio = models.ForeignKey(Municipio, verbose_name='Municipio')
@@ -49,6 +50,7 @@ SI_NO = ((1, 'Si'), (2, 'No'))
 IMPORTANCIA_RELIGION = ((1, 'Ninguna'), (2, 'Poca'), (3, 'Importante'), (4, 'Muy importante'))
 
 class Encuesta(models.Model):
+    user = models.ForeignKey(User, verbose_name=u'Usuario')
     organizacion = models.ForeignKey(Organizacion)
     recolector = models.ForeignKey(Encuestador)
     codigo = models.CharField(max_length=30)
