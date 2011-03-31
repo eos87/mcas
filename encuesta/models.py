@@ -65,7 +65,7 @@ class Encuesta(models.Model):
     estado_civil = models.IntegerField(verbose_name=u'¿Cuál es su estado civil?', choices=ESTADO_CIVIL)
     no_hijas = models.IntegerField(default=0)
     no_hijos = models.IntegerField(default=0)
-    iglesia = models.IntegerField(choices=SI_NO)
+    iglesia = models.IntegerField(choices=SI_NO, verbose_name=u'¿Usted asiste a una iglesia o congregación?')
     que_iglesia = models.CharField(verbose_name='¿A que iglesia o congregación asiste?', default='', blank=True, max_length=200)
     importancia_religion = models.IntegerField(choices=IMPORTANCIA_RELIGION)
 
