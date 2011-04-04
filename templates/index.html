@@ -1,13 +1,30 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-    <head>
-        <title>Sistema de Informaci&oacute;n MCAS</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    </head>
-    <body>
-        <center>
-            <img src="/files/img/mcas.png" alt="MCAS"><br>
-            <a href="/admin/">Administraci&oacute;n</a>
-        </center>
-    </body>
-</html>
+{% extends "base.html" %}
+{% block extratitle %}Home{% endblock %}
+
+{% block extrahead %}
+<script src="/files/js/cufon-yui.js" type="text/javascript"></script>
+<script src="/files/js/cholla.font.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function($) {
+        Cufon.replace('.cantidad');
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="portada">
+    <img src="/files/img/portada.png" alt="mcas">
+</div>
+<div class="info">
+    <b>El Sistema de Monitoreo del Movimiento en contra el abuso sexual</b> es Sit dignissim proin turpis mattis, habitasse placerat urna nunc ut, egestas amet, urna duis nunc nunc cras magna adipiscing nascetur dictumst augue? Placerat augue, a sociis, dolor rhoncus elit sit dis hac! Mid proin nec mauris, in non et mattis sit arcu! Ac scelerisque, vel a et nunc, in dapibus, dictumst, pulvinar ac rhoncus mus, scelerisque scelerisque risus mauris integer, habitasse massa, urna nascetur mauris porttitor ut porttitor tristique porttitor a ultrices! Lundium elementum tortor, sagittis. Placerat nec aliquet scelerisque urna lorem sociis aliquet lorem penatibus
+</div>
+<div class="help">
+
+</div>
+<div class="clean"></div>
+<div class="info-bar">
+    <div class="cantidad familias">400</div>
+    <div class="cantidad orgs">99</div>
+    <a href="/consultar/" class="consultar">Consultar</a>
+</div>
+{% endblock %}

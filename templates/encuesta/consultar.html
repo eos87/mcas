@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block extratitle %}Consultar{% endblock %}
+
+{% block extrahead %}
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
+<script src="/files/js/jquery.multiselect.min.js" type="text/javascript"></script>
+<script src="/files/js/jquery.multiselect.filter.js" type="text/javascript"></script>
+<link href="/files/css/jquery.multiselect.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">
+    $(document).ready(function(){       
+        $("#id_departamento, #id_municipio").multiselect({
+            noneSelectedText: 'Seleccione elementos',
+            selectedText: '# seleccionados',                        
+            selectedList: 3
+        });        
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+<div>
+    <form method="POST" action=".">
+        <div class="general">
+            <div class="label">{{form.anio.label}}</div>
+            <div class="filtros">{{form.anio}}</div>
+            <div class="clean"></div>
+            <div class="label">{{form.residencia.label}}</div>
+            <div class="filtros">{{form.residencia}}</div>
+            <div class="clean"></div>
+            <div class="label">{{form.sexo.label}}</div>
+            <div class="filtros">{{form.sexo}}</div>
+            <div class="clean"></div>
+            <div class="label">{{form.edad.label}}</div>
+            <div class="filtros">{{form.edad}}</div>
+            <div class="clean"></div>
+            <div class="label">{{form.escolaridad.label}}</div>
+            <div class="filtros">{{form.escolaridad}}</div>
+            <div class="clean"></div>
+        </div>        
+        <div class="lugar">
+            <div class="label">{{form.departamento.label}}</div>
+            <div class="filtros">{{form.departamento}}</div>
+            <div class="clean"></div>
+            <div class="label">{{form.municipio.label}}</div>
+            <div class="filtros">{{form.municipio}}</div>
+            <div class="clean"></div>
+            <div class="label">{{form.iglesia.label}}</div>
+            <div class="filtros">{{form.iglesia}}</div>
+            <div class="clean"></div>
+        </div>
+        <div class="extras"></div>
+    </form>
+</div>
+{% endblock %}
