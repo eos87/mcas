@@ -4,24 +4,37 @@
 {% block extrahead %}
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
+<script src="/files/js/cufon-yui.js" type="text/javascript"></script>
+<script src="/files/js/libel.font.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function($) {
+        Cufon.replace('.titulo');
+    });
+</script>
 <script src="/files/js/jquery.multiselect.min.js" type="text/javascript"></script>
 <script src="/files/js/jquery.multiselect.filter.js" type="text/javascript"></script>
 <link href="/files/css/jquery.multiselect.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript">
     $(document).ready(function(){       
-        $("#id_departamento, #id_municipio").multiselect({
+        $("#id_departamento, #id_municipio, #id_comunidad").multiselect({
             noneSelectedText: 'Seleccione elementos',
-            selectedText: '# seleccionados',                        
-            selectedList: 3
+            selectedText: '# seleccionados',                                    
+            minWidth: 200
         });        
     });
 </script>
+<style type="text/css">
+    .nav .consultas a{
+        background-position: -44px -14px;
+    }
+</style>
 {% endblock %}
 
 {% block content %}
-<div>
-    <form method="POST" action=".">
+<div>    
+    <form method="POST" action="." id="consultar-form">{% csrf_token %}
         <div class="general">
+            <div class="titulo">Generales</div>
             <div class="label">{{form.anio.label}}</div>
             <div class="filtros">{{form.anio}}</div>
             <div class="clean"></div>
@@ -39,17 +52,42 @@
             <div class="clean"></div>
         </div>        
         <div class="lugar">
+            <div class="titulo">Lugar</div>
             <div class="label">{{form.departamento.label}}</div>
             <div class="filtros">{{form.departamento}}</div>
             <div class="clean"></div>
             <div class="label">{{form.municipio.label}}</div>
             <div class="filtros">{{form.municipio}}</div>
             <div class="clean"></div>
+            <div class="label">{{form.comunidad.label}}</div>
+            <div class="filtros">{{form.comunidad}}</div>
+            <div class="clean"></div>            
+            <div class="label"></div>
+            <div class="filtros"></div>
+            <div class="clean"></div>
+            <div class="label"></div>
+            <div class="filtros"></div>
+            <div class="clean"></div>
+        </div>
+        <div class="extras">
+            <div class="titulo">Extras</div>
             <div class="label">{{form.iglesia.label}}</div>
             <div class="filtros">{{form.iglesia}}</div>
             <div class="clean"></div>
+            <div class="label">{{form.importancia_religion.label}}</div>
+            <div class="filtros">{{form.importancia_religion}}</div>
+            <div class="clean"></div>
+            <div class="label"></div>
+            <div class="filtros"></div>
+            <div class="clean"></div>
+            <div class="label"></div>
+            <div class="filtros"></div>
+            <div class="clean"></div>
+            <div class="label"></div>
+            <div class="filtros"></div>
+            <div class="clean"></div>
         </div>
-        <div class="extras"></div>
+        <button class="consultar">Consultar</button>
     </form>
 </div>
 {% endblock %}

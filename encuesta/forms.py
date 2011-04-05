@@ -36,6 +36,7 @@ class ConsultarForm(forms.Form):
     estado_civil = forms.ChoiceField(choices=ESTADO_CIVIL)
     departamento = forms.ModelMultipleChoiceField(queryset=Departamento.objects.all())
     municipio = forms.ModelMultipleChoiceField(queryset=Municipio.objects.all())
+    comunidad = forms.ModelMultipleChoiceField(queryset=Comunidad.objects.all())
     iglesia = forms.ChoiceField(choices=IGLESIA, required=False)
     importancia_religion = forms.ChoiceField(choices=IMPORTANCIA_RELIGION, required=False)
 
