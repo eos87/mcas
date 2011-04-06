@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block extrahead %}
+<script src="/files/js/cufon-yui.js" type="text/javascript"></script>
+<script src="/files/js/libel.font.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function($) {
+        Cufon.replace('.titulo');
+    });
+</script>
+{% endblock %}
+{% block content %}
+{% if request.session.centinel == 1 %}
+<div class="indicadores">
+    <br>
+    <div class="titulo">Indicadores</div><br>
+    <ul>
+        Familia
+        <li><a href="/familia/jefe/">Jefe/a</a></li>
+        <li><a href="/familia/vivecon/">Con quien vive</a></li>
+        <li><a href="/familia/habitantes/">Adultos</a></li>
+        <li><a href="/familia/1-7/">Personas 1-7</a></li>
+        <li><a href="/familia/8-16/">Personas 8-16</a></li>
+    </ul>
+    <ul>
+        Conocimiento
+        <li><a href="/conocimiento/que-es-abuso/">¿Qué es abuso?</a></li>
+        <li><a href="/conocimiento/en-que-lugar/">¿En que lugar?</a></li>
+        <li><a href="/conocimiento/quines-abusan/">¿Quienes abusan?</a></li>
+        <li><a href="/conocimiento/como-prevenir/">¿Como prevenir?</a></li>
+        <li><a href="/conocimiento/leyes/">Conocimiento de leyes</a></li>
+        <li><a href="/conocimiento/donde-aprendio/">¿Donde aprendio?</a></li>
+        <li><a href="/conocimiento/donde-informarse/">¿Donde informarse?</a></li>
+    </ul>
+    <ul>
+        Actitud
+        <li><a href="/actitud/porque-abuso/">Por qué el abuso</a></li>
+        <li><a href="/actitud/abusadores/">Sobre abusadores</a></li>
+        <li><a href="/actitud/victimas/">Sobre victimas</a></li>
+        <li><a href="/actitud/familia-ensena-ninos/">Familia enseña</a></li>
+        <li><a href="/actitud/escuela-ensena/">Escuela enseña</a></li>
+    </ul>
+    <div class="clean"></div>
+    <ul>
+        Pr&aacute;ctica
+        <li><a href="/practica/que-haria-en-caso/">Sabe de situacion de abuso</a></li>
+        <li><a href="/practica/para-prevenir/">Prevenir</a></li>
+        <li><a href="/practica/participacion/">Participacion</a></li>
+    </ul>
+    <ul>
+        Estado Actual
+        <li><a href="/estado-actual/problema-comunidad/">Problema en comunidad</a></li>
+        <li><a href="/estado-actual/problema-pais/">Problema en pais</a></li>
+        <li><a href="/estado-actual/atencion/">Atenci&oacute;n</a></li>
+        <li><a href="/estado-actual/lugares-atencion/">Lugares Atenci&oacute;n</a></li>
+        <li><a href="/estado-actual/tipo-atencion/">Tipo de Atencion</a></li>
+        <li><a href="/estado-actual/donde-ir/">Donde ir?</a></li>
+    </ul>
+    <ul>
+        Percepcion
+        <li><a href="/percepcion/ninos-abusados/">Conoce niños abusados</a></li>
+        <li><a href="/percepcion/donde-se-da/">Familias con abuso</a></li>
+        <li><a href="/percepcion/encargados-prevenir/">Encargados de prevenir</a></li>
+        <li><a href="/percepcion/mensajes-ninos/">Mensajes a ninos</a></li>
+        <li><a href="/percepcion/poblacion-organizada/">Poblacion Organizada reduce abuso</a></li>
+        <li><a href="/percepcion/rol-medios/">Rol de medios</a></li>
+        <li><a href="/percepcion/rol-iglesia/">Rol iglesia</a></li>
+        <li><a href="/percepcion/rol-estado/">Rol estado</a></li>
+        <li><a href="/percepcion/rol-ong/">Rol ONG</a></li>
+        <li><a href="/percepcion/rol-emp/">Rol empresa privada</a></li>
+    </ul>
+</div>
+{% endif %}
+{% endblock %}

@@ -36,31 +36,31 @@
         <div class="general">
             <div class="titulo">Generales</div>
             <div class="label">{{form.anio.label}}</div>
-            <div class="filtros">{{form.anio}}</div>
+            <div class="filtros">{{form.anio}}<br>{{form.anio.errors}}</div>
             <div class="clean"></div>
             <div class="label">{{form.residencia.label}}</div>
-            <div class="filtros">{{form.residencia}}</div>
+            <div class="filtros">{{form.residencia}}<br>{{form.residencia.errors}}</div>
             <div class="clean"></div>
             <div class="label">{{form.sexo.label}}</div>
-            <div class="filtros">{{form.sexo}}</div>
+            <div class="filtros">{{form.sexo}}<br>{{form.sexo.errors}}</div>
             <div class="clean"></div>
             <div class="label">{{form.edad.label}}</div>
-            <div class="filtros">{{form.edad}}</div>
+            <div class="filtros">{{form.edad}}<br>{{form.edad.errors}}</div>
             <div class="clean"></div>
             <div class="label">{{form.escolaridad.label}}</div>
-            <div class="filtros">{{form.escolaridad}}</div>
+            <div class="filtros">{{form.escolaridad}}<br>{{form.escolaridad.errors}}</div>
             <div class="clean"></div>
         </div>        
         <div class="lugar">
             <div class="titulo">Lugar</div>
             <div class="label">{{form.departamento.label}}</div>
-            <div class="filtros">{{form.departamento}}</div>
+            <div class="filtros">{{form.departamento}}<br>{{form.departamento.errors}}</div>
             <div class="clean"></div>
             <div class="label">{{form.municipio.label}}</div>
-            <div class="filtros">{{form.municipio}}</div>
+            <div class="filtros">{{form.municipio}}<br>{{form.municipio.errors}}</div>
             <div class="clean"></div>
             <div class="label">{{form.comunidad.label}}</div>
-            <div class="filtros">{{form.comunidad}}</div>
+            <div class="filtros">{{form.comunidad}}<br>{{form.comunidad.errors}}</div>
             <div class="clean"></div>            
             <div class="label"></div>
             <div class="filtros"></div>
@@ -72,10 +72,10 @@
         <div class="extras">
             <div class="titulo">Extras</div>
             <div class="label">{{form.iglesia.label}}</div>
-            <div class="filtros">{{form.iglesia}}</div>
+            <div class="filtros">{{form.iglesia}}<br>{{form.iglesia.errors}}</div>
             <div class="clean"></div>
             <div class="label">{{form.importancia_religion.label}}</div>
-            <div class="filtros">{{form.importancia_religion}}</div>
+            <div class="filtros">{{form.importancia_religion}}<br>{{form.importancia_religion.errors}}</div>
             <div class="clean"></div>
             <div class="label"></div>
             <div class="filtros"></div>
@@ -90,4 +90,5 @@
         <button class="consultar">Consultar</button>
     </form>
 </div>
+<div class="clean"></div>
 {% endblock %}

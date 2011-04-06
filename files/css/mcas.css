@@ -203,7 +203,7 @@ a{
 .general, .lugar, .extras{
     float: left;
 }
-.general .titulo, .lugar .titulo, .extras .titulo{
+.general .titulo, .lugar .titulo, .extras .titulo, .indicadores .titulo{
     font-size: 23px;
     color: #a1a79f;
     background: url(/files/img/arrow-back.png) no-repeat center left;
@@ -214,7 +214,7 @@ a{
     float: left;
     width: 86px;
     background: #dbdbc1;
-    height: 38px;
+    min-height: 38px;
     border-left: 1px #bbbb8a solid;
     border-right: 1px #bbbb8a solid;
     border-bottom: 1px #fff solid;
@@ -229,7 +229,7 @@ a{
     float: left;
     width: 210px;
     background: #ececde;
-    height: 35px;
+    min-height: 35px;
     border-bottom: 1px #fff solid;
     border-top: 1px #dcdcc3 solid;
     padding-top: 13px;
@@ -242,5 +242,16 @@ a{
     padding-top: 2px;
     padding-bottom: 2px;
 }
-
+.errorlist{
+    font-size: 11px;
+    color: red;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+.indicadores ul{
+    float: left;
+    font-size: 13px;
+    width: 280px;
+}
 

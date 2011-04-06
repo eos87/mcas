@@ -29,14 +29,14 @@ def get_anios():
 
 class ConsultarForm(forms.Form):
     anio = forms.ChoiceField(choices=get_anios(), label=u'Año')
-    residencia = forms.ChoiceField(choices=AREA_RESIDE)
-    sexo = forms.ChoiceField(choices=SEXO)
-    edad = forms.ChoiceField(choices=EDAD_CHOICE)
-    escolaridad = forms.ChoiceField(choices=NIVEL_EDUCATIVO)
-    estado_civil = forms.ChoiceField(choices=ESTADO_CIVIL)
-    departamento = forms.ModelMultipleChoiceField(queryset=Departamento.objects.all())
-    municipio = forms.ModelMultipleChoiceField(queryset=Municipio.objects.all())
-    comunidad = forms.ModelMultipleChoiceField(queryset=Comunidad.objects.all())
+    residencia = forms.ChoiceField(choices=AREA_RESIDE, required=False)
+    sexo = forms.ChoiceField(choices=SEXO, required=False)
+    edad = forms.ChoiceField(choices=EDAD_CHOICE, required=False)
+    escolaridad = forms.ChoiceField(choices=NIVEL_EDUCATIVO, required=False)
+    estado_civil = forms.ChoiceField(choices=ESTADO_CIVIL, required=False)
+    departamento = forms.ModelMultipleChoiceField(queryset=Departamento.objects.all(), required=False)
+    municipio = forms.ModelMultipleChoiceField(queryset=Municipio.objects.all(), required=False)
+    comunidad = forms.ModelMultipleChoiceField(queryset=Comunidad.objects.all(), required=False)
     iglesia = forms.ChoiceField(choices=IGLESIA, required=False)
     importancia_religion = forms.ChoiceField(choices=IMPORTANCIA_RELIGION, required=False)
 
