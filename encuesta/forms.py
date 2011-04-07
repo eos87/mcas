@@ -23,22 +23,27 @@ IMPORTANCIA_RELIGION = (('', 'Todo'), (1, 'Ninguna'), (2, 'Poca'), (3, 'Importan
 #mostrar solo los años donde hay informacion en BD
 def get_anios():
     choices = []
-    anios = []
+    years = []
     for en in Encuesta.objects.all().order_by('fecha'):
-        anios.append(en.fecha.year)
-    for anio in list(set(anios)):
-        choices.append((anio, anio))
+        years.append(en.fecha.year)
+    for year in list(set(years)):
+        choices.append((year, year))
     return choices
 
 class ConsultarForm(forms.Form):
+
+    def __init__(self, *args, **kwargs):
+        super(ConsultarForm, self).__init__(*args, **kwargs)
+        self.fields['anio'].choices = get_anios()
+
     anio = forms.ChoiceField(choices=get_anios(), label=u'Año')
     residencia = forms.ChoiceField(choices=AREA_RESIDE, required=False)
     sexo = forms.ChoiceField(choices=SEXO, required=False)
     edad = forms.ChoiceField(choices=EDAD_CHOICE, required=False)
     escolaridad = forms.ChoiceField(choices=NIVEL_EDUCATIVO, required=False)
     estado_civil = forms.ChoiceField(choices=ESTADO_CIVIL, required=False)
-    departamento = forms.ModelMultipleChoiceField(queryset=Departamento.objects.all(), required=False)
-    municipio = forms.ModelMultipleChoiceField(queryset=Municipio.objects.all(), required=False)
+    departamento = forms.ModelMultipleChoiceField(queryset=Departamento.objects.all().order_by('nombre'), required=False)
+    municipio = forms.ModelMultipleChoiceField(queryset=Municipio.objects.all().order_by('nombre'), required=False)
     comunidad = forms.ModelMultipleChoiceField(queryset=Comunidad.objects.all(), required=False)
     iglesia = forms.ChoiceField(choices=IGLESIA, required=False)
     importancia_religion = forms.ChoiceField(choices=IMPORTANCIA_RELIGION, required=False)

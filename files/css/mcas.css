@@ -254,4 +254,6 @@ a{
     font-size: 13px;
     width: 280px;
 }
-
+/*#id_municipio, #id_comunidad{
+    display: none;
+}*/

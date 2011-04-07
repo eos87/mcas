@@ -21,7 +21,7 @@ class Municipio(models.Model):
     slug = models.SlugField(unique=True, null=True, help_text="Usado como url unica(autorellenado)")
     extension = models.DecimalField("Extension Territorial", max_digits=10, decimal_places=2, blank=True, null=True)
     latitud = models.DecimalField('Latitud', max_digits=8, decimal_places=5, blank=True, null=True)
-    longitud = models.DecimalField('Longitud', max_digits=8, decimal_places=5, blank=True, null=True)
+    longitud = models.DecimalField('Longitud', max_digits=8, decimal_places=5, blank=True, null=True)    
 
     def __unicode__(self):
         return '%s - %s' % (self.departamento.nombre, self.nombre)
