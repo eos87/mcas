@@ -7,7 +7,8 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    (r'^$', direct_to_template, {'template': 'index.html'}),
+    (r'^$', direct_to_template, {'template': 'index1.html'}),
+    (r'^index/$', direct_to_template, {'template': 'index.html'}),
     (r'^', include('mcas.encuesta.urls')),
     (r'^admin/', include(admin.site.urls)),
 )

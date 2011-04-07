@@ -69,5 +69,10 @@
         <li><a href="/percepcion/rol-emp/">Rol empresa privada</a></li>
     </ul>
 </div>
+{{encuestas}}<br>
+{% for i,v in request.session.items %}
+{{i}} -> {{v}}
+{% endfor %}
+
 {% endif %}
 {% endblock %}

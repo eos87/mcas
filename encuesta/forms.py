@@ -23,8 +23,11 @@ IMPORTANCIA_RELIGION = (('', 'Todo'), (1, 'Ninguna'), (2, 'Poca'), (3, 'Importan
 #mostrar solo los años donde hay informacion en BD
 def get_anios():
     choices = []
+    anios = []
     for en in Encuesta.objects.all().order_by('fecha'):
-        choices.append((en.fecha.year, en.fecha.year))
+        anios.append(en.fecha.year)
+    for anio in list(set(anios)):
+        choices.append((anio, anio))
     return choices
 
 class ConsultarForm(forms.Form):
