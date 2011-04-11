@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect, HttpResponse 
 from django.utils import simplejson
-from mcas.lugar.models import Municipio, Departamento
+from mcas.lugar.models import Municipio, Departamento, Comunidad
 from forms import ConsultarForm
 from models import Encuesta
 
@@ -29,13 +29,16 @@ def _query_set_filtrado(request):
     if request.session['escolaridad']:
         params['escolaridad'] = request.session['escolaridad']
 
-    if request.session['departamento'] and (not request.session['municipio']):
-        municipios = Municipio.objects.filter(departamento__in=request.session['departamento'])
-        print municipios
-        params['municipio__in'] = municipios
+    if request.session['departamento']:
+        if not request.session['municipio']:
+            municipios = Municipio.objects.filter(departamento__in=request.session['departamento'])
+            params['municipio__in'] = municipios
+        else:
+            if request.session['comunidad']:
+                params['comunidad__in'] = request.session['comunidad']
+            else:
+                params['municipio__in'] = request.session['municipio']
 
-    if request.session['municipio']:
-        params['municipio__in'] = request.session['municipio']
 
     encuestas = Encuesta.objects.filter(**params)
     return encuestas
@@ -86,3 +89,12 @@ def get_munis(request):
             pass
     resultado.append(dicc)    
     return HttpResponse(simplejson.dumps(resultado), mimetype='application/json')
+
+def get_comunies(request):
+    ids = request.GET.get('ids', '')
+    if ids:
+        lista = ids.split(',')
+    results = []
+    comunies = Comunidad.objects.filter(municipio__pk__in=lista).order_by('nombre').values('id', 'nombre')
+
+    return HttpResponse(simplejson.dumps(list(comunies)), mimetype='application/json')

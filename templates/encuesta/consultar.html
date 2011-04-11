@@ -16,19 +16,13 @@
 <link href="/files/css/jquery.multiselect.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript">     
     $(document).ready(function(){
-        $("#id_municipio, #id_comunidad").html('');
-        var municipio = $("#id_municipio").multiselect({
-            noneSelectedText: 'Seleccione elementos',
-            selectedText: '# seleccionados',
-            minWidth: 200            
-        });
+        $("#id_municipio, #id_comunidad").html('');        
         var comunidad = $("#id_comunidad").multiselect({
             noneSelectedText: 'Seleccione elementos',
             selectedText: '# seleccionados',
             minWidth: 200
-        });
-        municipio.multiselect("disable");
-        comunidad.multiselect("disable");
+        });        
+        
         $("#id_departamento").multiselect({
             noneSelectedText: 'Seleccione elementos',
             selectedText: '# seleccionados',                                    
@@ -53,12 +47,40 @@
                             });
                         }
                     });
-                    municipio.multiselect("enable");
+                    municipio.multiselect("enable");                    
                 }else{                    
                     municipio.multiselect("disable");
+                    comunidad.multiselect("disable");
                 }
             }
-        });        
+        });
+        var municipio = $("#id_municipio").multiselect({
+            noneSelectedText: 'Seleccione elementos',
+            selectedText: '# seleccionados',
+            minWidth: 200,
+            beforeclose: function(event, ui){
+                var selectos = $("#id_municipio").multiselect("getChecked").map(function(){
+                    return this.value;
+                }).get();                
+                if(selectos.length!=0){
+                    $.getJSON('/ajax/comunies/?ids='+selectos.join(","), function(data){
+                        $('#id_comunidad').html('');
+                        if(data){
+                            $.each(data, function(i, item){                                
+                                comunidad.append($('<option></option>').val(item.id).html(item.nombre));
+                                comunidad.multiselect('refresh');
+                            });
+                        }
+                    });
+                    comunidad.multiselect("enable");
+                }
+                else{
+                    comunidad.multiselect("disable");
+                }
+            }
+        });
+        municipio.multiselect("disable");
+        comunidad.multiselect("disable");
     });       
 </script>
 <style type="text/css">
