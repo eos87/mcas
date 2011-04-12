@@ -75,7 +75,7 @@ class Encuesta(models.Model):
     def __unicode__(self):
         return u'Encuesta %s' % self.id
 
-JEFE = ((1, 'Hombre'), (2, 'Mujer'))
+JEFE = ((1, 'Hombre'), (2, 'Mujer'), (3, 'Ambos'))
 
 class ViveCon(models.Model):
     nombre = models.CharField(max_length=30)
