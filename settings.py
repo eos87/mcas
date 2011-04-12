@@ -72,3 +72,5 @@ INSTALLED_APPS = (
     'mcas.encuesta',
     'mcas.lugar',
 )
+
+NO_DATA_GRAPH_URL = ''

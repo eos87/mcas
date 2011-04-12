@@ -5,7 +5,8 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.utils import simplejson
 from mcas.lugar.models import Municipio, Departamento, Comunidad
 from forms import ConsultarForm
-from models import Encuesta
+from models import *
+from mcas import grafos
 
 def _query_set_filtrado(request):
     params = {}
@@ -29,6 +30,9 @@ def _query_set_filtrado(request):
     if request.session['escolaridad']:
         params['escolaridad'] = request.session['escolaridad']
 
+    if request.session['estado_civil']:
+        params['estado_civil'] = request.session['estado_civil']
+
     if request.session['departamento']:
         if not request.session['municipio']:
             municipios = Municipio.objects.filter(departamento__in=request.session['departamento'])
@@ -39,6 +43,11 @@ def _query_set_filtrado(request):
             else:
                 params['municipio__in'] = request.session['municipio']
 
+    if request.session['iglesia']:
+        params['iglesia'] = request.session['iglesia']
+
+    if request.session['importancia']:
+        params['importancia_religion'] = request.session['importancia']
 
     encuestas = Encuesta.objects.filter(**params)
     return encuestas
@@ -52,6 +61,7 @@ def consultar(request):
             request.session['sexo'] = form.cleaned_data['sexo']
             request.session['edad'] = form.cleaned_data['edad']
             request.session['escolaridad'] = form.cleaned_data['escolaridad']
+            request.session['estado_civil'] = form.cleaned_data['estado_civil']
             request.session['departamento'] = form.cleaned_data['departamento']
             request.session['municipio'] = form.cleaned_data['municipio']
             request.session['comunidad'] = form.cleaned_data['comunidad']
@@ -66,6 +76,32 @@ def consultar(request):
 def indicadores(request):
     encuestas = _query_set_filtrado(request)
     return render_to_response('encuesta/indicadores.html', RequestContext(request, locals()))
+
+def familia_jefe(request):
+    encuestas = _query_set_filtrado(request)
+    valores = []
+    leyenda = []    
+    for opcion in JEFE:
+        suma = Familia.objects.filter(encuesta__in=encuestas, jefe=opcion[0]).count()
+        valores.append(suma)
+        leyenda.append(opcion[1])        
+
+    grafo_url = grafos.make_graph(valores, leyenda, '¿Quien es el jefe de familia?', type = grafos.PIE_CHART_3D, pie_labels=True)
+
+    return render_to_response('encuesta/familia/jefe.html', RequestContext(request, locals()))
+
+def familia_vivecon(request):
+    encuestas = _query_set_filtrado(request)
+    valores = []
+    leyendas = []
+    dicc = {}
+    for quien in ViveCon.objects.all():        
+        suma = Familia.objects.filter(encuesta__in=encuestas, vive_con=quien).count()        
+        dicc[quien.nombre] = suma
+
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+
+    return render_to_response('encuesta/familia/vivecon.html', RequestContext(request, locals()))
 
 def get_munis(request):
     '''Metodo para obtener los municipios via Ajax segun los departamentos selectos'''
