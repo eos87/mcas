@@ -1,11 +1,10 @@
 from django.conf.urls.defaults import *
-from django.views.generic.simple import direct_to_template
 
 urlpatterns = patterns('mcas.encuesta.views',
     (r'^consultar/$', 'consultar'),
     (r'^indicadores/$', 'indicadores'),
-    (r'^familia/jefe/$', 'familia_jefe'),
-    (r'^familia/vivecon/$', 'familia_vivecon'),
+    (r'^familia/(?P<vista>[-\w]+)/$', '_get_view'),
+    (r'^conocimiento/(?P<vista>[-\w]+)/$', '_get_view'),
     
     (r'^ajax/munis/$', 'get_munis'),
     (r'^ajax/comunies/$', 'get_comunies'),

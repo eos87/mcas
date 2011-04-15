@@ -2,6 +2,7 @@ body{
     padding: 0;
     height: 0;
     background-color: #f5f5ee;
+    font-family: "Trebuchet MS", sans-serif;
 }
 .wrapper{
     width: 960px;
@@ -257,3 +258,25 @@ a{
 /*#id_municipio, #id_comunidad{
     display: none;
 }*/
+.contenedor{
+    border: 1px #bfbf92 solid;
+    -webkit-border-top-left-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+    -moz-border-radius-topright: 10px;
+    -moz-border-radius-topleft: 10px;
+    border-radius-topright: 10px;
+    border-radius-topleft: 10px;
+    margin-top: 20px;
+}
+.grafico-title{
+    -webkit-border-top-left-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+    -moz-border-radius-topright: 10px;
+    -moz-border-radius-topleft: 10px;
+    border-radius-topright: 10px;
+    border-radius-topleft: 10px;
+    height: 35px;    
+    background: url(/files/img/back-tabla.png) repeat-x;
+    line-height: 35px;
+    padding-left: 15px;
+}

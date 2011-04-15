@@ -1,12 +1,16 @@
 # -*- coding: UTF-8 -*-
+from django.db.models import Sum
+from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.http import HttpResponseRedirect, HttpResponse 
 from django.utils import simplejson
-from mcas.lugar.models import Municipio, Departamento, Comunidad
 from forms import ConsultarForm
-from models import *
 from mcas import grafos
+from mcas.lugar.models import Comunidad
+from mcas.lugar.models import Departamento
+from mcas.lugar.models import Municipio
+from models import *
 
 def _query_set_filtrado(request):
     params = {}
@@ -49,7 +53,7 @@ def _query_set_filtrado(request):
     if request.session['importancia']:
         params['importancia_religion'] = request.session['importancia']
 
-    encuestas = Encuesta.objects.filter(**params)
+    encuestas = Encuesta.objects.filter( ** params)
     return encuestas
 
 def consultar(request):
@@ -86,7 +90,7 @@ def familia_jefe(request):
         valores.append(suma)
         leyenda.append(opcion[1])        
 
-    grafo_url = grafos.make_graph(valores, leyenda, '¿Quien es el jefe de familia?', type = grafos.PIE_CHART_3D, pie_labels=True)
+    grafo_url = grafos.make_graph(valores, leyenda, '¿Quien es el jefe de familia?', type=grafos.PIE_CHART_3D, pie_labels=True)
 
     return render_to_response('encuesta/familia/jefe.html', RequestContext(request, locals()))
 
@@ -102,6 +106,27 @@ def familia_vivecon(request):
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
 
     return render_to_response('encuesta/familia/vivecon.html', RequestContext(request, locals()))
+
+def familia_miembros(request):
+    encuestas = _query_set_filtrado(request)
+    sumas = Familia.objects.filter(encuesta__in=encuestas).aggregate(adultos_sum=Sum('adultos'),
+                                                             uno_siete_sum=Sum('uno_siete'),
+                                                             ocho_diesciseis_sum=Sum('ocho_diesciseis'))
+
+    valores = []
+    leyenda = ['Adultos', 'De 1-7 años', 'De 8 a 16 años']
+
+    for key, value in sumas.items():
+        valores.append(value)             
+    
+    grafo_url = grafos.make_graph(valores, leyenda, '¿Miembros de la familia?', type=grafos.PIE_CHART_3D, size=(958, 313), pie_labels=True)
+    return render_to_response('encuesta/familia/miembros.html', RequestContext(request, locals()))
+
+def conocimiento_abuso(request):
+    for abuso in Abuso.objects.all():
+        pass
+    pass
+
 
 def get_munis(request):
     '''Metodo para obtener los municipios via Ajax segun los departamentos selectos'''
@@ -134,3 +159,26 @@ def get_comunies(request):
     comunies = Comunidad.objects.filter(municipio__pk__in=lista).order_by('nombre').values('id', 'nombre')
 
     return HttpResponse(simplejson.dumps(list(comunies)), mimetype='application/json')
+
+#obtener la vista adecuada para los indicadores
+def _get_view(request, vista):
+    if vista in VALID_VIEWS:
+        return VALID_VIEWS[vista](request)
+    else:
+        raise ViewDoesNotExist("Tried %s in module %s Error: View not define in VALID_VIEWS." % (vista, 'encuesta.views'))
+
+VALID_VIEWS = {
+    'jefe': familia_jefe,
+    'vivecon': familia_vivecon,
+    'miembros': familia_miembros,
+    #vistas para conocimiento
+    'que-es-abuso': conocimiento_abuso,
+    }
+
+def get_prom(total, cantidad):
+    """Funcion para sacar promerio"""
+    if total == None or cantidad == None or total == 0:
+        x = 0
+    else:
+        x = (cantidad * 100) / float(total)
+    return x

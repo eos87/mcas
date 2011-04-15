@@ -45,8 +45,13 @@
             },
             plotOptions: {
                 column: {
-                    pointPadding: 0.2,
+                    groupPadding: 0,
+                    pointPadding: 0.9,
                     borderWidth: 0
+                },
+                series: {
+                    pointWidth: 30,
+                    minPointLength : 1
                 }
             },
             series: [{% for value in dicc2 %}
@@ -61,5 +66,10 @@
 {% endblock %}
 
 {% block content %}
-<div id="container" style="width: 960px; height: 500px;"></div>
+<div class="contenedor">
+    <div class="grafico-title">Gr&aacute;fico</div>
+    <div id="container" style="width: 958px; height: 500px;">
+
+    </div>
+</div>
 {% endblock %}
