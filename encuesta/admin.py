@@ -35,7 +35,9 @@ class PercepcionlInline(admin.StackedInline):
 
 class OrganizacionAdmin(admin.ModelAdmin):
     def queryset(self, request):
-        if request.user.is_superuser:
+        grupos = request.user.groups.all()
+        monitoreo = Group.objects.get(name='Monitoreo')
+        if request.user.is_superuser or monitoreo in grupos:
             return Organizacion.objects.all()
         return Organizacion.objects.filter(usuario=request.user)
 
@@ -100,6 +102,7 @@ class EncuestaAdmin(admin.ModelAdmin):
     save_on_top = True
     actions_on_top = True
     list_display = ['organizacion', 'codigo', 'recolector', 'fecha', 'municipio']
+    list_filter = ['organizacion']
     search_fields = ['codigo', 'recolector__nombre_completo', 'organizacion__nombre_corto', 'organizacion__nombre']
     #list_filter = ['organizacion', 'municipio', 'comunidad']
     fields = ['user', 'organizacion', 'codigo', 'recolector', 'fecha', 'area_reside', 'municipio', 'comunidad', 'sexo', 'edad', 'escolaridad', 'estado_civil',
