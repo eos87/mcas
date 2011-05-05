@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 from django.contrib import admin
+from django.contrib.auth.models import Group
 from models import *
 
 class FamiliaInline(admin.StackedInline):
@@ -8,27 +9,27 @@ class FamiliaInline(admin.StackedInline):
     max_num = 1
 
 class ConocimientoInline(admin.StackedInline):
-    fields = ['abuso', 'lugares', 'quien_abusa', 'que_hacer', 'conoce_ley', 'nombre_ley', 'donde_aprendio', 'donde_informarse', ]
+    fields = ['abuso', 'lugares', 'quien_abusa', 'que_hacer', 'conoce_ley', 'nombre_ley', 'donde_aprendio', 'donde_informarse',]
     model = Conocimiento
     max_num = 1
 
 class ActitudInline(admin.StackedInline):
-    fields = ['porque_abuso', 'que_piensa', 'que_piensa_victimas', 'familia_ensena', 'escuela_ensena',]
+    fields = ['porque_abuso', 'que_piensa', 'que_piensa_victimas', 'familia_ensena', 'escuela_ensena', ]
     model = Actitud
     max_num = 1
 
 class PracticaInline(admin.StackedInline):
-    fields = ['que_haria', 'que_hago_prevenir', 'participa_prevenir', 'como',]
+    fields = ['que_haria', 'que_hago_prevenir', 'participa_prevenir', 'como', ]
     model = Practica
     max_num = 1
 
 class EstadoActualInline(admin.StackedInline):
-    fields = ['problema_comunidad', 'problema_pais', 'personas_atienden', 'lugares', 'tipo_atencion', 'donde_van', ]
+    fields = ['problema_comunidad', 'problema_pais', 'personas_atienden', 'lugares', 'tipo_atencion', 'donde_van',]
     model = EstadoActual
     max_num = 1
 
 class PercepcionlInline(admin.StackedInline):
-    fields = ['conoce_abusados', 'que_familia', 'quien_debe', 'mensaje', 'defender', 'rol_medios', 'rol_iglesia', 'rol_estado', 'rol_ongs', 'rol_empresas', ]
+    fields = ['conoce_abusados', 'que_familia', 'quien_debe', 'mensaje', 'defender', 'rol_medios', 'rol_iglesia', 'rol_estado', 'rol_ongs', 'rol_empresas',]
     model = Percepcion
     max_num = 1
 
@@ -76,12 +77,16 @@ admin.site.register(RolEmpresa)
 
 class EncuestaAdmin(admin.ModelAdmin):
     def queryset(self, request):
-        if request.user.is_superuser:
+        grupos = request.user.groups.all()
+        monitoreo = Group.objects.get(name='Monitoreo')
+        if request.user.is_superuser or monitoreo in grupos:
             return Encuesta.objects.all()
         return Encuesta.objects.filter(user=request.user)
 
     def get_form(self, request, obj=None, ** kwargs):
-        if request.user.is_superuser:
+        grupos = request.user.groups.all()
+        monitoreo = Group.objects.get(name='Monitoreo')
+        if request.user.is_superuser or monitoreo in grupos: 
             form = super(EncuestaAdmin, self).get_form(self, request, ** kwargs)
         else:
             form = super(EncuestaAdmin, self).get_form(self, request, ** kwargs)
@@ -90,12 +95,12 @@ class EncuestaAdmin(admin.ModelAdmin):
 
     class Media:
         css = {
-            "all": ("/files/css/especial.css", )
+            "all": ("/files/css/especial.css",)
         }
     save_on_top = True
     actions_on_top = True
     list_display = ['organizacion', 'codigo', 'recolector', 'fecha', 'municipio']
-    search_fields = ['codigo', 'recolector__nombre_completo' , 'organizacion__nombre_corto', 'organizacion__nombre']
+    search_fields = ['codigo', 'recolector__nombre_completo', 'organizacion__nombre_corto', 'organizacion__nombre']
     #list_filter = ['organizacion', 'municipio', 'comunidad']
     fields = ['user', 'organizacion', 'codigo', 'recolector', 'fecha', 'area_reside', 'municipio', 'comunidad', 'sexo', 'edad', 'escolaridad', 'estado_civil',
         'no_hijas', 'no_hijos', 'iglesia', 'que_iglesia', 'importancia_religion']
