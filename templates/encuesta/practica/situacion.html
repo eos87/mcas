@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block extratitle %}Prácticas{% endblock %}
+
+{% block extrahead %}
+<script type="text/javascript" src="/files/js/highcharts.js"></script>
+<script type="text/javascript" src="/files/js/exporting.js"></script>
+<script type="text/javascript">
+    var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container',
+                defaultSeriesType: 'column'
+            },
+            title: {
+                text: '¿Qué haria usted si conociera de una situación de abuso sexual?'
+            },
+            subtitle: {
+                text: 'las personas que harian si conocieran de una situación de abuso'
+            },
+            xAxis: {
+                categories: [
+                    'Opciones'
+                ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Cantidad (unidades)'
+                }
+            },
+            legend: {
+                layout: 'horizontal',
+                //backgroundColor: Highcharts.theme.legendBackgroundColor || '#FFFFFF',
+                align: 'left',
+                verticalAlign: 'bottom',
+                floating: true,
+                shadow: true
+            },
+            tooltip: {
+                formatter: function() {
+                    return ''+
+                        this.series.name +': '+ this.y +'';
+                }
+            },
+            plotOptions: {
+                column: {
+                    groupPadding: 0,
+                    pointPadding: 0.9,
+                    borderWidth: 0
+                },
+                series: {
+                    pointWidth: 55,
+                    minPointLength : 1
+                }
+            },
+            series: [{% for value in dicc2 %}
+                {
+                    name: '{{value.0}}',
+                    data: [{{value.1}}]
+                },
+                {% endfor %}]
+        });
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="contenedor">
+    <div class="grafico-title">Gr&aacute;fico  personas encuestas =  {{numero}}</div>
+    <div id="container" style="width: 958px; height: 500px;">
+
+    </div>
+</div>
+{% endblock %}
