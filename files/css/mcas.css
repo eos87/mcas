@@ -280,3 +280,81 @@ a{
     line-height: 35px;
     padding-left: 15px;
 }
+
+/*ESTO ES EL ESTILO DE LAS TABLAS*/
+caption {
+    padding: 5px;
+    margin:0 auto;
+    width:auto;
+    margin-top:15px;
+    margin-bottom:5px;
+    text-align: left;
+    font-size:18px;
+    color:#48311a;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    border-top:#3d3123 1px dotted;
+    border-bottom:#3d3123 1px dotted;
+}
+
+th{
+    font-family: "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 10px;
+    color: #473f31;
+    border-right: 1px solid #ded3ba;
+    border-bottom: 1px solid #ded3ba;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: left;
+    font-weight:bold;
+    padding: 10px 5px 4px 12px;
+/*    background:url(../img/bg_header.png) repeat-x;*/
+    vertical-align:middle;
+
+}
+td.total{
+    border-top: 0;
+    border-left: 0;
+    border-right: 1px solid #C1DAD7;
+    background: none;
+    text-align:right;
+    font-weight:bold;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+td {
+    font: normal 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+    border-right: 1px solid #E0DDD2;
+    border-bottom: 1px solid #E0DDD2;
+    padding: 6px 12px 6px 12px;
+    color: #696969;
+    background: #FFFFFF;
+}
+form {
+    margin: 0 0;
+    padding-top: 5px;    
+}
+
+pre { font-size: 130%; background: #f7f7f7; padding: 10px 10px; font-weight: bold; }
+.odd, .r1 { background: #fff; }
+.even, .r2 { background: #f7f7f7; }
+.r3 { background: #ebebeb; }
+.search { font-weight:  bold; }
+
+/*MENU INDIVIDUAL DE INDICADORES*/
+
+.menu_indicadores ul{
+    float: left;
+    font-size: 12px;
+    width: 280px;
+    list-style: none;
+}
+.titulo_menu {
+    height: 30px;    
+    background: url(/files/img/bg_header.png) repeat-x;
+    line-height: 35px;
+    padding-left: 4px;
+    font-size: 20px;
+}
+
+

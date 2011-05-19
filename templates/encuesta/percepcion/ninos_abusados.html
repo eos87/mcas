@@ -2,5 +2,26 @@
 {% block extratitle %}Percepción{% endblock %}
 
 {% block content %}
+{% include "encuesta/percepcion.html" %} 
+<table>
+        <caption>¿Ha conocido de niños, niñas o adolescentes que hayan sido abusados sexualmente?</caption>
+        <thead>
+            <tr>
+                <th>Categoria</th>
+                <th>Frecuencia</th>
+                <th>porcentajes(%)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in dicc2 %}
+            <tr>
+                <td>{{key}}</td>
+                {%for i in value%}
+                    <td>{{i|floatformat}}</td>    
+                {%endfor%}
+           {%endfor%}
+        </tbody>
+    </table>
+    <br><br>
 <img src="{{grafo_url}}" alt="¿Conocer niños/as abusados sexualmente?" title="¿Conocer niños/as abusados sexualmente?">
 {% endblock %}

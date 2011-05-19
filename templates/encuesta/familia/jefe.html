@@ -2,6 +2,27 @@
 {% block extratitle %}¿Quién es el jefe/a de familia?{% endblock %}
 
 {% block content %}
+{% include "encuesta/familia.html" %}
+<table>
+        <caption>¿Quiés es el jefe de familia?</caption>
+        <thead>
+            <tr>
+                <th>Categoria</th>
+                <th>Frecuencia</th>
+                <th>porcentajes(%)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in dicc2 %}
+            <tr>
+                <td>{{key}}</td>
+                {%for i in value%}
+                    <td>{{i|floatformat}}</td>    
+                {%endfor%}
+           {%endfor%}
+        </tbody>
+    </table> 
+<br></br><br></br><br></br>
 <img src="{{grafo_url}}" alt="¿Quiés es el jefe de familia?" title="¿Quién es el jefe de familia?">
 {% endblock %}
 

@@ -4,6 +4,7 @@
 {% block extrahead %}
 <script type="text/javascript" src="/files/js/highcharts.js"></script>
 <script type="text/javascript" src="/files/js/exporting.js"></script>
+ <script type="text/javascript" src="/files/js/thema.js"></script>
 <script type="text/javascript">
     var chart;
     $(document).ready(function() {
@@ -57,7 +58,21 @@
             series: [{% for value in dicc2 %}
                 {
                     name: '{{value.0}}',
-                    data: [{{value.1}}]
+                    data: [{{value.1}}],
+                    dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#632D00',
+                        align: 'center',
+                        x: -3,
+                        y: 0,
+                            formatter: function() {
+                                return this.y;
+                                                  },
+                        style: {
+                            font: 'normal 16px Verdana, sans-serif'
+                                }
+                                }
                 },
                 {% endfor %}]
         });
@@ -66,6 +81,27 @@
 {% endblock %}
 
 {% block content %}
+{% include "encuesta/practica.html" %} 
+<table>
+        <caption>¿Qué hace usted para prevenir el abuso sexual?</caption>
+        <thead>
+            <tr>
+                <th>Categoria</th>
+                <th>Frecuencia</th>
+                <th>porcentajes(%)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in dicc2 %}
+            <tr>
+                <td>{{key}}</td>
+                {%for i in value%}
+                    <td>{{i|floatformat}}</td>    
+                {%endfor%}
+           {%endfor%}
+        </tbody>
+    </table>
+    <br><br>
 <div class="contenedor">
     <div class="grafico-title">Gr&aacute;fico  personas encuestas =  {{numero}}</div>
     <div id="container" style="width: 958px; height: 500px;">

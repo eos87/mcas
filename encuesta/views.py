@@ -81,27 +81,37 @@ def indicadores(request):
     encuestas = _query_set_filtrado(request)
     return render_to_response('encuesta/indicadores.html', RequestContext(request, locals()))
 
+#SALIDAS DE FAMILIAS
+
 def familia_jefe(request):
     encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()
     valores = []
-    leyenda = []    
+    leyenda = []
+    dicc = {}    
     for opcion in JEFE:
         suma = Familia.objects.filter(encuesta__in=encuestas, jefe=opcion[0]).count()
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[opcion[1]] = (suma,tabla)
         valores.append(suma)
         leyenda.append(opcion[1])        
 
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)  
+    
     grafo_url = grafos.make_graph(valores, leyenda, '¿Quien es el jefe de familia?', type=grafos.PIE_CHART_3D, pie_labels=True)
 
     return render_to_response('encuesta/familia/jefe.html', RequestContext(request, locals()))
 
 def familia_vivecon(request):
     encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()
     valores = []
     leyendas = []
     dicc = {}
     for quien in ViveCon.objects.all():        
-        suma = Familia.objects.filter(encuesta__in=encuestas, vive_con=quien).count()        
-        dicc[quien.nombre] = suma
+        suma = Familia.objects.filter(encuesta__in=encuestas, vive_con=quien).count()
+        tabla = round(saca_porcentajes(suma,numero),1)        
+        dicc[quien.nombre] = (suma,tabla)
 
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
 
@@ -109,16 +119,21 @@ def familia_vivecon(request):
 
 def familia_miembros(request):
     encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()
+    dicc = {}
     sumas = Familia.objects.filter(encuesta__in=encuestas).aggregate(adultos_sum=Sum('adultos'),
                                                              uno_siete_sum=Sum('uno_siete'),
                                                              ocho_diesciseis_sum=Sum('ocho_diesciseis'))
-
     valores = []
     leyenda = ['Adultos', 'De 1-7 años', 'De 8 a 16 años']
 
     for key, value in sumas.items():
+        tabla = round((value/numero),1)
+        dicc[key] = (value,tabla)
         valores.append(value)             
-    
+
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)    
+
     grafo_url = grafos.make_graph(valores, leyenda, '¿Miembros de la familia?', type=grafos.PIE_CHART_3D, size=(958, 313), pie_labels=True)
     return render_to_response('encuesta/familia/miembros.html', RequestContext(request, locals()))
 
@@ -130,8 +145,9 @@ def conocimiento_abuso(request):
     dicc = {}
     for abuso in Abuso.objects.all():
         suma = Conocimiento.objects.filter(encuesta__in=encuestas, abuso=abuso).count()
-        dicc[abuso.nombre] = suma
-    
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[abuso.nombre] = (suma,tabla)
+        
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
     return render_to_response('encuesta/conocimiento/abuso.html', RequestContext(request, locals()))
@@ -142,7 +158,8 @@ def conocimiento_lugar(request):
     dicc = {}
     for lugar in LugarAbuso.objects.all():
         suma = Conocimiento.objects.filter(encuesta__in=encuestas, lugares=lugar).count()
-        dicc[lugar.nombre] = suma
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[lugar.nombre] = (suma,tabla)
     
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
@@ -154,7 +171,8 @@ def conocimiento_abusan_ninos(request):
     dicc = {}
     for abuso in Abusador.objects.all():
         suma = Conocimiento.objects.filter(encuesta__in=encuestas, quien_abusa=abuso).count()
-        dicc[abuso.nombre] = suma
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[abuso.nombre] = (suma,tabla)
     
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
@@ -166,7 +184,8 @@ def conocimiento_prevenir(request):
     dicc = {}
     for hacer in QueHacer.objects.all():
         suma = Conocimiento.objects.filter(encuesta__in=encuestas, que_hacer=hacer).count()
-        dicc[hacer.nombre] = suma
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[hacer.nombre] = (suma,tabla)
     
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
@@ -193,7 +212,8 @@ def conocimiento_aprendio(request):
     dicc = {}
     for aprender in DondeAprendio.objects.all():
         suma = Conocimiento.objects.filter(encuesta__in=encuestas, donde_aprendio=aprender).count()
-        dicc[aprender.nombre] = suma
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[aprender.nombre] = (suma,tabla)
     
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
@@ -205,7 +225,8 @@ def conocimiento_informarse(request):
     dicc = {}
     for informar in DondeInformarse.objects.all():
         suma = Conocimiento.objects.filter(encuesta__in=encuestas, donde_informarse=informar).count()
-        dicc[informar.nombre] = suma
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[informar.nombre] = (suma,tabla)
     
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
@@ -219,7 +240,8 @@ def actitud_abuso(request):
     dicc = {}
     for abuso in PorqueAbuso.objects.all():
         suma = Actitud.objects.filter(encuesta__in=encuestas, porque_abuso=abuso).count()
-        dicc[abuso.nombre] = suma
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[abuso.nombre] = (suma,tabla)
     
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
@@ -231,7 +253,8 @@ def actitud_piensa(request):
     dicc = {}
     for pensar in QuePiensa.objects.all():
         suma = Actitud.objects.filter(encuesta__in=encuestas, que_piensa=pensar).count()
-        dicc[pensar.nombre] = suma
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[pensar.nombre] = (suma,tabla)
     
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
@@ -244,7 +267,8 @@ def actitud_victimas(request):
     dicc = {}
     for victima in QuePiensaVictima.objects.all():
         suma = Actitud.objects.filter(encuesta__in=encuestas, que_piensa_victimas=victima).count()
-        dicc[victima.nombre] = suma
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[victima.nombre] = (suma,tabla)
     
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
@@ -286,7 +310,8 @@ def practica_situacion(request):
     dicc = {}
     for hacer in QueHaria.objects.all():
         suma = Practica.objects.filter(encuesta__in=encuestas, que_haria=hacer).count()
-        dicc[hacer.nombre] = suma
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[hacer.nombre] = (suma,tabla)
     
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
@@ -298,7 +323,8 @@ def practica_prevenir(request):
     dicc = {}
     for hacer in QueHacePrevenir.objects.all():
         suma = Practica.objects.filter(encuesta__in=encuestas, que_hago_prevenir=hacer).count()
-        dicc[hacer.nombre] = suma
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[hacer.nombre] = (suma,tabla)
     
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
@@ -324,7 +350,8 @@ def practica_como(request):
     dicc = {}
     for hacer in ComoParticipo.objects.all():
         suma = Practica.objects.filter(encuesta__in=encuestas, como=hacer).count()
-        dicc[hacer.nombre] = suma
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[hacer.nombre] = (suma,tabla)
     
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
@@ -338,7 +365,8 @@ def estado_problema(request):
     dicc = {}
     for hacer in PROBLEMA:
         suma = EstadoActual.objects.filter(encuesta__in=encuestas, problema_comunidad=hacer[0]).count()
-        dicc[hacer[1]] = suma
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[hacer[1]] = (suma,tabla)
     
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
@@ -378,7 +406,8 @@ def estado_lugares(request):
     dicc = {}
     for hacer in LugarAtencion.objects.all():
         suma = EstadoActual.objects.filter(encuesta__in=encuestas, lugares=hacer).count()
-        dicc[hacer.nombre] = suma
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[hacer.nombre] = (suma,tabla)
     
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
@@ -390,7 +419,8 @@ def estado_tipo_atencion(request):
     dicc = {}
     for hacer in TipoAtencion.objects.all():
         suma = EstadoActual.objects.filter(encuesta__in=encuestas, tipo_atencion=hacer).count()
-        dicc[hacer.nombre] = suma
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[hacer.nombre] = (suma,tabla)
     
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
@@ -402,7 +432,8 @@ def estado_donde(request):
     dicc = {}
     for hacer in DONDE_VAN:
         suma = EstadoActual.objects.filter(encuesta__in=encuestas, donde_van=hacer[0]).count()
-        dicc[hacer[1]] = suma
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[hacer[1]] = (suma,tabla)
     
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
@@ -414,11 +445,16 @@ def percepcion_ninos_abusados(request):
     encuestas = _query_set_filtrado(request)
     numero = encuestas.count()
     valores = []
-    leyenda = []    
+    leyenda = []
+    dicc = {}    
     for opcion in SI_NO:
         suma = Percepcion.objects.filter(encuesta__in=encuestas, conoce_abusados=opcion[0]).count()
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[opcion[1]] = (suma,tabla)
         valores.append(suma)
-        leyenda.append(opcion[1])        
+        leyenda.append(opcion[1])
+
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)        
 
     grafo_url = grafos.make_graph(valores, leyenda, '¿Ha conocido de niños, niñas o adolescentes que hayan sido abusados sexualmente?', type=grafos.PIE_CHART_3D, pie_labels=True)
 
@@ -428,13 +464,16 @@ def percepcion_familia(request):
     encuestas = _query_set_filtrado(request)
     numero = encuestas.count()
     valores = []
-    leyenda = []    
+    leyenda = []
+    dicc = {}    
     for opcion in QueFamilia.objects.all():
         suma = Percepcion.objects.filter(encuesta__in=encuestas, que_familia=opcion).count()
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[opcion.nombre] = (suma,tabla)
         valores.append(suma)
-        leyenda.append(opcion.nombre)        
-
-    grafo_url = grafos.make_graph(valores, leyenda, '¿En cuál de las siguientes familias se da más frecuentemente el abuso sexual?', type=grafos.PIE_CHART_3D, pie_labels=True)
+        leyenda.append(opcion.nombre)  
+        
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
 
     return render_to_response('encuesta/percepcion/familia_abuso.html', RequestContext(request, locals())) 
     
@@ -444,7 +483,8 @@ def percepcion_prevenir(request):
     dicc = {}
     for hacer in QuienDebe.objects.all():
         suma = Percepcion.objects.filter(encuesta__in=encuestas, quien_debe=hacer).count()
-        dicc[hacer.nombre] = suma
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[hacer.nombre] = (suma,tabla)
     
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
@@ -456,7 +496,8 @@ def percepcion_mensajes(request):
     dicc = {}
     for hacer in MensajeTransmiten.objects.all():
         suma = Percepcion.objects.filter(encuesta__in=encuestas, mensaje=hacer).count()
-        dicc[hacer.nombre] = suma
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[hacer.nombre] = (suma,tabla)
     
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
@@ -482,7 +523,8 @@ def percepcion_iglesia(request):
     dicc = {}
     for hacer in RolIglesia.objects.all():
         suma = Percepcion.objects.filter(encuesta__in=encuestas, rol_iglesia=hacer).count()
-        dicc[hacer.nombre] = suma
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[hacer.nombre] = (suma,tabla)
     
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
@@ -491,14 +533,13 @@ def percepcion_iglesia(request):
 def percepcion_medios(request):
     encuestas = _query_set_filtrado(request)
     numero = encuestas.count()
-    valores = []
-    leyenda = []    
+    dicc = {}  
     for opcion in RolMedio.objects.all():
         suma = Percepcion.objects.filter(encuesta__in=encuestas, rol_medios=opcion).count()
-        valores.append(suma)
-        leyenda.append(opcion)        
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[opcion.nombre] = (suma,tabla)         
 
-    grafo_url = grafos.make_graph(valores, leyenda, '¿Qué piensa sobre el rol de los medios de comunicación en cuanto al abuso sexual?', type=grafos.PIE_CHART_3D, pie_labels=True)
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)    
 
     return render_to_response('encuesta/percepcion/medios.html', RequestContext(request, locals())) 
     
@@ -508,7 +549,8 @@ def percepcion_estado(request):
     dicc = {}
     for hacer in RolEstado.objects.all():
         suma = Percepcion.objects.filter(encuesta__in=encuestas, rol_estado=hacer).count()
-        dicc[hacer.nombre] = suma
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[hacer.nombre] = (suma,tabla)
     
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
@@ -520,7 +562,8 @@ def percepcion_ong(request):
     dicc = {}
     for hacer in RolOng.objects.all():
         suma = Percepcion.objects.filter(encuesta__in=encuestas, rol_ongs=hacer).count()
-        dicc[hacer.nombre] = suma
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[hacer.nombre] = (suma,tabla)
     
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
@@ -532,11 +575,12 @@ def percepcion_empresa(request):
     dicc = {}
     for hacer in RolEmpresa.objects.all():
         suma = Percepcion.objects.filter(encuesta__in=encuestas, rol_empresas=hacer).count()
-        dicc[hacer.nombre] = suma
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[hacer.nombre] = (suma,tabla)
     
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
-    return render_to_response('encuesta/percepcion/ongs.html', RequestContext(request, locals()))     
+    return render_to_response('encuesta/percepcion/empresas.html', RequestContext(request, locals()))     
     
 #FUNCIONES UTILITARIAS
 
@@ -631,3 +675,26 @@ def get_prom(total, cantidad):
     else:
         x = (cantidad * 100) / float(total)
     return x
+    
+def saca_porcentajes(values):
+    """sumamos los valores y devolvemos una lista con su porcentaje"""
+    total = sum(values)
+    valores_cero = [] #lista para anotar los indices en los que da cero el porcentaje
+    for i in range(len(values)):
+        porcentaje = (float(values[i])/total)*100
+        values[i] = "%.2f" % porcentaje + '%' 
+    return values
+
+def saca_porcentajes(dato, total, formato=True):
+    '''Si formato es true devuelve float caso contrario es cadena'''
+    if dato != None:
+        try:
+            porcentaje = (dato/float(total)) * 100 if total != None or total != 0 else 0
+        except:
+            return 0
+        if formato:
+            return porcentaje
+        else:
+            return '%.2f' % porcentaje
+    else: 
+        return 0

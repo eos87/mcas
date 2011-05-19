@@ -1,6 +1,114 @@
 {% extends "base.html" %}
 {% block extratitle %}Percepción{% endblock %}
 
+{% block extrahead %}
+<script type="text/javascript" src="/files/js/highcharts.js"></script>
+<script type="text/javascript" src="/files/js/exporting.js"></script>
+ <script type="text/javascript" src="/files/js/thema.js"></script>
+<script type="text/javascript">
+    var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container',
+                defaultSeriesType: 'column'
+            },
+            title: {
+                text: '¿En cuál de las siguientes familias se da más frecuentemente el abuso sexual?'
+            },
+            subtitle: {
+                text: 'Familias con mas abuso sexual'
+            },
+            xAxis: {
+                categories: [
+                    'Opciones'
+                ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Cantidad (unidades)'
+                }
+            },
+            legend: {
+                layout: 'horizontal',
+                //backgroundColor: Highcharts.theme.legendBackgroundColor || '#FFFFFF',
+                align: 'left',
+                verticalAlign: 'bottom',
+                floating: true,
+                shadow: true
+            },
+            tooltip: {
+                formatter: function() {
+                    return ''+
+                        this.series.name +': '+ this.y +'';
+                }
+            },
+            plotOptions: {
+                column: {
+                    groupPadding: 0,
+                    pointPadding: 0.9,
+                    borderWidth: 0
+                },
+                series: {
+                    pointWidth: 55,
+                    minPointLength : 1
+                }
+            },
+            series: [{% for value in dicc2 %}
+                {
+                    name: '{{value.0}}',
+                    data: [{{value.1}}],
+                    dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#632D00',
+                        align: 'center',
+                        x: -3,
+                        y: 0,
+                            formatter: function() {
+                                return this.y;
+                                                  },
+                        style: {
+                            font: 'normal 16px Verdana, sans-serif'
+                                }
+                                }
+                },
+                {% endfor %}]
+
+            
+        });
+    });
+</script>
+{% endblock %}
+
 {% block content %}
-<img src="{{grafo_url}}" alt="¿familia donde se da mas frecuente el abuso sexual?" title="¿familia donde se da mas frecuente el abuso sexual?">
+{% include "encuesta/percepcion.html" %} 
+<table>
+        <caption>¿En cuál de las siguientes familias se da más frecuentemente el abuso sexual?</caption>
+        <thead>
+            <tr>
+                <th>Categoria</th>
+                <th>Frecuencia</th>
+                <th>porcentajes(%)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in dicc2 %}
+            <tr>
+                <td>{{key}}</td>
+                {%for i in value%}
+                    <td>{{i|floatformat}}</td>    
+                {%endfor%}
+           {%endfor%}
+        </tbody>
+    </table>
+    <br><br>
+    
+    <div class="contenedor">
+    <div class="grafico-title">Gr&aacute;fico  personas encuestas =  {{numero}}</div>
+    <div id="container" style="width: 958px; height: 500px;">
+
+    </div>
+</div>
 {% endblock %}
