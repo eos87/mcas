@@ -1,6 +1,7 @@
 from django.conf.urls.defaults import *
 
 urlpatterns = patterns('mcas.encuesta.views',
+    (r'^$', 'index'),
     (r'^consultar/$', 'consultar'),
     (r'^indicadores/$', 'indicadores'),
     (r'^familia/(?P<vista>[-\w]+)/$', '_get_view'),

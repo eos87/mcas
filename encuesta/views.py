@@ -77,6 +77,11 @@ def consultar(request):
         form = ConsultarForm()        
     return render_to_response('encuesta/consultar.html', RequestContext(request, locals()))
 
+def index(request):
+    total_encuesta = Encuesta.objects.all().count()
+    total_organizacion = Organizacion.objects.all().count()
+    return render_to_response('index.html',RequestContext(request, locals()))
+
 def indicadores(request):
     encuestas = _query_set_filtrado(request)
     return render_to_response('encuesta/indicadores.html', RequestContext(request, locals()))
