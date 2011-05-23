@@ -25,9 +25,9 @@ def _query_set_filtrado(request):
     if request.session['edad']:
         edad = int(request.session['edad'])
         if edad == 1:
-            params['edad__range'] = (16, 25)
+            params['edad__range'] = (18, 24)
         elif edad == 2:
-            params['edad__range'] = (26, 45)
+            params['edad__range'] = (25, 44)
         else:
             params['edad__gt'] = 45
 
@@ -113,7 +113,7 @@ def familia_vivecon(request):
     valores = []
     leyendas = []
     dicc = {}
-    for quien in ViveCon.objects.all():        
+    for quien in ViveCon.objects.all()[:8]:        
         suma = Familia.objects.filter(encuesta__in=encuestas, vive_con=quien).count()
         tabla = round(saca_porcentajes(suma,numero),1)        
         dicc[quien.nombre] = (suma,tabla)
