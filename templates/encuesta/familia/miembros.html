@@ -1,33 +1,149 @@
 {% extends "base.html" %}
 {% block extratitle %}¿Quién es el jefe/a de familia?{% endblock %}
 
+{%block extrahead%}
+<script type="text/javascript" src="/files/js/highcharts.js"></script>
+<script type="text/javascript" src="/files/js/exporting.js"></script>
+<script type="text/javascript" src="/files/js/thema.js"></script>
+<script type="text/javascript">
+var chart;
+$(document).ready(function() {
+   chart = new Highcharts.Chart({
+      chart: {
+         renderTo: 'container',
+         defaultSeriesType: 'bar'
+      },
+      title: {
+         text: 'Historic World Population by Region'
+      },
+      subtitle: {
+         text: 'Source: Wikipedia.org'
+      },
+      xAxis: {
+         categories: ['Adultos', 'Jóvenes 1 a 7', '8 a 16'],
+         title: {
+            text: null
+         }
+      },
+      yAxis: {
+         min: 0,
+         title: {
+            text: 'Population (millions)',
+            align: 'high'
+         }
+      },
+      tooltip: {
+         formatter: function() {
+            return ''+
+                this.series.name +': '+ this.y +'';
+         }
+      },
+      plotOptions: {
+         bar: {
+            dataLabels: {
+               enabled: true
+            }
+         }
+      },
+      legend: {
+         layout: 'vertical',
+         align: 'right',
+         verticalAlign: 'top',
+         x: -100,
+         y: 100,
+         floating: true,
+         borderWidth: 1,
+         //backgroundColor: Highcharts.theme.legendBackgroundColor || '#FFFFFF',
+         shadow: true
+      },
+      credits: {
+         enabled: false
+      },
+           series: [{
+         name: 'rango 0 - 2',
+         data: [{{adultos1}}, {{uno_siete1}}, {{ocho_1}} ]
+      }, {
+         name: 'rango 3 - 5',
+         data: [{{adultos2}},  {{uno_siete2}}, {{ocho_2}}]
+      }, {
+         name: 'rango mas de 6',
+         data: [{{adultos3}}, {{uno_siete3}},  {{ocho_3}}]
+      }]
+   });
+   
+   
+});
+</script>
+{%endblock%}
+
 {% block content %}
 {% include "encuesta/familia.html" %}
 
 {{sumas}}
+
 <table>
-        <caption>¿Miembros de la familia?</caption>
-        <thead>
-            <tr>
-                <th>Categoria</th>
-                <th>Frecuencia</th>
-                <th>Promedio/miembros</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for key, value in dicc2 %}
-            <tr>
-                <td>{{key}}</td>
-                {%for i in value%}
-                    <td>{{i|floatformat}}</td>    
-                {%endfor%}
-           </tr>
-           {%endfor%}
-        </tbody>
-    </table> 
+    <caption>Tabla áreas mz</caption>
+    <thead>
+        <tr>
+		    <th>Categoria</th>
+            <th>Rangos</th>
+            <th>Cantidad</th>
+         </tr>
+    </thead>
+        <tr>
+		    <td>Adultos</td>
+            <td>De 0 a 2</td>
+            <td>{{ adultos1 }}</td>
+        </tr>   
+        <tr>
+		    <td>Adultos</td>
+            <td>De 3 a 5</td>
+            <td>{{ adultos2 }}</td>
+        </tr>
+        <tr>
+		    <td>Adultos</td>
+            <td>Más de 6</td>
+            <td>{{ adultos3 }}</td>
+        </tr>
+        <tr>
+		    <td>Jóvenes de 8 a 16</td>
+            <td>De 0 a 2</td>
+            <td>{{ ocho_1 }}</td>
+        </tr>   
+        <tr>
+		    <td>Jóvenes de 8 a 16</td>
+            <td>De 3 a 5</td>
+            <td>{{ ocho_2 }}</td>
+        </tr>
+        <tr>
+		    <td>Jóvenes de 8 a 16</td>
+            <td>Más de 6</td>
+            <td>{{ ocho_3 }}</td>
+        </tr>
+        <tr>
+		    <td>Niños de 1 a 7 años</td>
+            <td>De 0 a 2</td>
+            <td>{{ uno_siete1 }}</td>
+        </tr>   
+        <tr>
+		    <td>Niños de 1 a 7 años</td>
+            <td>De 3 a 5</td>
+            <td>{{ uno_siete2 }}</td>
+        </tr>
+        <tr>
+		    <td>Niños de 1 a 7 años</td>
+            <td>Más de 6</td>
+            <td>{{ uno_siete3 }}</td>
+        </tr>
+              
+</table>
+
 <br></br><br></br><br></br>
 <div class="contenedor">
     <div class="grafico-title">Gr&aacute;fico</div>
-    <img src="{{grafo_url}}" alt="¿Miembros de la familia?" title="¿Miembros de la familia?">
+    <div id="container" style="width: 958px; height: 500px;">
+
+    </div>
 </div>
+
 {% endblock %}
