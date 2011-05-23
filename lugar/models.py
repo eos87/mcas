@@ -13,6 +13,7 @@ class Departamento(models.Model):
 
     class Meta:
         verbose_name_plural = "Departamentos"
+        ordering = ['nombre'] 
 
 class Municipio(models.Model):
     id = models.IntegerField("Código", primary_key=True)
@@ -25,10 +26,11 @@ class Municipio(models.Model):
 
     def __unicode__(self):
         return '%s - %s' % (self.departamento.nombre, self.nombre)
+        
 
     class Meta:
         verbose_name_plural = "Municipios"
-        ordering = ['departamento__nombre', ]
+        ordering = ['departamento__nombre', 'nombre']
 
 class Comunidad(models.Model):
     municipio = models.ForeignKey(Municipio)
@@ -37,6 +39,7 @@ class Comunidad(models.Model):
 
     class Meta:
         verbose_name_plural="Comunidades"
+        ordering = ['nombre'] 
 
     def __unicode__(self):
         return u'%s' % self.nombre

@@ -34,6 +34,7 @@ class Encuestador(models.Model):
 
     class Meta:
         verbose_name_plural = u'Encuestadores'
+        ordering = ['nombre_completo'] 
 
 AREA_RESIDE = ((1, 'Urbano'), (2, 'Rural'))
 SEXO = ((1, 'Femenino'), (2, 'Masculino'))
