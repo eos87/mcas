@@ -103,6 +103,7 @@ class EncuestaAdmin(admin.ModelAdmin):
     actions_on_top = True
     list_display = ['organizacion', 'codigo', 'recolector', 'fecha', 'municipio']
     list_filter = ['organizacion']
+    date_hierarchy = 'fecha'
     search_fields = ['codigo', 'recolector__nombre_completo', 'organizacion__nombre_corto', 'organizacion__nombre']
     #list_filter = ['organizacion', 'municipio', 'comunidad']
     fields = ['user', 'organizacion', 'codigo', 'recolector', 'fecha', 'area_reside', 'municipio', 'comunidad', 'sexo', 'edad', 'escolaridad', 'estado_civil',

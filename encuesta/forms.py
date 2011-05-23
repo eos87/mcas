@@ -5,8 +5,8 @@ from mcas.encuesta.models import *
 from mcas.lugar.models import Departamento, Municipio
 
 AREA_RESIDE = (('', 'Todos'), (1, 'Urbano'), (2, 'Rural'))
-SEXO = (('', 'Ambos'), (1, 'Femenino'), (2, 'Masculino'))
-EDAD_CHOICE = [('', 'Todas'), (1, '16-25'), (2, '25-45'), (3, '45-más')]
+SEXO = (('', 'Ambos'), (1, 'Mujer'), (2, 'Hombre'))
+EDAD_CHOICE = [('', 'Todas'), (1, '18-24'), (2, '25-44'), (3, '45-más')]
 NIVEL_EDUCATIVO = (('', 'Todos'),
                  (1, 'No sabe leer y escribir'),
                  (2, 'Alfabetizado'),
