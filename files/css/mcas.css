@@ -67,14 +67,14 @@ a{
 .nav .consultas a:hover{
     background-position: -44px -14px;
 }
-.nav .entrar{
+.nav .entrar{	
     background: url(/files/img/sprite.png) no-repeat 0px -72px;
     padding-left: 23px;
     padding-top: 4px;
     height: 18px;
 }
 .nav .entrar a{
-    width: 56px;
+    width: 126px;
     background-position: -127px 0px
 }
 .nav .entrar a:hover{

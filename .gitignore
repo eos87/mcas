@@ -1,5 +1,7 @@
 settings_local.py
 nbproject/
+.project
+.pydevproject
 *.pyc
 *.html~
 *.py~
