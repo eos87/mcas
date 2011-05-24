@@ -11,6 +11,7 @@ urlpatterns = patterns('mcas.encuesta.views',
     (r'^estado-actual/(?P<vista>[-\w]+)/$', '_get_view'),
     (r'^percepcion/(?P<vista>[-\w]+)/$', '_get_view'),
     
+    (r'^ajax/organi/$', 'get_organi'),
     (r'^ajax/munis/$', 'get_munis'),
     (r'^ajax/comunies/$', 'get_comunies'),
 #    (r'^indicadores/$', 'indicadores'),

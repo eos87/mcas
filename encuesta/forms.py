@@ -43,6 +43,7 @@ class ConsultarForm(forms.Form):
     escolaridad = forms.ChoiceField(choices=NIVEL_EDUCATIVO, required=False)
     estado_civil = forms.ChoiceField(choices=ESTADO_CIVIL, required=False)
     departamento = forms.ModelMultipleChoiceField(queryset=Departamento.objects.all().order_by('nombre'), required=False)
+    organizacion = forms.ModelMultipleChoiceField(queryset=Organizacion.objects.all().order_by('nombre'), required=False)
     municipio = forms.ModelMultipleChoiceField(queryset=Municipio.objects.all().order_by('nombre'), required=False)
     comunidad = forms.ModelMultipleChoiceField(queryset=Comunidad.objects.all(), required=False)
     iglesia = forms.ChoiceField(choices=IGLESIA, required=False)

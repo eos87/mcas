@@ -86,6 +86,9 @@ def indicadores(request):
     encuestas = _query_set_filtrado(request)
     return render_to_response('encuesta/indicadores.html', RequestContext(request, locals()))
 
+def generales(request):
+    pass
+
 #SALIDAS DE FAMILIAS
 
 def familia_jefe(request):
@@ -633,6 +636,15 @@ def get_comunies(request):
     comunies = Comunidad.objects.filter(municipio__pk__in=lista).order_by('nombre').values('id', 'nombre')
 
     return HttpResponse(simplejson.dumps(list(comunies)), mimetype='application/json')
+    
+def get_organi(request):
+    ids = request.GET.get('ids', '')
+    if ids:
+        lista = ids.split(',')
+    results = []
+    organizaxion = Organizacion.objects.filter(encuesta__pk__in=lista).order_by('nombre').values('id', 'nombre')
+
+    return HttpResponse(simplejson.dumps(list(organizaxion)), mimetype='application/json')
 
 #obtener la vista adecuada para los indicadores
 def _get_view(request, vista):
