@@ -413,3 +413,21 @@ pre { font-size: 130%; background: #f7f7f7; padding: 10px 10px; font-weight: bol
 #filtros a:hover{
     background: #eec116;
 }
+
+/*EL NIVO PARA EL CARRUCEL DE LAS IMAGENES*/
+.slider {
+    position:relative;
+    width:357px; /* Change this to your images width */
+    height:248px; /* Change this to your images height */
+    background:url(../img/loading.gif) no-repeat 50% 50%;
+}
+.slider img {
+    position:absolute;
+    top:0px;
+    left:0px;
+    display:none;
+}
+.slider a {
+    border:0;
+    display:block;
+}
