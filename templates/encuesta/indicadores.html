@@ -9,6 +9,7 @@
 </script>
 {% endblock %}
 {% block content %}
+{% include "encuesta/filtro.html"%}
 {% if request.session.centinel == 1 %}
 <div class="indicadores">
     <br>

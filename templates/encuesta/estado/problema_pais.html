@@ -2,6 +2,7 @@
 {% block extratitle %}Estado Actual{% endblock %}
 
 {% block content %}
+{% include "encuesta/filtro.html"%}
 {% include "encuesta/estado.html" %} 
 <img src="{{grafo_url}}" alt="¿Abuso sexual problema en el pais?" title="¿Abuso sexual problema en el pais?">
 {% endblock %}

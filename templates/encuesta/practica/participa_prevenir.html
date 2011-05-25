@@ -2,6 +2,7 @@
 {% block extratitle %}Prácticas{% endblock %}
 
 {% block content %}
+{% include "encuesta/filtro.html"%}
 {% include "encuesta/practica.html" %} 
 <img src="{{grafo_url}}" alt="¿Participa para prevenir?" title="¿Participa para prevenir?">
 {% endblock %}

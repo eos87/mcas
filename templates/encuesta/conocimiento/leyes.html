@@ -2,6 +2,7 @@
 {% block extratitle %}Conocimientos{% endblock %}
 
 {% block content %}
+{% include "encuesta/filtro.html"%}
 {% include "encuesta/conocimiento.html" %} 
 <img src="{{grafo_url}}" alt="¿Conoce leyes que castigan a los abusadores?" title="¿Conoce leyes que castigan a los abusadores?">
 {% endblock %}
