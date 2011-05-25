@@ -46,6 +46,9 @@ def _query_set_filtrado(request):
                 params['comunidad__in'] = request.session['comunidad']
             else:
                 params['municipio__in'] = request.session['municipio']
+                
+    if request.session['organizacion']:
+        params['organizacion__in'] = request.session['organizacion']
 
     if request.session['iglesia']:
         params['iglesia'] = request.session['iglesia']
@@ -67,6 +70,7 @@ def consultar(request):
             request.session['escolaridad'] = form.cleaned_data['escolaridad']
             request.session['estado_civil'] = form.cleaned_data['estado_civil']
             request.session['departamento'] = form.cleaned_data['departamento']
+            request.session['organizacion'] = form.cleaned_data['organizacion']
             request.session['municipio'] = form.cleaned_data['municipio']
             request.session['comunidad'] = form.cleaned_data['comunidad']
             request.session['iglesia'] = form.cleaned_data['iglesia']
@@ -642,7 +646,7 @@ def get_organi(request):
     if ids:
         lista = ids.split(',')
     results = []
-    organizaxion = Organizacion.objects.filter(encuesta__pk__in=lista).order_by('nombre').values('id', 'nombre')
+    organizaxion = Organizacion.objects.filter(encuesta__pk__in=lista).order_by('nombre').values('id', 'nombre_corto')
 
     return HttpResponse(simplejson.dumps(list(organizaxion)), mimetype='application/json')
 

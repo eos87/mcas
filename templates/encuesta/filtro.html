@@ -28,13 +28,16 @@
 <div id="filtros">    
         <span class="variables">Lugares</span>
         {% if request.session.departamento%} 
-        <span class="variables_filtro">Departamento: {{ request.session.departamento.0 }}</span>
-        {% endif %} 
+        <span class="variables_filtro"><b>Departamento:</b> {% for a in request.session.departamento.all %}{{a}},{%endfor%}</span>
+        {% endif %}
+        {% if request.session.organizacion%} 
+        <span class="variables_filtro"><b>Organizacion:</b> {% for k in request.session.organizacion.all %}{{k}},{%endfor%}</span>
+        {% endif %}  
         {% if request.session.municipio%} 
-        <span class="variables_filtro">Municipio: {{request.session.municipio.all.0}}</span> 
+        <span class="variables_filtro"><b>Municipio</b>: {%for j in request.session.municipio.all%}{{j}},{%endfor%}</span> 
         {%endif %}  
         {% if request.session.comunidad%}
-        <span class="variables_filtro">Comunidad:{{request.session.comunidad.0}}</span> 
+        <span class="variables_filtro"><b>Comunidad:</b>{% for b in request.session.comunidad.all%}{{b}},{%endfor%}</span> 
         {%endif%} 
 </div>
 {%endif%}
@@ -50,7 +53,7 @@
         <span class="variables_filtro"><b>Importancia de la religión:</b>{%if request.session.importancia = '1'%}Ninguna{%endif%}{%if request.session.importancia = '2'%}Poca{%endif%}{%if request.session.importancia = '3'%}Importante{%endif%}{%if request.session.importancia = '4'%}Muy importante{%endif%}</span>{%endif%}       
 </div>
 {%endif%}
-<!--{% for i,v in request.session.items %}-->
-<!--        {{i}}-{{v}}<br>-->
-<!--     {% endfor %}-->
+{% for i,v in request.session.items %}
+        {{i}}-{{v}}<br>
+     {% endfor %}
             {% endblock %}

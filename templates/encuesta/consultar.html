@@ -16,7 +16,7 @@
 <link href="/files/css/jquery.multiselect.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript">     
     $(document).ready(function(){
-        $("#id_municipio, #id_comunidad").html('');        
+        $("#id_organizacion, #id_municipio, #id_comunidad").html('');        
         var comunidad = $("#id_comunidad").multiselect({
             noneSelectedText: 'Seleccione elementos',
             selectedText: '# seleccionados',
@@ -47,36 +47,20 @@
                             });
                         }
                     });
-                    municipio.multiselect("enable");                    
-                }else{                    
-                    municipio.multiselect("disable");
-                    comunidad.multiselect("disable");
-                }
-            }
-        });
-        
-        var organizacion = $("#id_organizacion").multiselect({
-            noneSelectedText: 'Seleccione elementos',
-            selectedText: '# seleccionados',
-            minWidth: 200,
-            beforeclose: function(event, ui){
-                var selectos = $("#id_organizacion").multiselect("getChecked").map(function(){
-                    return this.value;
-                }).get();                
-                if(selectos.length!=0){
                     $.getJSON('/ajax/organi/?ids='+selectos.join(","), function(data){
-                        $('#id_organizacion').html('');
-                        if(data){
-                            $.each(data, function(i, item){                                
-                                organizacion.append($('<option></option>').val(item.id).html(item.nombre));
-                                organizacion.multiselect('refresh');
-                            });
-                        }
-                    });
-                    organizacion.multiselect("enable");
-                }
-                else{
+                    $("#id_organizacion").html('');
+                    if(data){
+                        $.each(data, function(i, item){
+                            $('<option></option>').val(item.id).html(item.nombre_corto).appendTo(organizacion)
+                        });
+                        organizacion.multiselect('refresh');
+                        organizacion.multiselect("enable");
+                    }
+                });
+                                     
+                }else{                    
                     organizacion.multiselect("disable");
+                    municipio.multiselect("disable");
                 }
             }
         });
