@@ -1,13 +1,83 @@
 {% block content %}
+<div id="filtros">    
+        <span class="variables">General</span>
+        {% if request.session.anio%}
+        <span class="variables_filtro">Año:{{request.session.anio}}</span>
+        {%endif%} 
+        {% if request.session.residencia%}
+        <span class="variables_filtro">Residencia:{%if request.session.residencia = '1'%}Urbano{%endif%}
+        {%if request.session.residencia = '2'%}Rural{%endif%}</span>
+        {%endif%} 
+        {% if request.session.sexo%}
+        <span class="variables_filtro">Sexo:{%if request.session.sexo = '1'%}Mujer{%endif%}
+        {%if request.session.sexo = '2'%}Hombre{%endif%}</span>
+        {%endif%}
+         
+        {% if request.session.edad%}
+        <span class="variables_filtro">Edad:{%if request.session.edad = '1'%}18 - 24{%endif%}
+        {%if request.session.edad = '2'%}25 - 44{%endif%}
+        {%if request.sesion.edad = '3'%} 45 - más{%endif%}</span>
+        {%endif%} 
+        
+        {% if request.session.escolaridad%}
+        <span class="variables_filtro">Escolaridad:{%if request.session.escolaridad = '1'%}No sabe leer ni escribir{%endif%}
+        {%if request.session.escolaridad = '2'%}Alfabetizado{%endif%}
+        {%if request.sesion.escolaridad = '3'%}Primaria completa{%endif%}
+        {%if request.sesion.escolaridad = '4'%}Primaria incompleta{%endif%}
+        {%if request.sesion.escolaridad = '5'%}Secundaria completa{%endif%}
+        {%if request.sesion.escolaridad = '6'%}Secundaria incompleta{%endif%}
+        {%if request.sesion.escolaridad = '7'%}técnico{%endif%}
+        {%if request.sesion.escolaridad = '8'%}Universitario{%endif%}</span>
+        {%endif%}
+         
+        {% if request.session.estado_civil%}
+        <span class="variables_filtro">Estado civil:{%if request.session.estado_civil = '1'%}Soltero/a{%endif%}
+        {%if request.session.estado_civil = '2'%}Casado/a{%endif%}
+        {%if request.sesion.estado_civil = '3'%}Unión de hechos estables{%endif%}
+        {%if request.sesion.estado_civil = '4'%}Divorciada/o{%endif%}
+        {%if request.sesion.estado_civil = '5'%}Viuda/o{%endif%}</span>
+        {%endif%} 
+        
+        
+</div>
+
+<div id="filtros">    
+        <span class="variables">Lugares</span>
+        {% if request.session.departamento%} 
+        <span class="variables_filtro">Departamento: {{ request.session.departamento.0 }}</span>
+        {% endif %} 
+        {% if request.session.municipio%} 
+        <span class="variables_filtro">Municipio: {{request.session.municipio.all.0}}</span> 
+        {%endif %}  
+        {% if request.session.comunidad%}
+        <span class="variables_filtro">Comunidad:{{request.session.comunidad.0}}</span> 
+        {%endif%} 
+</div>
+<div id="filtros">    
+        <span class="variables">Extras</span>
+        {% if request.session.iglesia%} 
+        <span class="variables_filtro">Iglesia: {%if request.session.iglesia = '1'%}Si{%endif%}
+        {%if request.session.residencia = '2'%}No{%endif%}</span>
+        {%endif%} 
+        {% if request.session.importancia%} 
+        <span class="variables_filtro">Importancia religión: {%if request.session.importancia = '1'%}Ninguna{%endif%}
+        {%if request.session.importancia = '2'%}Poco{%endif%}
+        {%if request.session.importancia = '3'%}Importante{%endif%}
+        {%if request.session.importancia = '4'%}Muy importante{%endif%}</span>
+        {%endif%} 
+</div>
+{% for i,v in request.session.items %}
+        {{i}}-{{v}}<br>
+     {% endfor %}
 <div class="menu_indicadores">
     <ul>
         <div class="titulo_menu">
          Prácticas  <a href="/indicadores">Atrás</a>   
         </div>
-        <li><a href="/practica/que-haria-en-caso/">Sabe de situacion de abuso</a></li>
-        <li><a href="/practica/para-prevenir/">Prevenir</a></li>
-        <li><a href="/practica/participacion/">Participacion</a></li>
-        <li><a href="/practica/como-participacion/">Como Participacion</a></li>
+        <li><a href="/practica/que-haria-en-caso/">¿Qué haría?</a></li>
+        <li><a href="/practica/para-prevenir/">¿Cómo Prevenir?</a></li>
+        <li><a href="/practica/participacion/">¿Participa en organizaciones?</a></li>
+        <li><a href="/practica/como-participacion/">Como Participa</a></li>
     </ul>
 </div>
 {% endblock %}

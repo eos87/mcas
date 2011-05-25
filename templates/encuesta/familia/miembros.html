@@ -14,7 +14,7 @@ $(document).ready(function() {
          defaultSeriesType: 'bar'
       },
       title: {
-         text: 'Número de personas que viven en las casas'
+         text: 'Distribución de las familias según números de personas que viven en las casas'
       },
       subtitle: {
          text: 'Por Rangos'
@@ -60,13 +60,13 @@ $(document).ready(function() {
          enabled: false
       },
            series: [{
-         name: 'rango 0 - 2 personas',
+         name: 'De 0 - 2 personas',
          data: [{{adultos1}}, {{uno_siete1}}, {{ocho_1}} ]
       }, {
-         name: 'rango 3 - 5 personas',
+         name: 'De 3 - 5 personas',
          data: [{{adultos2}},  {{uno_siete2}}, {{ocho_2}}]
       }, {
-         name: 'rango mas de 6 personas',
+         name: 'Más de 6 personas',
          data: [{{adultos3}}, {{uno_siete3}},  {{ocho_3}}]
       }]
    });
@@ -82,7 +82,7 @@ $(document).ready(function() {
 {{sumas}}
 
 <table>
-    <caption>Números de personas que viven en la casa por rangos</caption>
+    <caption>Distribución de las familias según números de personas que viven en las casas</caption>
     <thead>
         <tr>
 		    <th>Categoria</th>

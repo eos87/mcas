@@ -357,4 +357,59 @@ pre { font-size: 130%; background: #f7f7f7; padding: 10px 10px; font-weight: bol
     font-size: 20px;
 }
 
+/*CSS DE LAS CONSULTAS*/
+#filtros{
+    background: url(../imagen/fondofiltro.png) repeat-x;
+    height:36px;
 
+    border-bottom:#d6d1d1 1px solid;
+    width:962px;
+}
+
+.variables{
+    float:left;
+    background:#fce795;
+    width:85px;
+    font-weight:bold;
+    height:26px;
+    padding-top:10px;
+    padding-left:15px;
+    margin-right:15px;
+}
+
+.variables_filtro{
+    float:left;
+    font-size:12px;
+    margin-top:4px;
+    margin-right:10px;
+    padding-right:10px;
+    border-right:#d5d5d5 1px solid;
+}
+
+#filtros a, #filtros a:visited{
+    padding-top:6px;
+    padding-bottom:6px;
+    padding-left:8px;
+    padding-right:8px;
+    background: #85a846 url(../imagen/fondo_consultar_boton.png) repeat-x;
+    color:#fff;
+    margin-top:4px;
+    margin-right:5px;
+    font-size:13px;
+    font-weight:bold;
+    text-decoration:none;
+    border:#d7ab32 1px solid;
+    text-shadow: 0px -1px 0px #d7ab32;
+    -moz-text-shadow: 0px -1px 0px #d7ab32;
+    -webkit-text-shadow: 0px -1px 0px #d7ab32;
+    border-radius:100px;
+    -moz-border-radius:100px; 
+    -webkit-border-radius:100px;
+    float:right;
+    margin-right:12px;
+
+}
+
+#filtros a:hover{
+    background: #eec116;
+}
