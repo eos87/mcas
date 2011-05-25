@@ -616,20 +616,37 @@ def get_munis(request):
     resultado = []
     if ids:
         lista = ids.split(',')    
-    for id in lista:
-        try:
-            departamento = Departamento.objects.get(pk=id)
-            municipios = Municipio.objects.filter(departamento__id=departamento.pk).order_by('nombre')
-            lista1 = []
-            for municipio in municipios:
-                muni = {}
-                muni['id'] = municipio.pk
-                muni['nombre'] = municipio.nombre
-                lista1.append(muni)
-            dicc[departamento.nombre] = lista1
-        except:
-            pass
-    resultado.append(dicc)    
+        for id in lista:
+            try:
+                departamento = Departamento.objects.get(pk=id)
+                municipios = Municipio.objects.filter(departamento__id=departamento.pk).order_by('nombre')
+                lista1 = []
+                for municipio in municipios:
+                    muni = {}
+                    muni['id'] = municipio.pk
+                    muni['nombre'] = municipio.nombre
+                    lista1.append(muni)
+                    dicc[departamento.nombre] = lista1
+            except:
+                pass    
+    
+    #filtrar segun la organizacion seleccionada
+    org_ids = request.GET.get('org_ids', '')
+    if org_ids:
+        lista = org_ids.split(',')    
+        municipios = [encuesta.municipio for encuesta in Encuesta.objects.filter(organizacion__id__in=lista)]
+        #crear los keys en el dicc para evitar KeyError
+        for municipio in municipios:
+            dicc[municipio.departamento.nombre] = []
+        
+        #agrupar municipios por departamento padre                
+        for municipio in municipios:
+            muni = {'id': municipio.id, 'nombre': municipio.nombre}
+            if not muni in dicc[municipio.departamento.nombre]:
+                dicc[municipio.departamento.nombre].append(muni)            
+    
+    resultado.append(dicc)
+        
     return HttpResponse(simplejson.dumps(resultado), mimetype='application/json')
 
 def get_comunies(request):
@@ -644,11 +661,12 @@ def get_comunies(request):
 def get_organi(request):
     ids = request.GET.get('ids', '')
     if ids:
-        lista = ids.split(',')
-    results = []
-    organizaxion = Organizacion.objects.filter(encuesta__pk__in=lista).order_by('nombre').values('id', 'nombre_corto')
-
-    return HttpResponse(simplejson.dumps(list(organizaxion)), mimetype='application/json')
+        lista = ids.split(',')    
+    municipios = Municipio.objects.filter(departamento__pk__in=lista)
+    orgs_id_list = [encuesta.organizacion.pk for encuesta in Encuesta.objects.filter(municipio__in=municipios)]    
+    organizaciones = Organizacion.objects.filter(pk__in=orgs_id_list).order_by('nombre').values('id', 'nombre_corto')
+    
+    return HttpResponse(simplejson.dumps(list(organizaciones)), mimetype='application/json')
 
 #obtener la vista adecuada para los indicadores
 def _get_view(request, vista):
