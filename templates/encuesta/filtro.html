@@ -53,7 +53,4 @@
         <span class="variables_filtro"><b>Importancia de la religión:</b>{%if request.session.importancia = '1'%}Ninguna{%endif%}{%if request.session.importancia = '2'%}Poca{%endif%}{%if request.session.importancia = '3'%}Importante{%endif%}{%if request.session.importancia = '4'%}Muy importante{%endif%}</span>{%endif%}       
 </div>
 {%endif%}
-{% for i,v in request.session.items %}
-        {{i}}-{{v}}<br>
-     {% endfor %}
             {% endblock %}
