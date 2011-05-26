@@ -91,7 +91,44 @@ def indicadores(request):
     return render_to_response('encuesta/indicadores.html', RequestContext(request, locals()))
 
 def generales(request):
-    pass
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()
+    #-----------------------------------------------
+    urbano = encuestas.filter(area_reside=1).count()
+    rural = encuestas.filter(area_reside=2).count()
+    hombre = encuestas.filter(sexo=2).count()
+    mujer = encuestas.filter(sexo=1).count()
+    iglesia_si = encuestas.filter(iglesia=1).count()
+    iglesia_no = encuestas.filter(iglesia=2).count()
+    
+    #de los entrevistados cuantos tiene nivel de escolaridad
+    escolaridad = []
+    for escuela in NIVEL_EDUCATIVO:
+        conteo = encuestas.filter(escolaridad=escuela[0]).aggregate(conteo=Count('escolaridad'))
+        escolaridad.append([escuela[1],conteo])
+        
+    civil = []
+    for estado in ESTADO_CIVIL:
+        conteo = encuestas.filter(estado_civil=estado[0]).aggregate(conteo=Count('estado_civil'))
+        civil.append([estado[1],conteo])
+         
+    religion = []
+    for re in IMPORTANCIA_RELIGION:
+        conteo = encuestas.filter(importancia_religion=re[0]).aggregate(conteo=Count('importancia_religion'))
+        religion.append([re[1],conteo])
+        
+    depart = []
+    for depar in Departamento.objects.all():
+        conteo = encuestas.filter(municipio__departamento=depar).aggregate(conteo=Count('municipio__departamento'))
+        depart.append([depar.nombre,conteo])
+        
+    munis = []
+    for mun in Municipio.objects.all():
+        conteo = encuestas.filter(municipio=mun).aggregate(conteo=Count('municipio'))
+        munis.append([mun.nombre,conteo])
+    
+    dicc = {'urbano':urbano, 'rural':rural, 'hombre':hombre, 'mujer':mujer}
+    return render_to_response('encuesta/generales.html', RequestContext(request, locals()))
 
 #SALIDAS DE FAMILIAS
 
@@ -716,7 +753,8 @@ VALID_VIEWS = {
     'rol-estado': percepcion_estado,
     'rol-ong': percepcion_ong,
     'rol-emp': percepcion_empresa,
-    
+    #vista de datos generales
+    'general': generales,
     
     }
 
