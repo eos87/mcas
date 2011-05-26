@@ -1,10 +1,63 @@
 {% extends "base.html" %}
 
 {%block content%}
-{{dicc}}
+<table>
+        <caption>Hombre y mujeres rurales y urbanos</caption>
+        <thead>
+            <tr>
+                <th>Categoria</th>
+                <th>Número</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for algo in dicc.items %}
+            <tr>
+                <td>{{algo.0}}</td>
+                <td>{{algo.1}}</td>
+            </tr>
+           {%endfor%}
+        </tbody>
+    </table>
 <br></br>
-{{escolaridad}}
+<table>
+        <caption>Escolaridad</caption>
+        <thead>
+            <tr>
+                <th>Categoria</th>
+                <th>Número</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for algo in escolaridad %}
+            <tr>
+                <td>{{algo.0}}</td>
+                {%for i in algo.1.items%}
+                    <td>{{i.1}}</td>
+                {%endfor%}
+            </tr>
+           {%endfor%}
+        </tbody>
+    </table>
 <br></br>
+<table>
+        <caption>Civil</caption>
+        <thead>
+            <tr>
+                <th>Categoria</th>
+                <th>Número</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for algo in civil %}
+            <tr>
+                <td>{{algo.0}}</td>
+                {%for i in algo.1.items%}
+                    <td>{{i.1}}</td>
+                {%endfor%}
+            </tr>
+           {%endfor%}
+        </tbody>
+    </table>
 {{civil}}
 <br></br>
 {{religion}}

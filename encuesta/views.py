@@ -147,7 +147,7 @@ def familia_jefe(request):
 
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)  
     
-    grafo_url = grafos.make_graph(valores, leyenda, '¿Quien es el jefe de familia?', type=grafos.PIE_CHART_3D, pie_labels=True)
+    grafo_url = grafos.make_graph(valores, leyenda, '¿Quién es el jefe de familia?', type=grafos.PIE_CHART_3D, pie_labels=True)
 
     return render_to_response('encuesta/familia/jefe.html', RequestContext(request, locals()))
 
