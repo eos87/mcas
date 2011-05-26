@@ -218,7 +218,7 @@ def conocimiento_lugar(request):
     encuestas = _query_set_filtrado(request)
     numero = encuestas.count()
     dicc = {}
-    for lugar in LugarAbuso.objects.all():
+    for lugar in LugarAbuso.objects.all()[:12]:
         suma = Conocimiento.objects.filter(encuesta__in=encuestas, lugares=lugar).count()
         tabla = round(saca_porcentajes(suma,numero),1)
         dicc[lugar.nombre] = (suma,tabla)
