@@ -118,14 +118,17 @@ def generales(request):
         religion.append([re[1],conteo])
         
     depart = []
+    
     for depar in Departamento.objects.all():
-        conteo = encuestas.filter(municipio__departamento=depar).aggregate(conteo=Count('municipio__departamento'))
-        depart.append([depar.nombre,conteo])
-        
+        conteo = encuestas.filter(municipio__departamento=depar).aggregate(conteo=Count('municipio__departamento'))['conteo']
+        if conteo != 0:
+            depart.append([depar.nombre,conteo])       
+    
     munis = []
     for mun in Municipio.objects.all():
-        conteo = encuestas.filter(municipio=mun).aggregate(conteo=Count('municipio'))
-        munis.append([mun.nombre,conteo])
+        conteo = encuestas.filter(municipio=mun).aggregate(conteo=Count('municipio'))['conteo']
+        if conteo != 0:
+            munis.append([mun.nombre,conteo])
     
     dicc = {'urbano':urbano, 'rural':rural, 'hombre':hombre, 'mujer':mujer}
     return render_to_response('encuesta/generales.html', RequestContext(request, locals()))

@@ -58,12 +58,61 @@
            {%endfor%}
         </tbody>
     </table>
-{{civil}}
 <br></br>
-{{religion}}
+<table>
+        <caption>Religión</caption>
+        <thead>
+            <tr>
+                <th>Categoria</th>
+                <th>Número</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for algo in religion %}
+            <tr>
+                <td>{{algo.0}}</td>
+                {%for i in algo.1.items%}
+                    <td>{{i.1}}</td>
+                {%endfor%}
+            </tr>
+           {%endfor%}
+        </tbody>
+    </table>
 <br></br>
-{{depart}}
+<table>
+        <caption>Departamento</caption>
+        <thead>
+            <tr>
+                <th>Categoria</th>
+                <th>Número</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for algo in depart %}
+                <td>{{algo.0}}</td>
+                <td>{{algo.1}}</td>
+            </tr>
+           {%endfor%}
+        </tbody>
+    </table>
 <br></br>
-{{munis}}
+
+<table>
+        <caption>Municipio</caption>
+        <thead>
+            <tr>
+                <th>Categoria</th>
+                <th>Número</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for algo in munis %}
+                <td>{{algo.0}}</td>
+                <td>{{algo.1}}</td>
+            </tr>
+           {%endfor%}
+        </tbody>
+    </table>
+
 
 {%endblock%}
