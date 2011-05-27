@@ -1,4 +1,257 @@
 {% extends "base.html" %}
+{% block extrahead %}
+<script type="text/javascript" src="/files/js/highcharts.js"></script>
+<script type="text/javascript" src="/files/js/exporting.js"></script>
+ <script type="text/javascript" src="/files/js/thema.js"></script>
+<script type="text/javascript">
+var chart1;
+$(document).ready(function() {
+   chart = new Highcharts.Chart({
+      chart: {
+         renderTo: 'container1',
+         defaultSeriesType: 'pie',
+         plotBackgroundColor: null,
+         plotBorderWidth: null,
+         plotShadow: false
+      },
+      title: {
+         text: 'Datos generales del los Departamentos'
+      },
+      tooltip: {
+         formatter: function() {
+            return '<b>'+ this.point.name +'</b>: '+ this.y +'';
+         }
+      },
+      plotOptions: {
+         pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+               enabled: true,
+               color: Highcharts.theme.textColor || '#000000',
+               connectorColor: Highcharts.theme.textColor || '#000000',
+               formatter: function() {
+                  return '<b>'+ this.point.name +'</b>: '+ this.y +'';
+               }
+            }
+         }
+      },
+       series: [{data: [{% for value in depart %}
+                    ['{{value.0}}',
+                    {{value.1}}],
+                {% endfor %}]
+                
+                }]
+   });
+});
+
+var chart2;
+$(document).ready(function() {
+   chart = new Highcharts.Chart({
+      chart: {
+         renderTo: 'container2',
+         defaultSeriesType: 'pie',
+         plotBackgroundColor: null,
+         plotBorderWidth: null,
+         plotShadow: false
+      },
+      title: {
+         text: 'Datos generales del los Municipios'
+      },
+      tooltip: {
+         formatter: function() {
+            return '<b>'+ this.point.name +'</b>: '+ this.y +'';
+         }
+      },
+      plotOptions: {
+         pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+               enabled: true,
+               color: Highcharts.theme.textColor || '#000000',
+               connectorColor: Highcharts.theme.textColor || '#000000',
+               formatter: function() {
+                  return '<b>'+ this.point.name +'</b>: '+ this.y +'';
+               }
+            }
+         }
+      },
+       series: [{data: [{% for value in munis %}
+                    ['{{value.0}}',
+                    {{value.1}}],
+                {% endfor %}]
+                
+                }]
+   });
+});
+
+var chart3;
+$(document).ready(function() {
+   chart = new Highcharts.Chart({
+      chart: {
+         renderTo: 'container3',
+         defaultSeriesType: 'pie',
+         plotBackgroundColor: null,
+         plotBorderWidth: null,
+         plotShadow: false
+      },
+      title: {
+         text: 'Datos generales Religión'
+      },
+      tooltip: {
+         formatter: function() {
+            return '<b>'+ this.point.name +'</b>: '+ this.y +'';
+         }
+      },
+      plotOptions: {
+         pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+               enabled: true,
+               color: Highcharts.theme.textColor || '#000000',
+               connectorColor: Highcharts.theme.textColor || '#000000',
+               formatter: function() {
+                  return '<b>'+ this.point.name +'</b>: '+ this.y +'';
+               }
+            }
+         }
+      },
+       series: [{data: [{% for value in religion %}
+                    ['{{value.0}}',
+                    {{value.1}}],
+                {% endfor %}]
+                
+                }]
+   });
+});
+
+var chart4;
+$(document).ready(function() {
+   chart = new Highcharts.Chart({
+      chart: {
+         renderTo: 'container4',
+         defaultSeriesType: 'pie',
+         plotBackgroundColor: null,
+         plotBorderWidth: null,
+         plotShadow: false
+      },
+      title: {
+         text: 'Datos generales Estado civil'
+      },
+      tooltip: {
+         formatter: function() {
+            return '<b>'+ this.point.name +'</b>: '+ this.y +'';
+         }
+      },
+      plotOptions: {
+         pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+               enabled: true,
+               color: Highcharts.theme.textColor || '#000000',
+               connectorColor: Highcharts.theme.textColor || '#000000',
+               formatter: function() {
+                  return '<b>'+ this.point.name +'</b>: '+ this.y +'';
+               }
+            }
+         }
+      },
+       series: [{data: [{% for value in civil %}
+                    ['{{value.0}}',
+                    {{value.1}}],
+                {% endfor %}]
+                
+                }]
+   });
+});
+
+var chart5;
+$(document).ready(function() {
+   chart = new Highcharts.Chart({
+      chart: {
+         renderTo: 'container5',
+         defaultSeriesType: 'pie',
+         plotBackgroundColor: null,
+         plotBorderWidth: null,
+         plotShadow: false
+      },
+      title: {
+         text: 'Datos generales Estado civil'
+      },
+      tooltip: {
+         formatter: function() {
+            return '<b>'+ this.point.name +'</b>: '+ this.y +'';
+         }
+      },
+      plotOptions: {
+         pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+               enabled: true,
+               color: Highcharts.theme.textColor || '#000000',
+               connectorColor: Highcharts.theme.textColor || '#000000',
+               formatter: function() {
+                  return '<b>'+ this.point.name +'</b>: '+ this.y +'';
+               }
+            }
+         }
+      },
+       series: [{data: [{% for value in escolaridad %}
+                    ['{{value.0}}',
+                    {{value.1}}],
+                {% endfor %}]
+                
+                }]
+   });
+});
+
+var chart6;
+$(document).ready(function() {
+   chart = new Highcharts.Chart({
+      chart: {
+         renderTo: 'container6',
+         defaultSeriesType: 'pie',
+         plotBackgroundColor: null,
+         plotBorderWidth: null,
+         plotShadow: false
+      },
+      title: {
+         text: 'Datos generales Estado civil'
+      },
+      tooltip: {
+         formatter: function() {
+            return '<b>'+ this.point.name +'</b>: '+ this.y +'';
+         }
+      },
+      plotOptions: {
+         pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+               enabled: true,
+               color: Highcharts.theme.textColor || '#000000',
+               connectorColor: Highcharts.theme.textColor || '#000000',
+               formatter: function() {
+                  return '<b>'+ this.point.name +'</b>: '+ this.y +'';
+               }
+            }
+         }
+      },
+       series: [{data: [{% for value in dicc.items %}
+                    ['{{value.0}}',
+                    {{value.1}}],
+                {% endfor %}]
+                
+                }]
+   });
+});
+   
+</script>
+{%endblock%}
 
 {%block content%}
 <table>
@@ -18,6 +271,10 @@
            {%endfor%}
         </tbody>
     </table>
+<div class="contenedor">
+    <div class="grafico-title">Gr&aacute;fico Religión</div>
+<div id="container6" style="width: 958px; height: 500px;"></div>
+</div>   
 <br></br>
 <table>
         <caption>Escolaridad</caption>
@@ -31,13 +288,15 @@
             {%for algo in escolaridad %}
             <tr>
                 <td>{{algo.0}}</td>
-                {%for i in algo.1.items%}
-                    <td>{{i.1}}</td>
-                {%endfor%}
+                <td>{{algo.1}}</td>
             </tr>
            {%endfor%}
         </tbody>
     </table>
+<div class="contenedor">
+    <div class="grafico-title">Gr&aacute;fico Escolaridad</div>
+<div id="container5" style="width: 958px; height: 500px;"></div>
+</div>   
 <br></br>
 <table>
         <caption>Civil</caption>
@@ -51,13 +310,15 @@
             {%for algo in civil %}
             <tr>
                 <td>{{algo.0}}</td>
-                {%for i in algo.1.items%}
-                    <td>{{i.1}}</td>
-                {%endfor%}
+                <td>{{algo.1}}</td>
             </tr>
            {%endfor%}
         </tbody>
     </table>
+<div class="contenedor">
+    <div class="grafico-title">Gr&aacute;fico Estado civil</div>
+<div id="container4" style="width: 958px; height: 500px;"></div>
+</div>   
 <br></br>
 <table>
         <caption>Religión</caption>
@@ -71,13 +332,15 @@
             {%for algo in religion %}
             <tr>
                 <td>{{algo.0}}</td>
-                {%for i in algo.1.items%}
-                    <td>{{i.1}}</td>
-                {%endfor%}
+                <td>{{algo.1}}</td>
             </tr>
            {%endfor%}
         </tbody>
     </table>
+<div class="contenedor">
+    <div class="grafico-title">Gr&aacute;fico Religión</div>
+<div id="container3" style="width: 958px; height: 500px;"></div>
+</div>
 <br></br>
 <table>
         <caption>Departamento</caption>
@@ -95,8 +358,11 @@
            {%endfor%}
         </tbody>
     </table>
+<div class="contenedor">
+    <div class="grafico-title">Gr&aacute;fico Departamentos</div>
+<div id="container1" style="width: 958px; height: 500px;"></div>
+</div>
 <br></br>
-
 <table>
         <caption>Municipio</caption>
         <thead>
@@ -113,6 +379,9 @@
            {%endfor%}
         </tbody>
     </table>
-
+<div class="contenedor">
+    <div class="grafico-title">Gr&aacute;fico Municipios</div>
+<div id="container2" style="width: 958px; height: 500px;"></div>
+</div>
 
 {%endblock%}

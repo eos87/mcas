@@ -104,21 +104,20 @@ def generales(request):
     #de los entrevistados cuantos tiene nivel de escolaridad
     escolaridad = []
     for escuela in NIVEL_EDUCATIVO:
-        conteo = encuestas.filter(escolaridad=escuela[0]).aggregate(conteo=Count('escolaridad'))
+        conteo = encuestas.filter(escolaridad=escuela[0]).aggregate(conteo=Count('escolaridad'))['conteo']
         escolaridad.append([escuela[1],conteo])
         
     civil = []
     for estado in ESTADO_CIVIL:
-        conteo = encuestas.filter(estado_civil=estado[0]).aggregate(conteo=Count('estado_civil'))
+        conteo = encuestas.filter(estado_civil=estado[0]).aggregate(conteo=Count('estado_civil'))['conteo']
         civil.append([estado[1],conteo])
          
     religion = []
     for re in IMPORTANCIA_RELIGION:
-        conteo = encuestas.filter(importancia_religion=re[0]).aggregate(conteo=Count('importancia_religion'))
+        conteo = encuestas.filter(importancia_religion=re[0]).aggregate(conteo=Count('importancia_religion'))['conteo']
         religion.append([re[1],conteo])
         
-    depart = []
-    
+    depart = []   
     for depar in Departamento.objects.all():
         conteo = encuestas.filter(municipio__departamento=depar).aggregate(conteo=Count('municipio__departamento'))['conteo']
         if conteo != 0:
