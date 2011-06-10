@@ -95,9 +95,13 @@ def generales(request):
     numero = encuestas.count()
     #-----------------------------------------------
     urbano = encuestas.filter(area_reside=1).count()
+    por_urbano = round(saca_porcentajes(urbano,numero),2)
     rural = encuestas.filter(area_reside=2).count()
+    por_rural = round(saca_porcentajes(rural,numero),2)
     hombre = encuestas.filter(sexo=2).count()
+    por_hombre = round(saca_porcentajes(hombre,numero),2)
     mujer = encuestas.filter(sexo=1).count()
+    por_mujer = round(saca_porcentajes(mujer,numero),2)
     iglesia_si = encuestas.filter(iglesia=1).count()
     iglesia_no = encuestas.filter(iglesia=2).count()
     
@@ -105,31 +109,35 @@ def generales(request):
     escolaridad = []
     for escuela in NIVEL_EDUCATIVO:
         conteo = encuestas.filter(escolaridad=escuela[0]).aggregate(conteo=Count('escolaridad'))['conteo']
-        escolaridad.append([escuela[1],conteo])
+        porcentaje = round(saca_porcentajes(conteo,numero),2)
+        escolaridad.append([escuela[1],conteo,porcentaje])
         
     civil = []
     for estado in ESTADO_CIVIL:
         conteo = encuestas.filter(estado_civil=estado[0]).aggregate(conteo=Count('estado_civil'))['conteo']
-        civil.append([estado[1],conteo])
+        porcentaje = round(saca_porcentajes(conteo,numero),2)
+        civil.append([estado[1],conteo,porcentaje])
          
     religion = []
     for re in IMPORTANCIA_RELIGION:
         conteo = encuestas.filter(importancia_religion=re[0]).aggregate(conteo=Count('importancia_religion'))['conteo']
-        religion.append([re[1],conteo])
+        porcentaje = round(saca_porcentajes(conteo,numero),2)
+        religion.append([re[1],conteo,porcentaje])
         
     depart = []   
     for depar in Departamento.objects.all():
         conteo = encuestas.filter(municipio__departamento=depar).aggregate(conteo=Count('municipio__departamento'))['conteo']
+        porcentaje = round(saca_porcentajes(conteo,numero),2)
         if conteo != 0:
-            depart.append([depar.nombre,conteo])       
+            depart.append([depar.nombre,conteo,porcentaje])       
     
     munis = []
     for mun in Municipio.objects.all():
         conteo = encuestas.filter(municipio=mun).aggregate(conteo=Count('municipio'))['conteo']
+        porcentaje = round(saca_porcentajes(conteo,numero),2)
         if conteo != 0:
-            munis.append([mun.nombre,conteo])
+            munis.append([mun.nombre,conteo,porcentaje])
     
-    dicc = {'urbano':urbano, 'rural':rural, 'hombre':hombre, 'mujer':mujer}
     return render_to_response('encuesta/generales.html', RequestContext(request, locals()))
 
 #SALIDAS DE FAMILIAS

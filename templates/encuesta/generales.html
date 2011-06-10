@@ -5,86 +5,140 @@
  <script type="text/javascript" src="/files/js/thema.js"></script>
 <script type="text/javascript">
 var chart1;
-$(document).ready(function() {
-   chart = new Highcharts.Chart({
-      chart: {
-         renderTo: 'container1',
-         defaultSeriesType: 'pie',
-         plotBackgroundColor: null,
-         plotBorderWidth: null,
-         plotShadow: false
-      },
-      title: {
-         text: 'Datos generales del los Departamentos'
-      },
-      tooltip: {
-         formatter: function() {
-            return '<b>'+ this.point.name +'</b>: '+ this.y +'';
-         }
-      },
-      plotOptions: {
-         pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-               enabled: true,
-               color: Highcharts.theme.textColor || '#000000',
-               connectorColor: Highcharts.theme.textColor || '#000000',
-               formatter: function() {
-                  return '<b>'+ this.point.name +'</b>: '+ this.y +'';
-               }
-            }
-         }
-      },
-       series: [{data: [{% for value in depart %}
-                    ['{{value.0}}',
-                    {{value.1}}],
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container1',
+                defaultSeriesType: 'column'
+            },
+            title: {
+                text: 'Datos generales de los Departamentos'
+            },
+            subtitle: {
+                text: ''
+            },
+             exporting: {
+                enabled: true
+            },
+            xAxis: {
+                categories: [
+                    'Opciones'
+                ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: '%'
+                }
+            },
+            
+            tooltip: {
+                formatter: function() {
+                    return ''+
+                        this.series.name +': '+ this.y +'%';
+                }
+            },
+            plotOptions: {
+                column: {
+                    groupPadding: 0,
+                    pointPadding: 0.9,
+                    borderWidth: 0
+                },
+                series: {
+                    pointWidth: 55,
+                    minPointLength : 1
+                }
+            },
+            series: [{% for value in depart %}
+                {
+                    name: '{{value.0}}',
+                    data: [{{value.2}}],
+                    dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#632D00',
+                        align: 'center',
+                        x: -3,
+                        y: 0,
+                            formatter: function() {
+                                return this.y+'%';
+                                                  },
+                        style: {
+                            font: 'normal 16px Verdana, sans-serif'
+                                }
+                                }
+                },
                 {% endfor %}]
-                
-                }]
-   });
-});
-
+        });
+    });
+    
 var chart2;
-$(document).ready(function() {
-   chart = new Highcharts.Chart({
-      chart: {
-         renderTo: 'container2',
-         defaultSeriesType: 'pie',
-         plotBackgroundColor: null,
-         plotBorderWidth: null,
-         plotShadow: false
-      },
-      title: {
-         text: 'Datos generales del los Municipios'
-      },
-      tooltip: {
-         formatter: function() {
-            return '<b>'+ this.point.name +'</b>: '+ this.y +'';
-         }
-      },
-      plotOptions: {
-         pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-               enabled: true,
-               color: Highcharts.theme.textColor || '#000000',
-               connectorColor: Highcharts.theme.textColor || '#000000',
-               formatter: function() {
-                  return '<b>'+ this.point.name +'</b>: '+ this.y +'';
-               }
-            }
-         }
-      },
-       series: [{data: [{% for value in munis %}
-                    ['{{value.0}}',
-                    {{value.1}}],
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container2',
+                defaultSeriesType: 'column'
+            },
+            title: {
+                text: 'Datos Generales de los Municipios'
+            },
+            subtitle: {
+                text: ''
+            },
+             exporting: {
+                enabled: true
+            },
+            xAxis: {
+                categories: [
+                    'Opciones'
+                ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: '%'
+                }
+            },
+            
+            tooltip: {
+                formatter: function() {
+                    return ''+
+                        this.series.name +': '+ this.y +'%';
+                }
+            },
+            plotOptions: {
+                column: {
+                    groupPadding: 0,
+                    pointPadding: 0.9,
+                    borderWidth: 0
+                },
+                series: {
+                    pointWidth: 55,
+                    minPointLength : 1
+                }
+            },
+            series: [{% for value in munis %}
+                {
+                    name: '{{value.0}}',
+                    data: [{{value.2}}],
+                    dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#632D00',
+                        align: 'center',
+                        x: -3,
+                        y: 0,
+                            formatter: function() {
+                                return this.y+'%';
+                                                  },
+                        style: {
+                            font: 'normal 16px Verdana, sans-serif'
+                                }
+                                }
+                },
                 {% endfor %}]
-                
-                }]
-   });
-});
+        });
+    });
 
 var chart3;
 $(document).ready(function() {
@@ -110,104 +164,159 @@ $(document).ready(function() {
             cursor: 'pointer',
             dataLabels: {
                enabled: true,
-               color: Highcharts.theme.textColor || '#000000',
-               connectorColor: Highcharts.theme.textColor || '#000000',
+               //color: Highcharts.theme.textColor || '#000000',
+               //connectorColor: Highcharts.theme.textColor || '#000000',
                formatter: function() {
-                  return '<b>'+ this.point.name +'</b>: '+ this.y +'';
+                  return '<b>'+ this.point.name +'</b>: '+ this.y +'%';
                }
-            }
+            },
+            showInLegend: true
          }
       },
        series: [{data: [{% for value in religion %}
                     ['{{value.0}}',
-                    {{value.1}}],
+                    {{value.2}}],
                 {% endfor %}]
                 
                 }]
    });
 });
-
+//corte
 var chart4;
-$(document).ready(function() {
-   chart = new Highcharts.Chart({
-      chart: {
-         renderTo: 'container4',
-         defaultSeriesType: 'pie',
-         plotBackgroundColor: null,
-         plotBorderWidth: null,
-         plotShadow: false
-      },
-      title: {
-         text: 'Datos generales Estado civil'
-      },
-      tooltip: {
-         formatter: function() {
-            return '<b>'+ this.point.name +'</b>: '+ this.y +'';
-         }
-      },
-      plotOptions: {
-         pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-               enabled: true,
-               color: Highcharts.theme.textColor || '#000000',
-               connectorColor: Highcharts.theme.textColor || '#000000',
-               formatter: function() {
-                  return '<b>'+ this.point.name +'</b>: '+ this.y +'';
-               }
-            }
-         }
-      },
-       series: [{data: [{% for value in civil %}
-                    ['{{value.0}}',
-                    {{value.1}}],
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container4',
+                defaultSeriesType: 'column'
+            },
+            title: {
+                text: 'Datos generales Estado civil'
+            },
+            subtitle: {
+                text: ''
+            },
+             exporting: {
+                enabled: true
+            },
+            xAxis: {
+                categories: [
+                    'Opciones'
+                ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: '%'
+                }
+            },
+            
+            tooltip: {
+                formatter: function() {
+                    return ''+
+                        this.series.name +': '+ this.y +'%';
+                }
+            },
+            plotOptions: {
+                column: {
+                    groupPadding: 0,
+                    pointPadding: 0.9,
+                    borderWidth: 0
+                },
+                series: {
+                    pointWidth: 55,
+                    minPointLength : 1
+                }
+            },
+            series: [{% for value in civil %}
+                {
+                    name: '{{value.0}}',
+                    data: [{{value.2}}],
+                    dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#632D00',
+                        align: 'center',
+                        x: -3,
+                        y: 0,
+                            formatter: function() {
+                                return this.y+'%';
+                                                  },
+                        style: {
+                            font: 'normal 16px Verdana, sans-serif'
+                                }
+                                }
+                },
                 {% endfor %}]
-                
-                }]
-   });
-});
+        });
+    });
 
 var chart5;
-$(document).ready(function() {
-   chart = new Highcharts.Chart({
-      chart: {
-         renderTo: 'container5',
-         defaultSeriesType: 'pie',
-         plotBackgroundColor: null,
-         plotBorderWidth: null,
-         plotShadow: false
-      },
-      title: {
-         text: 'Datos generales Escolaridad'
-      },
-      tooltip: {
-         formatter: function() {
-            return '<b>'+ this.point.name +'</b>: '+ this.y +'';
-         }
-      },
-      plotOptions: {
-         pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-               enabled: true,
-               color: Highcharts.theme.textColor || '#000000',
-               connectorColor: Highcharts.theme.textColor || '#000000',
-               formatter: function() {
-                  return '<b>'+ this.point.name +'</b>: '+ this.y +'';
-               }
-            }
-         }
-      },
-       series: [{data: [{% for value in escolaridad %}
-                    ['{{value.0}}',
-                    {{value.1}}],
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container5',
+                defaultSeriesType: 'column'
+            },
+            title: {
+                text: 'Datos Generales de escolaridad'
+            },
+            subtitle: {
+                text: ''
+            },
+             exporting: {
+                enabled: true
+            },
+            xAxis: {
+                categories: [
+                    'Opciones'
+                ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: '%'
+                }
+            },
+            
+            tooltip: {
+                formatter: function() {
+                    return ''+
+                        this.series.name +': '+ this.y +'%';
+                }
+            },
+            plotOptions: {
+                column: {
+                    groupPadding: 0,
+                    pointPadding: 0.9,
+                    borderWidth: 0
+                },
+                series: {
+                    pointWidth: 55,
+                    minPointLength : 1
+                }
+            },
+            series: [{% for value in escolaridad %}
+                {
+                    name: '{{value.0}}',
+                    data: [{{value.2}}],
+                    dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#632D00',
+                        align: 'center',
+                        x: -3,
+                        y: 0,
+                            formatter: function() {
+                                return this.y+'%';
+                                                  },
+                        style: {
+                            font: 'normal 16px Verdana, sans-serif'
+                                }
+                                }
+                },
                 {% endfor %}]
-                
-                }]
-   });
-});
+        });
+    });
 
 var chart6;
 $(document).ready(function() {
@@ -220,11 +329,11 @@ $(document).ready(function() {
          plotShadow: false
       },
       title: {
-         text: 'Datos generales Hombre, Mujer, Urbano y Rural'
+         text: 'Datos generales Hombre, Mujer'
       },
       tooltip: {
          formatter: function() {
-            return '<b>'+ this.point.name +'</b>: '+ this.y +'';
+            return '<b>'+ this.point.name +'</b>: '+ this.y +'%';
          }
       },
       plotOptions: {
@@ -236,17 +345,62 @@ $(document).ready(function() {
                color: Highcharts.theme.textColor || '#000000',
                connectorColor: Highcharts.theme.textColor || '#000000',
                formatter: function() {
-                  return '<b>'+ this.point.name +'</b>: '+ this.y +'';
+                  return '<b>'+ this.point.name +'</b>: '+ this.y +'%';
                }
-            }
+            },
+            showInLegend: true
          }
       },
-       series: [{data: [{% for value in dicc.items %}
-                    ['{{value.0}}',
-                    {{value.1}}],
-                {% endfor %}]
-                
-                }]
+        series: [{
+         data: [
+            ['Hombres',  {{por_hombre}}],
+            ['Mujeres',   {{por_mujer}}],
+            
+         ]
+      }]
+   });
+});
+
+var chart7;
+$(document).ready(function() {
+   chart = new Highcharts.Chart({
+      chart: {
+         renderTo: 'container7',
+         defaultSeriesType: 'pie',
+         plotBackgroundColor: null,
+         plotBorderWidth: null,
+         plotShadow: false
+      },
+      title: {
+         text: 'Datos generales Rural y Urbano'
+      },
+      tooltip: {
+         formatter: function() {
+            return '<b>'+ this.point.name +'</b>: '+ this.y +'%';
+         }
+      },
+      plotOptions: {
+         pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+               enabled: true,
+               //color: Highcharts.theme.textColor || '#000000',
+               //connectorColor: Highcharts.theme.textColor || '#000000',
+               formatter: function() {
+                  return '<b>'+ this.point.name +'</b>: '+ this.y +'%';
+               }
+            },
+            showInLegend: true
+         }
+      },
+       series: [{
+         data: [
+            ['Rural',  {{por_rural}}],
+            ['Urbano',   {{por_urbano}}],
+            
+         ]
+      }]
    });
 });
    
@@ -254,34 +408,65 @@ $(document).ready(function() {
 {%endblock%}
 
 {%block content%}
-<table>
-        <caption>Hombre y mujeres rurales y urbanos</caption>
+<table style="width:100%;">
+        <caption>Hombre y mujeres</caption>
         <thead>
             <tr>
                 <th>Categoria</th>
-                <th>Número</th>
+                <th>Frecuencia</th>
+                <th>Porcentajes</th>
             </tr>
         </thead>
-        <tbody>
-            {%for algo in dicc.items %}
-            <tr>
-                <td>{{algo.0}}</td>
-                <td>{{algo.1}}</td>
-            </tr>
-           {%endfor%}
-        </tbody>
+       <tr>
+		    <td>Hombres</td>
+            <td>{{hombre}}</td>
+            <td>{{ por_hombre }}</td>
+        </tr>   
+        
+        <tr>
+		    <td>Mujeres</td>
+            <td>{{mujer}}</td>
+            <td>{{ por_mujer }}</td>
+        </tr>   
     </table>
 <div class="contenedor">
-    <div class="grafico-title">Gr&aacute;fico Hombres, Mujeres, Urbano y Rural</div>
+    <div class="grafico-title">Gr&aacute;fico Hombres, Mujeres</div>
 <div id="container6" style="width: 958px; height: 500px;"></div>
+</div> 
+<br>
+<table style="width:100%;">
+        <caption>Rural y urbano</caption>
+        <thead>
+            <tr>
+                <th>Categoria</th>
+                <th>Frecuencia</th>
+                <th>Porcentajes</th>
+            </tr>
+        </thead>
+        <tr>
+		    <td>Rural</td>
+            <td>{{rural}}</td>
+            <td>{{ por_rural }}</td>
+        </tr>   
+        
+        <tr>
+		    <td>Urbano</td>
+            <td>{{urbano}}</td>
+            <td>{{ por_urbano }}</td>
+        </tr>   
+    </table>
+<div class="contenedor">
+    <div class="grafico-title">Gr&aacute;fico Urbano y Rural</div>
+<div id="container7" style="width: 958px; height: 500px;"></div>
 </div>   
 <br></br>
-<table>
+<table style="width:100%;">
         <caption>Escolaridad</caption>
         <thead>
             <tr>
                 <th>Categoria</th>
-                <th>Número</th>
+                <th>Frecuencia</th>
+                <th>Porcentajes</th>
             </tr>
         </thead>
         <tbody>
@@ -289,6 +474,7 @@ $(document).ready(function() {
             <tr>
                 <td>{{algo.0}}</td>
                 <td>{{algo.1}}</td>
+                <td>{{algo.2}}</td>
             </tr>
            {%endfor%}
         </tbody>
@@ -298,12 +484,13 @@ $(document).ready(function() {
 <div id="container5" style="width: 958px; height: 500px;"></div>
 </div>   
 <br></br>
-<table>
+<table style="width:100%;">
         <caption>Civil</caption>
         <thead>
             <tr>
                 <th>Categoria</th>
-                <th>Número</th>
+                <th>Frecuencia</th>
+                <th>Porcentajes</th>
             </tr>
         </thead>
         <tbody>
@@ -311,6 +498,7 @@ $(document).ready(function() {
             <tr>
                 <td>{{algo.0}}</td>
                 <td>{{algo.1}}</td>
+                <td>{{algo.2}}</td>
             </tr>
            {%endfor%}
         </tbody>
@@ -320,12 +508,13 @@ $(document).ready(function() {
 <div id="container4" style="width: 958px; height: 500px;"></div>
 </div>   
 <br></br>
-<table>
+<table style="width:100%;">
         <caption>Religión</caption>
         <thead>
             <tr>
                 <th>Categoria</th>
-                <th>Número</th>
+                <th>Frecuencia</th>
+                <th>Porcentajes</th>
             </tr>
         </thead>
         <tbody>
@@ -333,6 +522,7 @@ $(document).ready(function() {
             <tr>
                 <td>{{algo.0}}</td>
                 <td>{{algo.1}}</td>
+                <td>{{algo.2}}</td>
             </tr>
            {%endfor%}
         </tbody>
@@ -342,18 +532,20 @@ $(document).ready(function() {
 <div id="container3" style="width: 958px; height: 500px;"></div>
 </div>
 <br></br>
-<table>
+<table style="width:100%;">
         <caption>Departamento</caption>
         <thead>
             <tr>
                 <th>Categoria</th>
-                <th>Número</th>
+                <th>Frecuencia</th>
+                <th>Porcentajes</th>
             </tr>
         </thead>
         <tbody>
             {%for algo in depart %}
                 <td>{{algo.0}}</td>
                 <td>{{algo.1}}</td>
+                <td>{{algo.2}}</td>
             </tr>
            {%endfor%}
         </tbody>
@@ -363,18 +555,20 @@ $(document).ready(function() {
 <div id="container1" style="width: 958px; height: 500px;"></div>
 </div>
 <br></br>
-<table>
+<table style="width:100%;">
         <caption>Municipio</caption>
         <thead>
             <tr>
                 <th>Categoria</th>
-                <th>Número</th>
+                <th>Frecuencia</th>
+                <th>Porcentajes</th>
             </tr>
         </thead>
         <tbody>
             {%for algo in munis %}
                 <td>{{algo.0}}</td>
                 <td>{{algo.1}}</td>
+                <td>{{algo.2}}</td>
             </tr>
            {%endfor%}
         </tbody>
