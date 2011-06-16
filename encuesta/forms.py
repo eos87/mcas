@@ -3,6 +3,7 @@
 from django import forms
 from mcas.encuesta.models import *
 from mcas.lugar.models import Departamento, Municipio
+from django.db.models import Count
 
 AREA_RESIDE = (('', 'Todos'), (1, 'Urbano'), (2, 'Rural'))
 SEXO = (('', 'Ambos'), (1, 'Mujer'), (2, 'Hombre'))
@@ -30,11 +31,25 @@ def get_anios():
         choices.append((year, year))
     return choices
 
+def departamentos():
+    pepe = Departamento.objects.all().order_by('nombre')
+    print pepe
+    depart = []   
+    for depar in Departamento.objects.all().order_by('nombre'):
+        conteo = Encuesta.objects.filter(municipio__departamento=depar).aggregate(conteo=Count('municipio__departamento'))['conteo']
+        if conteo != 0:
+            depart.append((depar.id, depar.nombre))
+#    queryset_d=Departamento.objects.all().order_by('nombre'))
+#    print queryset_d
+    print depart
+    return depart 
+
 class ConsultarForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(ConsultarForm, self).__init__(*args, **kwargs)
         self.fields['anio'].choices = get_anios()
+        self.fields['departamento'].choices = departamentos()
 
     anio = forms.ChoiceField(choices=get_anios(), label=u'Año')
     residencia = forms.ChoiceField(choices=AREA_RESIDE, required=False)
@@ -42,7 +57,7 @@ class ConsultarForm(forms.Form):
     edad = forms.ChoiceField(choices=EDAD_CHOICE, required=False)
     escolaridad = forms.ChoiceField(choices=NIVEL_EDUCATIVO, required=False)
     estado_civil = forms.ChoiceField(choices=ESTADO_CIVIL, required=False)
-    departamento = forms.ModelMultipleChoiceField(queryset=Departamento.objects.all().order_by('nombre'), required=False)
+    departamento = forms.ChoiceField(choices=departamentos(), required=False, label=u'Departamentos')
     organizacion = forms.ModelMultipleChoiceField(queryset=Organizacion.objects.all().order_by('nombre'), required=False, label=u'Organización')
     municipio = forms.ModelMultipleChoiceField(queryset=Municipio.objects.all().order_by('nombre'), required=False)
     comunidad = forms.ModelMultipleChoiceField(queryset=Comunidad.objects.all(), required=False)

@@ -161,6 +161,28 @@ def familia_jefe(request):
 
     return render_to_response('encuesta/familia/jefe.html', RequestContext(request, locals()))
 
+def __familia_jefe(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()
+    valores = []
+    leyenda = []
+    dicc = {}    
+    for opcion in JEFE:
+        suma = Familia.objects.filter(encuesta__in=encuestas, jefe=opcion[0]).count()
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[opcion[1]] = (suma,tabla)
+        valores.append(suma)
+        leyenda.append(opcion[1])        
+
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+    dict = {'dicc2':dicc2}
+    return dict
+    
+def familia_jefe_xls(request):
+    dict = __familia_jefe(request)
+    print dict
+    return write_xls('encuesta/familia/jefe_xls.html', dict, 'jefe.xls')  
+#-------------------------------------------------------------------------------
 def familia_vivecon(request):
     encuestas = _query_set_filtrado(request)
     numero = encuestas.count()
@@ -173,13 +195,33 @@ def familia_vivecon(request):
         dicc[quien.nombre] = (suma,tabla)
 
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+    
+    return render_to_response('encuesta/familia/vivecon.html', locals(),
+                               RequestContext(request))
+    
+def __vivencon_xls__(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()
+    dicc = {}
+    for quien in ViveCon.objects.all()[:8]:        
+        suma = Familia.objects.filter(encuesta__in=encuestas, vive_con=quien).count()
+        tabla = round(saca_porcentajes(suma,numero),1)        
+        dicc[quien.nombre] = (suma,tabla)
 
-    return render_to_response('encuesta/familia/vivecon.html', RequestContext(request, locals()))
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+    dict = {'dicc2':dicc2}
+    return dict
+    
+def vivencon_xls(request):
+    dict = __vivencon_xls__(request)
+    print dict
+    return write_xls('encuesta/familia/vivecon_xls.html', dict, 'vive_con_quien.xls')
+#-------------------------------------------------------------------------------    
 
 def familia_miembros(request):
     encuestas = _query_set_filtrado(request)
     numero = encuestas.count()
-    #dicc = {}
+
     #adultos mayores
     adultos1 = Familia.objects.filter(encuesta__in=encuestas, adultos__range=(0,2)).count()
     adultos2 = Familia.objects.filter(encuesta__in=encuestas, adultos__range=(3,5)).count()
@@ -193,21 +235,42 @@ def familia_miembros(request):
     ocho_2 = Familia.objects.filter(encuesta__in=encuestas, ocho_diesciseis__range=(3,5)).count()
     ocho_3 = Familia.objects.filter(encuesta__in=encuestas, ocho_diesciseis__gt=6).count()
     
-    #sumas = Familia.objects.filter(encuesta__in=encuestas).aggregate(adultos_sum=Sum('adultos'),
-                                                             #uno_siete_sum=Sum('uno_siete'),
-                                                             #ocho_diesciseis_sum=Sum('ocho_diesciseis'))
     valores = []
-    leyenda = ['Adultos', 'De 1-7 años', 'De 8 a 16 años']
-
-#    for key, value in sumas.items():
-#        tabla = round((value/numero),1)
-#        dicc[key] = (value,tabla)
-#        valores.append(value)             
-
+    leyenda = ['Adultos', 'De 1-7 años', 'De 8 a 16 años']     
     #dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)    
 
     grafo_url = grafos.make_graph(valores, leyenda, '¿Miembros de la familia?', type=grafos.PIE_CHART_3D, size=(958, 313), pie_labels=True)
     return render_to_response('encuesta/familia/miembros.html', RequestContext(request, locals()))
+    
+def __familia_miembros(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()
+
+    #adultos mayores
+    adultos1 = Familia.objects.filter(encuesta__in=encuestas, adultos__range=(0,2)).count()
+    adultos2 = Familia.objects.filter(encuesta__in=encuestas, adultos__range=(3,5)).count()
+    adultos3 = Familia.objects.filter(encuesta__in=encuestas, adultos__gt=6).count()
+    #uno a siete años
+    uno_siete1 = Familia.objects.filter(encuesta__in=encuestas, uno_siete__range=(0,2)).count()
+    uno_siete2 = Familia.objects.filter(encuesta__in=encuestas, uno_siete__range=(3,5)).count()
+    uno_siete3 = Familia.objects.filter(encuesta__in=encuestas, uno_siete__gt=6).count()
+    #ocho a diesciseis
+    ocho_1 = Familia.objects.filter(encuesta__in=encuestas, ocho_diesciseis__range=(0,2)).count()
+    ocho_2 = Familia.objects.filter(encuesta__in=encuestas, ocho_diesciseis__range=(3,5)).count()
+    ocho_3 = Familia.objects.filter(encuesta__in=encuestas, ocho_diesciseis__gt=6).count()
+    
+    valores = []
+    leyenda = ['Adultos', 'De 1-7 años', 'De 8 a 16 años']     
+    dict = {'adultos1':adultos1, 'adultos2':adultos2, 'adultos3':adultos3, 'uno_siete1':uno_siete1,
+             'uno_siete2':uno_siete2, 'uno_siete3':uno_siete3, 'ocho_1':ocho_1, 'ocho_2':ocho_2,
+             'uno_siete3':uno_siete3} 
+             
+    return dict
+
+def familia_miembros_xls(request):
+    dict = __familia_miembros_xls(request)
+    return write_xls('encuesta/familia/miembros_xls.html', dict, 'miembros.xls')
+#-------------------------------------------------------------------------------        
 
 #SALIDAS DE CONOCIMIENTOS
 
@@ -223,7 +286,26 @@ def conocimiento_abuso(request):
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
     return render_to_response('encuesta/conocimiento/abuso.html', RequestContext(request, locals()))
-
+    
+    
+def __conocimiento_abuso(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()
+    dicc = {}
+    for abuso in Abuso.objects.all():
+        suma = Conocimiento.objects.filter(encuesta__in=encuestas, abuso=abuso).count()
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[abuso.nombre] = (suma,tabla)
+        
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+    dict = {'dicc2':dicc2}
+    
+    return dict
+    
+def conocimiento_abuso_xls(request):
+    dict = __conocimiento_abuso(request)
+    return write_xls('encuesta/conocimiento/abuso_xls.html', dict, 'conocimiento.xls')
+#-------------------------------------------------------------------------------
 def conocimiento_lugar(request):
     encuestas = _query_set_filtrado(request)
     numero = encuestas.count()
@@ -765,7 +847,12 @@ VALID_VIEWS = {
     'rol-emp': percepcion_empresa,
     #vista de datos generales
     'general': generales,
-    
+    #vistas para las descargas familia en xls
+    'vivecon_xls': vivencon_xls,
+    'jefe_xls': familia_jefe_xls,
+    'miembros_xls': familia_miembros_xls,
+    #descargas conocimiento xls
+    'conocimiento_abuso_xls':conocimiento_abuso_xls,    
     }
 
 def get_prom(total, cantidad):
@@ -798,3 +885,10 @@ def saca_porcentajes(dato, total, formato=True):
             return '%.2f' % porcentaje
     else: 
         return 0
+        
+def write_xls(template_src, context_dict, filename):
+    response = render_to_response(template_src, context_dict)
+    response['Content-Disposition'] = 'attachment; filename='+filename
+    response['Content-Type'] = 'application/vnd.ms-excel'
+    response['Charset']='UTF-8'
+    return response
