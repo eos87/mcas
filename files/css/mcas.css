@@ -32,7 +32,7 @@ a{
     background: url(/files/img/sprite.png) no-repeat;
     text-indent: -9999px;
     display: block;
-    height: 14px;    
+    height: 14px;
 }
 .nav .botones{
     float: left;
@@ -40,12 +40,12 @@ a{
 }
 .nav div{
     float: left;
-    margin-right: 10px;    
+    margin-right: 10px;
 }
 .nav .inicio{
     background: url(/files/img/sprite.png) no-repeat 0px -29px;
     padding-left: 27px;
-    padding-top: 3px;    
+    padding-top: 3px;
     height: 17px;
 }
 .nav .inicio a{
@@ -67,7 +67,7 @@ a{
 .nav .consultas a:hover{
     background-position: -44px -14px;
 }
-.nav .entrar{	
+.nav .entrar{
     background: url(/files/img/sprite.png) no-repeat 0px -72px;
     padding-left: 23px;
     padding-top: 4px;
@@ -92,11 +92,11 @@ a{
 }
 .info{
     margin-top: 15px;
-    float: left;
+    float: right;
     font-size: 13px;
     line-height: 16px;
     font-family: "Georgia", sans-serif;
-    width: 326px;
+    width: 500px;
     margin-right: 10px;
 }
 .help{
@@ -166,7 +166,7 @@ a{
     -moz-border-radius-bottomright: 5px;
     -moz-border-radius-bottomleft: 5px;
     border-radius-bottomright: 5px;
-    border-radius-bottomleft: 5px;    
+    border-radius-bottomleft: 5px;
 }
 #footer .creditos .datos, #footer .ultimas .datos{
     float: right;
@@ -199,7 +199,7 @@ a{
 }
 /*ESTILO DEL FORM*/
 #consultar-form{
-    margin-top: 15px;    
+    margin-top: 15px;
 }
 .general, .lugar, .extras{
     float: left;
@@ -223,7 +223,7 @@ a{
     font-size: 13px;
     color: #4c4c2c;
     padding-top: 10px;
-    font-family: "Arial", sans-serif;    
+    font-family: "Arial", sans-serif;
     padding-left: 10px;
 }
 .filtros{
@@ -275,7 +275,7 @@ a{
     -moz-border-radius-topleft: 10px;
     border-radius-topright: 10px;
     border-radius-topleft: 10px;
-    height: 35px;    
+    height: 35px;
     background: url(/files/img/back-tabla.png) repeat-x;
     line-height: 35px;
     padding-left: 15px;
@@ -332,7 +332,7 @@ td {
 }
 form {
     margin: 0 0;
-    padding-top: 5px;    
+    padding-top: 5px;
 }
 
 pre { font-size: 130%; background: #f7f7f7; padding: 10px 10px; font-weight: bold; }
@@ -350,7 +350,7 @@ pre { font-size: 130%; background: #f7f7f7; padding: 10px 10px; font-weight: bol
     list-style: none;
 }
 .titulo_menu {
-    height: 30px;    
+    height: 30px;
     background: url(/files/img/bg_header.png) repeat-x;
     line-height: 35px;
     padding-left: 4px;
@@ -403,7 +403,7 @@ pre { font-size: 130%; background: #f7f7f7; padding: 10px 10px; font-weight: bol
     -moz-text-shadow: 0px -1px 0px #d7ab32;
     -webkit-text-shadow: 0px -1px 0px #d7ab32;
     border-radius:100px;
-    -moz-border-radius:100px; 
+    -moz-border-radius:100px;
     -webkit-border-radius:100px;
     float:right;
     margin-right:12px;
