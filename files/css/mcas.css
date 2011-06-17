@@ -265,7 +265,7 @@ a{
 .indicadores ul{
     float: left;
     font-size: 13px;
-    width: 280px;
+    width: 240px;
 }
 /*#id_municipio, #id_comunidad{
     display: none;
@@ -370,6 +370,34 @@ pre { font-size: 130%; background: #f7f7f7; padding: 10px 10px; font-weight: bol
 }
 
 /*CSS DE LAS CONSULTAS*/
+.indicadores ul li a{
+    color:#6a8a21 !important;
+    text-decoration:none;
+    font-family:"Georgia",sans-serif;
+}
+
+.indicadores ul b{
+    color:#594c38 !important;
+    font-size:15px;
+    width:240px;
+    border-bottom:#000000 1px dotted;
+    display:block;
+
+}
+.indicadores ul{
+    list-style-image:url(/files/img/bullet-white.png) !important;
+    list-style-position:inside;
+}
+
+.indicadores ul li:hover{
+    list-style-image:url(/files/img/bullet-green.png) !important;
+    text-decoration:underline;
+}
+
+#dashboard{
+    background:#ececde;
+    border: #dcdcc3 solid 1px;
+}
 #filtrosbar{
     background: url(../imagen/fondofiltro.png) repeat-x;
     height:46px;

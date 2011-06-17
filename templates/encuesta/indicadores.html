@@ -12,64 +12,67 @@
 {% include "encuesta/filtro.html"%}
 {% if request.session.centinel == 1 %}
 <div class="indicadores">
-    <br>
-    <div class="titulo">Indicadores</div><br>   
-    <br></br>
-     <div class="titulo"><a href="/generales">Datos Generales</a> </div><br>
-    <ul>
-        Familia
-        <li><a href="/familia/jefe/">Jefe/a</a></li>
-        <li><a href="/familia/vivecon/">Con quién vive</a></li>
-        <li><a href="/familia/miembros/">Miembros/as del hogar</a></li>
-    </ul>
-    <ul>
-        Conocimiento
-        <li><a href="/conocimiento/que-es-abuso/">¿Qué es abuso sexual?</a></li>
-        <li><a href="/conocimiento/en-que-lugar/">¿En qué lugar?</a></li>
-        <li><a href="/conocimiento/quines-abusan/">¿Quiénes abusan?</a></li>
-        <li><a href="/conocimiento/como-prevenir/">¿Cómo prevenir?</a></li>
-        <li><a href="/conocimiento/leyes/">Conocimiento de leyes</a></li>
-        <li><a href="/conocimiento/donde-aprendio/">¿Dónde aprendió?</a></li>
-        <li><a href="/conocimiento/donde-informarse/">¿Dónde informarse?</a></li>
-    </ul>
-    <ul>
-        Actitud
-        <li><a href="/actitud/porque-abuso/">Por qué sucede el abuso</a></li>
-        <li><a href="/actitud/abusadores/">Sobre abusadores</a></li>
-        <li><a href="/actitud/victimas/">Sobre victimas</a></li>
-        <li><a href="/actitud/familia-ensena-ninos/">Familia enseña</a></li>
-        <li><a href="/actitud/escuela-ensena/">Escuela enseña</a></li>
-    </ul>
-    <div class="clean"></div>
-    <ul>
-        Pr&aacute;ctica
-        <li><a href="/practica/que-haria-en-caso/">¿Qué haría?</a></li>
-        <li><a href="/practica/para-prevenir/">¿Cómo Prevenir?</a></li>
-        <li><a href="/practica/participacion/">¿Participa en organizaciones?</a></li>
-        <li><a href="/practica/como-participacion/">Como Participa</a></li>
-    </ul>
-    <ul>
-        Estado Actual
-        <li><a href="/estado-actual/problema-comunidad/">Problema de la comunidad</a></li>
-        <li><a href="/estado-actual/problema-pais/">Problema del pais</a></li>
-        <li><a href="/estado-actual/atencion/">Atenci&oacute;n en la Comunidad</a></li>
-        <li><a href="/estado-actual/lugares-atencion/">Lugares de Atenci&oacute;n</a></li>
-        <li><a href="/estado-actual/tipo-atencion/">Tipo de Atención</a></li>
-        <li><a href="/estado-actual/donde-ir/">Lugares de atención</a></li>
-    </ul>
-    <ul>
-        Percepcion
-        <li><a href="/percepcion/ninos-abusados/">Conoce niños abusados</a></li>
-        <li><a href="/percepcion/donde-se-da/">Frecuencia en familias</a></li>
-        <li><a href="/percepcion/encargados-prevenir/">Encargados de prevenir</a></li>
-        <li><a href="/percepcion/mensajes-ninos/">Mensajes que recibe la niñez</a></li>
-        <li><a href="/percepcion/poblacion-organizada/">Organizada para reducir el abuso</a></li>
-        <li><a href="/percepcion/rol-medios/">Rol de medios de comunicación</a></li>
-        <li><a href="/percepcion/rol-iglesia/">Rol iglesia</a></li>
-        <li><a href="/percepcion/rol-estado/">Rol estado</a></li>
-        <li><a href="/percepcion/rol-ong/">Rol ONG</a></li>
-        <li><a href="/percepcion/rol-emp/">Rol empresa privada</a></li>
-    </ul>
+<br>
+            <div class="titulo" style="float:left;">Indicadores</div><br>
+         <a href="/generales"><img align='right' src="/files/img/generales.jpg"></a><br><br>
+    <div id="dashboard">
+
+        <ul>
+            <b>Familia</b>
+            <li><a href="/familia/jefe/">Jefe/a</a></li>
+            <li><a href="/familia/vivecon/">Con quién vive</a></li>
+            <li><a href="/familia/miembros/">Miembros/as del hogar</a></li>
+        </ul>
+        <ul>
+            <b>Conocimiento</b>
+            <li><a href="/conocimiento/que-es-abuso/">¿Qué es abuso sexual?</a></li>
+            <li><a href="/conocimiento/en-que-lugar/">¿En qué lugar?</a></li>
+            <li><a href="/conocimiento/quines-abusan/">¿Quiénes abusan?</a></li>
+            <li><a href="/conocimiento/como-prevenir/">¿Cómo prevenir?</a></li>
+            <li><a href="/conocimiento/leyes/">Conocimiento de leyes</a></li>
+            <li><a href="/conocimiento/donde-aprendio/">¿Dónde aprendió?</a></li>
+            <li><a href="/conocimiento/donde-informarse/">¿Dónde informarse?</a></li>
+        </ul>
+        <ul>
+            <b>Actitud</b>
+            <li><a href="/actitud/porque-abuso/">Por qué sucede el abuso</a></li>
+            <li><a href="/actitud/abusadores/">Sobre abusadores</a></li>
+            <li><a href="/actitud/victimas/">Sobre victimas</a></li>
+            <li><a href="/actitud/familia-ensena-ninos/">Familia enseña</a></li>
+            <li><a href="/actitud/escuela-ensena/">Escuela enseña</a></li>
+        </ul>
+        <div class="clean"></div>
+        <ul>
+            <b>Pr&aacute;ctica</b>
+            <li><a href="/practica/que-haria-en-caso/">¿Qué haría?</a></li>
+            <li><a href="/practica/para-prevenir/">¿Cómo Prevenir?</a></li>
+            <li><a href="/practica/participacion/">¿Participa en organizaciones?</a></li>
+            <li><a href="/practica/como-participacion/">Como Participa</a></li>
+        </ul>
+        <ul>
+            <b>Estado Actual</b>
+            <li><a href="/estado-actual/problema-comunidad/">Problema de la comunidad</a></li>
+            <li><a href="/estado-actual/problema-pais/">Problema del pais</a></li>
+            <li><a href="/estado-actual/atencion/">Atenci&oacute;n en la Comunidad</a></li>
+            <li><a href="/estado-actual/lugares-atencion/">Lugares de Atenci&oacute;n</a></li>
+            <li><a href="/estado-actual/tipo-atencion/">Tipo de Atención</a></li>
+            <li><a href="/estado-actual/donde-ir/">Lugares de atención</a></li>
+        </ul>
+        <ul>
+            <b>Percepción</b>
+            <li><a href="/percepcion/ninos-abusados/">Conoce niños abusados</a></li>
+            <li><a href="/percepcion/donde-se-da/">Frecuencia en familias</a></li>
+            <li><a href="/percepcion/encargados-prevenir/">Encargados de prevenir</a></li>
+            <li><a href="/percepcion/mensajes-ninos/">Mensajes que recibe la niñez</a></li>
+            <li><a href="/percepcion/poblacion-organizada/">Organizada para reducir el abuso</a></li>
+            <li><a href="/percepcion/rol-medios/">Rol de medios de comunicación</a></li>
+            <li><a href="/percepcion/rol-iglesia/">Rol iglesia</a></li>
+            <li><a href="/percepcion/rol-estado/">Rol estado</a></li>
+            <li><a href="/percepcion/rol-ong/">Rol ONG</a></li>
+            <li><a href="/percepcion/rol-emp/">Rol empresa privada</a></li>
+        </ul>
+                <div class="clean"></div>
+    </div>
 </div>
 
 {% endif %}
