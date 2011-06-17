@@ -96,9 +96,21 @@ a{
     font-size: 13px;
     line-height: 16px;
     font-family: "Georgia", sans-serif;
-    width: 500px;
+    width: 560px;
     margin-right: 10px;
 }
+
+.ui-helper-reset a{font-size:9px !important;}
+.botonaprende{
+    background: url(/files/img/botonaprende.jpg) no-repeat;
+    display:block;
+    width:285px;
+    height:33px;
+}
+.botonaprende:hover{
+    background-position:bottom;
+}
+
 .help{
     float: left;
     width: 231px;
@@ -159,7 +171,7 @@ a{
 #footer .creditos{
     height: 42px;
     width: 100%;
-    background: #42423b;
+    background: #66665b;
     /*bordes*/
     -webkit-border-bottom-left-radius: 5px;
     -webkit-border-bottom-right-radius: 5px;
@@ -213,7 +225,7 @@ a{
 }
 .label{
     float: left;
-    width: 86px;
+    width: 146px;
     background: #dbdbc1;
     min-height: 38px;
     border-left: 1px #bbbb8a solid;
@@ -228,7 +240,7 @@ a{
 }
 .filtros{
     float: left;
-    width: 210px;
+    width: 300px;
     background: #ececde;
     min-height: 35px;
     border-bottom: 1px #fff solid;
@@ -253,7 +265,7 @@ a{
 .indicadores ul{
     float: left;
     font-size: 13px;
-    width: 280px;
+    width: 240px;
 }
 /*#id_municipio, #id_comunidad{
     display: none;
@@ -358,9 +370,37 @@ pre { font-size: 130%; background: #f7f7f7; padding: 10px 10px; font-weight: bol
 }
 
 /*CSS DE LAS CONSULTAS*/
-#filtros{
+.indicadores ul li a{
+    color:#6a8a21 !important;
+    text-decoration:none;
+    font-family:"Georgia",sans-serif;
+}
+
+.indicadores ul b{
+    color:#594c38 !important;
+    font-size:15px;
+    width:240px;
+    border-bottom:#000000 1px dotted;
+    display:block;
+
+}
+.indicadores ul{
+    list-style-image:url(/files/img/bullet-white.png) !important;
+    list-style-position:inside;
+}
+
+.indicadores ul li:hover{
+    list-style-image:url(/files/img/bullet-green.png) !important;
+    text-decoration:underline;
+}
+
+#dashboard{
+    background:#ececde;
+    border: #dcdcc3 solid 1px;
+}
+#filtrosbar{
     background: url(../imagen/fondofiltro.png) repeat-x;
-    height:36px;
+    height:46px;
 
     border-bottom:#d6d1d1 1px solid;
     width:962px;
@@ -371,7 +411,7 @@ pre { font-size: 130%; background: #f7f7f7; padding: 10px 10px; font-weight: bol
     background:#fce795;
     width:85px;
     font-weight:bold;
-    height:26px;
+    height:36px;
     padding-top:10px;
     padding-left:15px;
     margin-right:15px;
