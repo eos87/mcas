@@ -34,7 +34,7 @@ def get_anios():
 def departamentos():    
     lista = []    
     for encuesta in Encuesta.objects.all():
-        lista.append(encuesta.municipio.departamento.id)    
+        lista.append(encuesta.municipio.departamento.id)  
     return Departamento.objects.filter(id__in=lista).order_by('nombre')
 
 class ConsultarForm(forms.Form):
