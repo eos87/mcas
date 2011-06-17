@@ -15,38 +15,44 @@
 <script src="/files/js/jquery.multiselect.filter.js" type="text/javascript"></script>
 <link href="/files/css/jquery.multiselect.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript">
-	var organizacion;
-	var comunidad;
-	var municipio;
+    var organizacion;
+    var comunidad;
+    var municipio;
     $(document).ready(function(){
-        $("#id_organizacion, #id_municipio, #id_comunidad").html('');        
+        $("#id_organizacion, #id_municipio, #id_comunidad").html('');
         comunidad = $("#id_comunidad").multiselect({
             noneSelectedText: 'Seleccione elementos',
             selectedText: '# seleccionados',
+            checkAllText: 'Todos',
+            uncheckAllText: 'Quitar seleccion',
             minWidth: 200
         });
-       	organizacion = $("#id_organizacion").multiselect({
+           organizacion = $("#id_organizacion").multiselect({
             noneSelectedText: 'Seleccione la organizacion',
             selectedText: '# seleccionados',
+            checkAllText: 'Todos',
+            uncheckAllText: 'Quitar seleccion',
             minWidth: 200,
             beforeclose: function(event, ui){
                 var selectos = $("#id_organizacion").multiselect("getChecked").map(function(){
                     return this.value;
                 }).get();
                 if(selectos.length!=0){
-                    filtrarMunicipio(selectos, 2);                    
+                    filtrarMunicipio(selectos, 2);
                 }else{
-                	var depas = $("#id_departamento").multiselect("getChecked").map(function(){
+                    var depas = $("#id_departamento").multiselect("getChecked").map(function(){
                         return this.value;
                     }).get();
-                	filtrarMunicipio(depas, 1);
+                    filtrarMunicipio(depas, 1);
                 }
             }
-        });  
-        
+        });
+
         $("#id_departamento").multiselect({
             noneSelectedText: 'Seleccione elementos',
-            selectedText: '# seleccionados',                                    
+            selectedText: '# seleccionados',
+            checkAllText: 'Todos',
+            uncheckAllText: 'Quitar seleccion',
             minWidth: 200,
             beforeclose: function(event, ui){
                 var selectos = $("#id_departamento").multiselect("getChecked").map(function(){
@@ -55,26 +61,28 @@
                 if(selectos.length!=0){
                     filtrarMunicipio(selectos, 1);
                     filtrarOrganizacion(selectos);
-                }else{                    
+                }else{
                     organizacion.multiselect("disable");
                     municipio.multiselect("disable");
                 }
             }
         });
-        
+
         municipio = $("#id_municipio").multiselect({
             noneSelectedText: 'Seleccione elementos',
             selectedText: '# seleccionados',
+            checkAllText: 'Todos',
+            uncheckAllText: 'Quitar seleccion',
             minWidth: 200,
             beforeclose: function(event, ui){
                 var selectos = $("#id_municipio").multiselect("getChecked").map(function(){
                     return this.value;
-                }).get();                
+                }).get();
                 if(selectos.length!=0){
                     $.getJSON('/ajax/comunies/?ids='+selectos.join(","), function(data){
                         $('#id_comunidad').html('');
                         if(data){
-                            $.each(data, function(i, item){                                
+                            $.each(data, function(i, item){
                                 comunidad.append($('<option></option>').val(item.id).html(item.nombre));
                                 comunidad.multiselect('refresh');
                             });
@@ -92,40 +100,40 @@
         comunidad.multiselect("disable");
     });
     function filtrarMunicipio(selectos, opcion){
-    	if (opcion == 1){
-    		var url = '/ajax/munis/?ids='+selectos.join(",");
-    	}else{
-    		var url = '/ajax/munis/?org_ids='+selectos.join(",");
-    	}
-    	$.getJSON(url, function(data){
+        if (opcion == 1){
+            var url = '/ajax/munis/?ids='+selectos.join(",");
+        }else{
+            var url = '/ajax/munis/?org_ids='+selectos.join(",");
+        }
+        $.getJSON(url, function(data){
             $('#id_municipio').html('');
             if(data){
-                $.each(data, function(i, item){                                
+                $.each(data, function(i, item){
                     $.each(item, function(j, item2){
                         var group = $('<optgroup></optgroup>').attr('label', j);
                         $.each(item2, function(k, item3){
                             group.append($('<option></option>').val(item3.id).html(item3.nombre));
                         });
                         group.appendTo(municipio);
-                    });                                
+                    });
                     municipio.multiselect('refresh');
                     municipio.multiselect('enable');
                 });
             }
         });
     }
-    
+
     function filtrarOrganizacion(selectos){
-    	$.getJSON('/ajax/organi/?ids='+selectos.join(","), function(data){
-        	$("#id_organizacion").html('');
-        	if(data){
-            	$.each(data, function(i, item){
-                	$('<option></option>').val(item.id).html(item.nombre_corto).appendTo(organizacion)                	
-            	});            
-            	organizacion.multiselect('refresh');
+        $.getJSON('/ajax/organi/?ids='+selectos.join(","), function(data){
+            $("#id_organizacion").html('');
+            if(data){
+                $.each(data, function(i, item){
+                    $('<option></option>').val(item.id).html(item.nombre_corto).appendTo(organizacion)
+                });
+                organizacion.multiselect('refresh');
                 organizacion.multiselect("enable");
-        	}
-    	});
+            }
+        });
     }
 </script>
 <style type="text/css">
@@ -136,7 +144,7 @@
 {% endblock %}
 
 {% block content %}
-<div>    
+<div>
     <form method="POST" action="." id="consultar-form">{% csrf_token %}
         <div class="general">
             <div class="titulo">Generales</div>
@@ -158,7 +166,7 @@
             <div class="label">{{form.estado_civil.label}}</div>
             <div class="filtros">{{form.estado_civil}}<br>{{form.estado_civil.errors}}</div>
             <div class="clean"></div>
-        </div>        
+        </div>
         <div class="lugar">
             <div class="titulo">Lugar</div>
             <div class="label">{{form.departamento.label}}</div>
@@ -172,7 +180,7 @@
             <div class="clean"></div>
             <div class="label">{{form.comunidad.label}}</div>
             <div class="filtros">{{form.comunidad}}<br>{{form.comunidad.errors}}</div>
-            <div class="clean"></div>            
+            <div class="clean"></div>
             <div class="label"></div>
             <div class="filtros"></div>
             <div class="clean"></div>
