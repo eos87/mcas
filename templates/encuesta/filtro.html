@@ -1,58 +1,55 @@
 {% block filtro %}
-<div id="filtros">    
+<div id="filtrosbar">
         <span class="variables">General</span>
         {% if request.session.anio%}
         <span class="variables_filtro"><b>Año:</b>{{request.session.anio}}</span>
-        {%endif%} 
+        {%endif%}
         {% if request.session.residencia%}
         <span class="variables_filtro"><b>Residencia:</b>{%if request.session.residencia = '1'%}Urbano{%endif%}
         {%if request.session.residencia = '2'%}Rural{%endif%}</span>
-        {%endif%} 
+        {%endif%}
         {% if request.session.sexo%}
         <span class="variables_filtro"><b>Sexo:</b>{%if request.session.sexo = '1'%}Mujer{%endif%}
         {%if request.session.sexo = '2'%}Hombre{%endif%}</span>
         {%endif%}
-        
+
         {%if request.session.edad%}
         <span class="variables_filtro"><b>Edad:</b>{%if request.session.edad = '1'%}18 -24{%endif%}{%if request.session.edad = '2'%}25 - 44{%endif%}{%if request.session.edad = '3'%}45 - más{%endif%}</span>{%endif%}
-        
+
         {%if request.session.escolaridad%}
         <span class="variables_filtro"><b>Escolaridad:</b>{%if request.session.escolaridad = '1'%}No sabe leer ni escribir{%endif%}{%if request.session.escolaridad = '2'%}Alfabetizado{%endif%}{%if request.session.escolaridad = '3'%}Primaria completa{%endif%}{%if request.session.escolaridad = '4'%}Primaria incompleta{%endif%}{%if request.session.escolaridad = '5'%}Secundaria completa{%endif%}{%if request.session.escolaridad = '6'%}Secundaria incompleta{%endif%}{%if request.session.escolaridad = '7'%}Técnico{%endif%}{%if request.session.escolaridad = '8'%}Universitario{%endif%}</span>{%endif%}
- 
+
         {%if request.session.estado_civil%}
         <span class="variables_filtro"><b>Estado civil:</b>{%if request.session.estado_civil = '1'%}Soltero/a{%endif%}{%if request.session.estado_civil = '2'%}Casado/a{%endif%}{%if request.session.estado_civil = '3'%}Unión de hechos estables{%endif%}{%if request.session.estado_civil = '4'%}Divorciada/o{%endif%}{%if request.session.estado_civil = '5'%}Viuda/o{%endif%}</span>{%endif%}
-                
+        {% if request.session.iglesia or request.session.importancia%}
+         {% if request.session.iglesia%}
+        <span class="variables_filtro"><b>Iglesia:</b> {%if request.session.iglesia = '1'%}Si{%endif%}
+        {%if request.session.iglesia = '2'%}No{%endif%}</span>
+        {%endif%}
+
+        {%if request.session.importancia%}
+        <span class="variables_filtro"><b>Importancia de la religión: </b>{%if request.session.importancia = '1'%}Ninguna{%endif%}{%if request.session.importancia = '2'%}Poca{%endif%}{%if request.session.importancia = '3'%}Importante{%endif%}{%if request.session.importancia = '4'%}Muy importante{%endif%}</span>{%endif%}
+        {%endif%}
 </div>
 
 {% if request.session.departamento or request.session.municipio or request.session.comunidad%}
-<div id="filtros">    
+<div id="filtrosbar">
         <span class="variables">Lugares</span>
-        {% if request.session.departamento%} 
+        {% if request.session.departamento%}
         <span class="variables_filtro"><b>Departamento:</b> {% for a in request.session.departamento.all %}{{a}},{%endfor%}</span>
         {% endif %}
-        {% if request.session.organizacion%} 
+        {% if request.session.organizacion%}
         <span class="variables_filtro"><b>Organizacion:</b> {% for k in request.session.organizacion.all %}{{k}},{%endfor%}</span>
-        {% endif %}  
-        {% if request.session.municipio%} 
-        <span class="variables_filtro"><b>Municipio</b>: {%for j in request.session.municipio.all%}{{j}},{%endfor%}</span> 
-        {%endif %}  
+        {% endif %}
+        {% if request.session.municipio%}
+        <span class="variables_filtro"><b>Municipio</b>: {%for j in request.session.municipio.all%}{{j}},{%endfor%}</span>
+        {%endif %}
         {% if request.session.comunidad%}
-        <span class="variables_filtro"><b>Comunidad:</b>{% for b in request.session.comunidad.all%}{{b}},{%endfor%}</span> 
-        {%endif%} 
+        <span class="variables_filtro"><b>Comunidad:</b>{% for b in request.session.comunidad.all%}{{b}},{%endfor%}</span>
+        {%endif%}
 </div>
 {%endif%}
 
-{% if request.session.iglesia or request.session.importancia%}
-<div id="filtros">    
-        <span class="variables">Extras</span>
-        {% if request.session.iglesia%} 
-        <span class="variables_filtro">Iglesia: {%if request.session.iglesia = '1'%}Si{%endif%}
-        {%if request.session.iglesia = '2'%}No{%endif%}</span>
-        {%endif%} 
-        
-        {%if request.session.importancia%}
-        <span class="variables_filtro"><b>Importancia de la religión:</b>{%if request.session.importancia = '1'%}Ninguna{%endif%}{%if request.session.importancia = '2'%}Poca{%endif%}{%if request.session.importancia = '3'%}Importante{%endif%}{%if request.session.importancia = '4'%}Muy importante{%endif%}</span>{%endif%}       
-</div>
-{%endif%}
+
 
 {% endblock %}

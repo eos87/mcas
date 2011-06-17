@@ -225,7 +225,7 @@ a{
 }
 .label{
     float: left;
-    width: 86px;
+    width: 146px;
     background: #dbdbc1;
     min-height: 38px;
     border-left: 1px #bbbb8a solid;
@@ -240,7 +240,7 @@ a{
 }
 .filtros{
     float: left;
-    width: 210px;
+    width: 300px;
     background: #ececde;
     min-height: 35px;
     border-bottom: 1px #fff solid;
@@ -370,9 +370,9 @@ pre { font-size: 130%; background: #f7f7f7; padding: 10px 10px; font-weight: bol
 }
 
 /*CSS DE LAS CONSULTAS*/
-#filtros{
+#filtrosbar{
     background: url(../imagen/fondofiltro.png) repeat-x;
-    height:36px;
+    height:46px;
 
     border-bottom:#d6d1d1 1px solid;
     width:962px;
@@ -383,7 +383,7 @@ pre { font-size: 130%; background: #f7f7f7; padding: 10px 10px; font-weight: bol
     background:#fce795;
     width:85px;
     font-weight:bold;
-    height:26px;
+    height:36px;
     padding-top:10px;
     padding-left:15px;
     margin-right:15px;
