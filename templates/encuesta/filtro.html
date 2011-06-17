@@ -23,7 +23,7 @@
         <span class="variables_filtro"><b>Estado civil:</b>{%if request.session.estado_civil = '1'%}Soltero/a{%endif%}{%if request.session.estado_civil = '2'%}Casado/a{%endif%}{%if request.session.estado_civil = '3'%}Unión de hechos estables{%endif%}{%if request.session.estado_civil = '4'%}Divorciada/o{%endif%}{%if request.session.estado_civil = '5'%}Viuda/o{%endif%}</span>{%endif%}
         {% if request.session.iglesia or request.session.importancia%}
          {% if request.session.iglesia%}
-        <span class="variables_filtro"><b>Iglesia:</b> {%if request.session.iglesia = '1'%}Si{%endif%}
+        <span class="variables_filtro"><b>Asiste a Iglesia:</b> {%if request.session.iglesia = '1'%}Si{%endif%}
         {%if request.session.iglesia = '2'%}No{%endif%}</span>
         {%endif%}
 
