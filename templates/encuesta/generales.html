@@ -72,73 +72,7 @@ var chart1;
         });
     });
     
-var chart2;
-    $(document).ready(function() {
-        chart = new Highcharts.Chart({
-            chart: {
-                renderTo: 'container2',
-                defaultSeriesType: 'column'
-            },
-            title: {
-                text: 'Datos Generales de los Municipios'
-            },
-            subtitle: {
-                text: ''
-            },
-             exporting: {
-                enabled: true
-            },
-            xAxis: {
-                categories: [
-                    'Opciones'
-                ]
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: '%'
-                }
-            },
-            
-            tooltip: {
-                formatter: function() {
-                    return ''+
-                        this.series.name +': '+ this.y +'%';
-                }
-            },
-            plotOptions: {
-                column: {
-                    groupPadding: 0,
-                    pointPadding: 0.9,
-                    borderWidth: 0
-                },
-                series: {
-                    pointWidth: 55,
-                    minPointLength : 1
-                }
-            },
-            series: [{% for value in munis %}
-                {
-                    name: '{{value.0}}',
-                    data: [{{value.2}}],
-                    dataLabels: {
-                        enabled: true,
-                        rotation: 0,
-                        color: '#632D00',
-                        align: 'center',
-                        x: -3,
-                        y: 0,
-                            formatter: function() {
-                                return this.y+'%';
-                                                  },
-                        style: {
-                            font: 'normal 16px Verdana, sans-serif'
-                                }
-                                }
-                },
-                {% endfor %}]
-        });
-    });
+
 
 var chart3;
 $(document).ready(function() {
@@ -559,7 +493,8 @@ $(document).ready(function() {
         <caption>Municipio</caption>
         <thead>
             <tr>
-                <th>Categoria</th>
+                <th>Departamentos</th>
+                <th>Municipios</th>
                 <th>Frecuencia</th>
                 <th>Porcentajes</th>
             </tr>
@@ -569,13 +504,11 @@ $(document).ready(function() {
                 <td>{{algo.0}}</td>
                 <td>{{algo.1}}</td>
                 <td>{{algo.2}}</td>
+                <td>{{algo.3}}</td>
             </tr>
            {%endfor%}
         </tbody>
     </table>
-<div class="contenedor">
-    <div class="grafico-title">Gr&aacute;fico Municipios</div>
-<div id="container2" style="width: 958px; height: 500px;"></div>
-</div>
+
 
 {%endblock%}
