@@ -1,11 +1,10 @@
-{% extends "base.html" %}
-{% block extratitle %}Conocimientos{% endblock %}
+{% extends "base_xls.html" %}
 
 {% block content %}
 {% include "encuesta/filtro.html"%}
-{% include "encuesta/conocimiento.html" %}
+<br><br>
 <table>
-        <caption>¿Conoce sobre las leyes que castigan a las personas que abusan?</caption>
+        <caption>¿Sabe Usted que se puede hacer para prevenir el abuso sexual?</caption>
         <thead>
             <tr>
                 <th>Categoria</th>
@@ -23,6 +22,4 @@
            {%endfor%}
         </tbody>
     </table>
- 
-<img src="{{grafo_url}}" alt="¿Conoce leyes que castigan a los abusadores?" title="¿Conoce leyes que castigan a los abusadores?">
 {% endblock %}
