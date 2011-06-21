@@ -454,6 +454,48 @@ pre { font-size: 130%; background: #f7f7f7; padding: 10px 10px; font-weight: bol
     background: #eec116;
 }
 
+#familia{
+    background:url(/files/img/familia.jpg) no-repeat;
+    background-position:bottom right;
+    padding-bottom:10px;
+    height:100px;  
+}
+
+#conocimiento{
+    background:url(/files/img/conocimiento.jpg) no-repeat;
+    background-position:bottom right;
+    padding-bottom:10px;
+    height:180px;
+}
+
+#practica{
+    background:url(/files/img/practica.jpg) no-repeat;
+    background-position:bottom right;
+    padding-bottom:10px;
+    height:160px; 
+}
+
+#estado{
+    background:url(/files/img/estado.jpg) no-repeat;
+    background-position:bottom right;
+    padding-bottom:10px;
+    height:160px; 
+}
+
+#actitud{
+    background:url(/files/img/actitud.jpg) no-repeat;
+    background-position:bottom right;
+    padding-bottom:10px;
+    height:180px;
+}
+
+#percepcion{
+    background:url(/files/img/percepcion.jpg) no-repeat;
+    background-position:bottom right;
+    padding-bottom:10px;
+    height:260px; 
+}
+
 /*EL NIVO PARA EL CARRUCEL DE LAS IMAGENES*/
 .slider {
     position:relative;
