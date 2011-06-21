@@ -137,7 +137,7 @@ def generales(request):
         porcentaje = round(saca_porcentajes(conteo,numero),2)
         if conteo != 0:
             munis.append([mun.departamento.nombre,mun.nombre,conteo,porcentaje])
-    sorted(munis, key=lambda student: student[3])
+            sorted(munis, key=lambda muni: muni[3])
     return render_to_response('encuesta/generales.html', RequestContext(request, locals()))
 
 #SALIDAS DE FAMILIAS
