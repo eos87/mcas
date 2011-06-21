@@ -452,6 +452,24 @@ def conocimiento_aprendio(request):
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
     return render_to_response('encuesta/conocimiento/aprendio.html', RequestContext(request, locals()))   
+
+def __conocimiento_aprendio(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()
+    dicc = {}
+    for aprender in DondeAprendio.objects.all():
+        suma = Conocimiento.objects.filter(encuesta__in=encuestas, donde_aprendio=aprender).count()
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[aprender.nombre] = (suma,tabla)
+    
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+    dict = {'dicc2':dicc2}
+    return dict
+    
+def conocimiento_aprendio_xls(request):
+    dict = __conocimiento_aprendio(request)
+    return write_xls('encuesta/conocimiento/aprendio_xls.html', dict, 'aprendio.xls')
+#-------------------------------------------------------------------------------
     
 def conocimiento_informarse(request):
     encuestas = _query_set_filtrado(request)
@@ -465,6 +483,24 @@ def conocimiento_informarse(request):
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
     return render_to_response('encuesta/conocimiento/informarse.html', RequestContext(request, locals()))     
+
+def __conocimiento_informarse(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()
+    dicc = {}
+    for informar in DondeInformarse.objects.all():
+        suma = Conocimiento.objects.filter(encuesta__in=encuestas, donde_informarse=informar).count()
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[informar.nombre] = (suma,tabla)
+    
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+    dict = {'dicc2':dicc2}
+    return dict
+    
+def conocimiento_informarse_xls(request):
+    dict = __conocimiento_informarse(request)
+    return write_xls('encuesta/conocimiento/informarse_xls.html', dict, 'informarse.xls')
+#-------------------------------------------------------------------------------
 
 #SALIDAS DE ACTITUD
 
@@ -481,6 +517,25 @@ def actitud_abuso(request):
     
     return render_to_response('encuesta/actitud/abuso.html', RequestContext(request, locals()))   
 
+def __actitud_abuso(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()
+    dicc = {}
+    for abuso in PorqueAbuso.objects.all():
+        suma = Actitud.objects.filter(encuesta__in=encuestas, porque_abuso=abuso).count()
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[abuso.nombre] = (suma,tabla)
+    
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+    dict = {'dicc2':dicc2}
+    return dict
+
+def actitud_abuso_xls(request):
+    dict = __actitud_abuso(request)
+    return write_xls('encuesta/actitud/abuso_xls.html', dict, 'abuso.xls')
+#-------------------------------------------------------------------------------    
+
+
 def actitud_piensa(request):
     encuestas = _query_set_filtrado(request)
     numero = encuestas.count()
@@ -494,7 +549,24 @@ def actitud_piensa(request):
     
     return render_to_response('encuesta/actitud/piensa.html', RequestContext(request, locals()))
     
+def __actitud_piensa(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()
+    dicc = {}
+    for pensar in QuePiensa.objects.all():
+        suma = Actitud.objects.filter(encuesta__in=encuestas, que_piensa=pensar).count()
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[pensar.nombre] = (suma,tabla)
     
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+    dict = {'dicc2':dicc2}
+    return dict
+    
+def actitud_piensa_xls(request):
+    dict = __actitud_piensa(request)
+    return write_xls('encuesta/actitud/piensa_xls.html', dict, 'piensa.xls')
+#------------------------------------------------------------------------------- 
+  
 def actitud_victimas(request):
     encuestas = _query_set_filtrado(request)
     numero = encuestas.count()
@@ -507,34 +579,94 @@ def actitud_victimas(request):
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
     return render_to_response('encuesta/actitud/victima.html', RequestContext(request, locals()))
+
+def __actitud_victimas(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()
+    dicc = {}
+    for victima in QuePiensaVictima.objects.all():
+        suma = Actitud.objects.filter(encuesta__in=encuestas, que_piensa_victimas=victima).count()
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[victima.nombre] = (suma,tabla)
     
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+    dict = {'dicc2':dicc2}
+    return dict
+    
+def actitud_victimas_xls(request):
+    dict = __actitud_victimas(request)
+    return write_xls('encuesta/actitud/victima_xls.html', dict, 'victima.xls')
+#-------------------------------------------------------------------------------     
 def actitud_familia(request):
     encuestas = _query_set_filtrado(request)
     numero = encuestas.count()
     valores = []
-    leyenda = []    
+    leyenda = []
+    dicc = {}    
     for opcion in SI_NO:
         suma = Actitud.objects.filter(encuesta__in=encuestas, familia_ensena=opcion[0]).count()
+        porcentaje = round(saca_porcentajes(suma,numero),2)
         valores.append(suma)
-        leyenda.append(opcion[1])        
+        leyenda.append(opcion[1])
+        dicc[opcion[1]] = (suma,porcentaje)
+
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)       
 
     grafo_url = grafos.make_graph(valores, leyenda, '¿Estaría usted de acuerdo que en la Familia se enseñe a los niños, niñas y adolescentes a prevenir el abuso sexual?', type=grafos.PIE_CHART_3D, pie_labels=True)
 
     return render_to_response('encuesta/actitud/familia.html', RequestContext(request, locals()))  
+
+def __actitud_familia(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()
+    dicc = {}    
+    for opcion in SI_NO:
+        suma = Actitud.objects.filter(encuesta__in=encuestas, familia_ensena=opcion[0]).count()
+        porcentaje = round(saca_porcentajes(suma,numero),2)
+        dicc[opcion[1]] = (suma,porcentaje)
+
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+    dict = {'dicc2':dicc2}
+    return dict
     
+def actitud_familia_xls(request):
+    dict = __actitud_familia(request)
+    return write_xls('encuesta/actitud/familia_xls.html', dict, 'familia.xls')
+#-------------------------------------------------------------------------------       
 def actitud_escuela(request):
     encuestas = _query_set_filtrado(request)
     numero = encuestas.count()
     valores = []
-    leyenda = []    
+    leyenda = []
+    dicc = {}    
     for opcion in SI_NO:
         suma = Actitud.objects.filter(encuesta__in=encuestas, escuela_ensena=opcion[0]).count()
+        porcentaje = round(saca_porcentajes(suma,numero),2)
         valores.append(suma)
-        leyenda.append(opcion[1])        
+        leyenda.append(opcion[1])
+        dicc[opcion[1]] = (suma,porcentaje)
+        
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)        
 
     grafo_url = grafos.make_graph(valores, leyenda, '¿Estaría usted de acuerdo que en la Escuela se enseñe a los niños, niñas y adolescentes a prevenir el abuso sexual?', type=grafos.PIE_CHART_3D, pie_labels=True)
 
     return render_to_response('encuesta/actitud/escuela.html', RequestContext(request, locals()))
+
+def __actitud_escuela(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()
+    dicc = {}    
+    for opcion in SI_NO:
+        suma = Actitud.objects.filter(encuesta__in=encuestas, escuela_ensena=opcion[0]).count()
+        porcentaje = round(saca_porcentajes(suma,numero),2)
+        dicc[opcion[1]] = (suma,porcentaje)
+        
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+    
+def actitud_escuela_xls(request):
+    dict = __actitud_escuela(request)
+    return write_xls('encuesta/actitud/escuela_xls.html', dict, 'escuela.xls')
+#-------------------------------------------------------------------------------    
     
 #PRACTICA
 
@@ -550,7 +682,25 @@ def practica_situacion(request):
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
     return render_to_response('encuesta/practica/situacion.html', RequestContext(request, locals()))  
+
+def __practica_situacion(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()    
+    dicc = {}
+    for hacer in QueHaria.objects.all():
+        suma = Practica.objects.filter(encuesta__in=encuestas, que_haria=hacer).count()
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[hacer.nombre] = (suma,tabla)
     
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+    dict = {'dicc2':dicc2}
+    return dict
+
+def practica_situacion_xls(request):
+    dict = __practica_situacion(request)
+    return write_xls('encuesta/practica/situacion_xls.html', dict, 'situacion.xls')
+#-------------------------------------------------------------------------------    
+   
 def practica_prevenir(request):
     encuestas = _query_set_filtrado(request)
     numero = encuestas.count()    
@@ -562,21 +712,60 @@ def practica_prevenir(request):
     
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
-    return render_to_response('encuesta/practica/prevenir.html', RequestContext(request, locals()))  
+    return render_to_response('encuesta/practica/prevenir.html', RequestContext(request, locals()))
+    
+def __practica_prevenir(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()    
+    dicc = {}
+    for hacer in QueHacePrevenir.objects.all():
+        suma = Practica.objects.filter(encuesta__in=encuestas, que_hago_prevenir=hacer).count()
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[hacer.nombre] = (suma,tabla)
+    
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+    dict = {'dicc2':dicc2}
+    return dict
+    
+def practica_prevenir_xls(request):
+    dict = __practica_prevenir(request)
+    return write_xls('encuesta/practica/prevenir_xls.html', dict, 'prevenir.xls')
+#-------------------------------------------------------------------------------  
     
 def practica_participa_prevenir(request):
     encuestas = _query_set_filtrado(request)
     numero = encuestas.count()
     valores = []
-    leyenda = []    
+    leyenda = []
+    dicc = {}    
     for opcion in SI_NO:
         suma = Practica.objects.filter(encuesta__in=encuestas, participa_prevenir=opcion[0]).count()
+        porcentaje = round(saca_porcentajes(suma,numero),2)
         valores.append(suma)
-        leyenda.append(opcion[1])        
+        leyenda.append(opcion[1])
+        dicc[opcion[1]] = (suma,porcentaje)
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)                
 
     grafo_url = grafos.make_graph(valores, leyenda, '¿Usted participa o ha participado en algún tipo de organización que previene el abuso sexual?', type=grafos.PIE_CHART_3D, pie_labels=True)
 
     return render_to_response('encuesta/practica/participa_prevenir.html', RequestContext(request, locals()))
+
+def __practica_participa_prevenir(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()
+    dicc = {}    
+    for opcion in SI_NO:
+        suma = Practica.objects.filter(encuesta__in=encuestas, participa_prevenir=opcion[0]).count()
+        porcentaje = round(saca_porcentajes(suma,numero),2)
+        dicc[opcion[1]] = (suma,porcentaje)
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+    dict = {'dicc2':dicc2}
+    return dict
+    
+def practica_participa_prevenir_xls(request):
+    dict = __practica_participa_prevenir(request)
+    return write_xls('encuesta/practica/participa_prevenir_xls.html', dict, 'participa_prevenir.xls')
+#-------------------------------------------------------------------------------     
     
 def practica_como(request):
     encuestas = _query_set_filtrado(request)
@@ -590,7 +779,24 @@ def practica_como(request):
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
     return render_to_response('encuesta/practica/como.html', RequestContext(request, locals())) 
+
+def __practica_como(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()    
+    dicc = {}
+    for hacer in ComoParticipo.objects.all():
+        suma = Practica.objects.filter(encuesta__in=encuestas, como=hacer).count()
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[hacer.nombre] = (suma,tabla)
     
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+    dict = {'dicc2':dicc2}
+    return dict
+    
+def practica_como_xls(request):
+    dict = __practica_como(request)
+    return write_xls('encuesta/practica/como_xls.html', dict, 'como.xls')
+#-------------------------------------------------------------------------------       
 #SALIDAS DE ESTADO ACTUAL
 
 def estado_problema(request):
@@ -606,33 +812,95 @@ def estado_problema(request):
     
     return render_to_response('encuesta/estado/problema_comunidad.html', RequestContext(request, locals())) 
     
+def __estado_problema(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()    
+    dicc = {}
+    for hacer in PROBLEMA:
+        suma = EstadoActual.objects.filter(encuesta__in=encuestas, problema_comunidad=hacer[0]).count()
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[hacer[1]] = (suma,tabla)
+    
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+    dict = {'dicc2':dicc2}
+    return dict
+    
+def estado_problema_xls(request):
+    dict = __estado_problema(request)
+    return write_xls('encuesta/estado/problema_comunidad_xls.html', dict, 'problema_comunidad.xls')
+#-------------------------------------------------------------------------------
+    
 def estado_problema_pais(request):
     encuestas = _query_set_filtrado(request)
     numero = encuestas.count()
     valores = []
-    leyenda = []    
+    leyenda = []
+    dicc = {}    
     for opcion in PROBLEMA:
         suma = EstadoActual.objects.filter(encuesta__in=encuestas, problema_pais=opcion[0]).count()
+        porcentaje = round(saca_porcentajes(suma,numero),2)
         valores.append(suma)
-        leyenda.append(opcion[1])        
+        leyenda.append(opcion[1])
+        dicc[opcion[1]] = (suma,porcentaje)
+        
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)        
 
     grafo_url = grafos.make_graph(valores, leyenda, '¿Usted considera que el abuso sexual es un problema en el país?', type=grafos.PIE_CHART_3D, pie_labels=True)
 
     return render_to_response('encuesta/estado/problema_pais.html', RequestContext(request, locals()))
+
+def __estado_problema_pais(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()
+    dicc = {}    
+    for opcion in PROBLEMA:
+        suma = EstadoActual.objects.filter(encuesta__in=encuestas, problema_pais=opcion[0]).count()
+        porcentaje = round(saca_porcentajes(suma,numero),2)
+        dicc[opcion[1]] = (suma,porcentaje)
+        
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True) 
+    dict = {'dicc2':dicc2}
+    return dict
+    
+def estado_problema_pais_xls(request):
+    dict = __estado_problema_pais(request)
+    return write_xls('encuesta/estado/problema_pais_xls.html', dict, 'problema_pais.xls')
+#------------------------------------------------------------------------------- 
     
 def estado_atencion(request):
     encuestas = _query_set_filtrado(request)
     numero = encuestas.count()
     valores = []
-    leyenda = []    
+    leyenda = []
+    dicc = {}    
     for opcion in SI_NO:
         suma = EstadoActual.objects.filter(encuesta__in=encuestas, personas_atienden=opcion[0]).count()
+        porcentaje = round(saca_porcentajes(suma,numero),2)        
         valores.append(suma)
         leyenda.append(opcion[1])        
+        dicc[opcion[1]]= (suma,porcentaje)
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
 
     grafo_url = grafos.make_graph(valores, leyenda, '¿Sabe si hay lugares o personas en esta comunidad que atienden a niños/as, adolescentes que vivieron abuso sexual?', type=grafos.PIE_CHART_3D, pie_labels=True)
 
     return render_to_response('encuesta/estado/atencion.html', RequestContext(request, locals()))
+
+def __estado_atencion(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()
+    dicc = {}    
+    for opcion in SI_NO:
+        suma = EstadoActual.objects.filter(encuesta__in=encuestas, personas_atienden=opcion[0]).count()
+        porcentaje = round(saca_porcentajes(suma,numero),2)              
+        dicc[opcion[1]]= (suma,porcentaje)
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+    dict = {'dicc2':dicc2}
+    return dict
+
+def estado_atencion_xls(request):
+    dict = __estado_atencion(request)
+    return write_xls('encuesta/estado/atencion_xls.html', dict, 'atencion.xls')
+#-------------------------------------------------------------------------------     
     
 def estado_lugares(request):
     encuestas = _query_set_filtrado(request)
@@ -646,6 +914,24 @@ def estado_lugares(request):
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
     return render_to_response('encuesta/estado/lugares.html', RequestContext(request, locals())) 
+
+def __estado_lugares(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()    
+    dicc = {}
+    for hacer in LugarAtencion.objects.all():
+        suma = EstadoActual.objects.filter(encuesta__in=encuestas, lugares=hacer).count()
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[hacer.nombre] = (suma,tabla)
+    
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+    dict = {'dicc2':dicc2}
+    return dict
+
+def estado_lugares_xls(request):
+    dict = __estado_lugares(request)
+    return write_xls('encuesta/estado/lugares_xls.html', dict, 'lugares.xls')
+#-------------------------------------------------------------------------------    
     
 def estado_tipo_atencion(request):
     encuestas = _query_set_filtrado(request)
@@ -659,6 +945,24 @@ def estado_tipo_atencion(request):
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
     return render_to_response('encuesta/estado/tipo_atencion.html', RequestContext(request, locals())) 
+
+def __estado_tipo_atencion(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()    
+    dicc = {}
+    for hacer in TipoAtencion.objects.all():
+        suma = EstadoActual.objects.filter(encuesta__in=encuestas, tipo_atencion=hacer).count()
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[hacer.nombre] = (suma,tabla)
+    
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+    dict = {'dicc2':dicc2}
+    return dict
+    
+def estado_tipo_atencion_xls(request):
+    dict = __estado_tipo_atencion(request)
+    return write_xls('encuesta/estado/tipo_atencion_xls.html', dict, 'tipo_atencion.xls')
+#------------------------------------------------------------------------------- 
     
 def estado_donde(request):
     encuestas = _query_set_filtrado(request)
@@ -672,6 +976,24 @@ def estado_donde(request):
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
     return render_to_response('encuesta/estado/donde.html', RequestContext(request, locals())) 
+
+def __estado_donde(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()    
+    dicc = {}
+    for hacer in DONDE_VAN:
+        suma = EstadoActual.objects.filter(encuesta__in=encuestas, donde_van=hacer[0]).count()
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[hacer[1]] = (suma,tabla)
+    
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+    dict = {'dicc2':dicc2}
+    return dict
+
+def estado_donde_xls(request):
+    dict = __estado_donde(request)
+    return write_xls('encuesta/estado/donde_xls.html', dict, 'donde.xls')
+#-------------------------------------------------------------------------------    
     
 # SALIDAS DE PERCEPCION
 
@@ -692,7 +1014,25 @@ def percepcion_ninos_abusados(request):
 
     grafo_url = grafos.make_graph(valores, leyenda, '¿Ha conocido de niños, niñas o adolescentes que hayan sido abusados sexualmente?', type=grafos.PIE_CHART_3D, pie_labels=True)
 
-    return render_to_response('encuesta/percepcion/ninos_abusados.html', RequestContext(request, locals())) 
+    return render_to_response('encuesta/percepcion/ninos_abusados.html', RequestContext(request, locals()))
+    
+def __percepcion_ninos_abusados(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()
+    dicc = {}    
+    for opcion in SI_NO:
+        suma = Percepcion.objects.filter(encuesta__in=encuestas, conoce_abusados=opcion[0]).count()
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[opcion[1]] = (suma,tabla)
+
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True) 
+    dict = {'dicc2':dicc2}
+    return dict
+    
+def percepcion_ninos_xls(request):
+    dict = __percepcion_ninos_abusados(request)
+    return write_xls('encuesta/percepcion/ninos_abusados_xls.html', dict, 'ninos_abusados.xls')
+#-------------------------------------------------------------------------------  
     
 def percepcion_familia(request):
     encuestas = _query_set_filtrado(request)
@@ -710,7 +1050,24 @@ def percepcion_familia(request):
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
 
     return render_to_response('encuesta/percepcion/familia_abuso.html', RequestContext(request, locals())) 
+
+def __percepcion_familia(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()
+    dicc = {}    
+    for opcion in QueFamilia.objects.all():
+        suma = Percepcion.objects.filter(encuesta__in=encuestas, que_familia=opcion).count()
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[opcion.nombre] = (suma,tabla)
+        
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+    dict = {'dicc2':dicc2}
+    return dict
     
+def percepcion_familia_xls(request):
+    dict = __percepcion_familia(request)
+    return write_xls('encuesta/percepcion/familia_abuso_xls.html', dict, 'familia_abuso.xls')
+#-------------------------------------------------------------------------------      
 def percepcion_prevenir(request):
     encuestas = _query_set_filtrado(request)
     numero = encuestas.count()    
@@ -723,7 +1080,24 @@ def percepcion_prevenir(request):
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
     return render_to_response('encuesta/percepcion/encargado_prevenir.html', RequestContext(request, locals())) 
+
+def __percepcion_prevenir(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()    
+    dicc = {}
+    for hacer in QuienDebe.objects.all():
+        suma = Percepcion.objects.filter(encuesta__in=encuestas, quien_debe=hacer).count()
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[hacer.nombre] = (suma,tabla)
     
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+    dict = {'dicc2':dicc2}
+    return dict
+    
+def percepcion_prevenir_xls(request):
+    dict = __percepcion_prevenir(request)
+    return write_xls('encuesta/percepcion/encargado_prevenir_xls.html', dict, 'encargado_prevenir.xls')
+#-------------------------------------------------------------------------------     
 def percepcion_mensajes(request):
     encuestas = _query_set_filtrado(request)
     numero = encuestas.count()    
@@ -736,21 +1110,61 @@ def percepcion_mensajes(request):
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
     return render_to_response('encuesta/percepcion/mensajes.html', RequestContext(request, locals()))
+
+def __percepcion_mensajes(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()    
+    dicc = {}
+    for hacer in MensajeTransmiten.objects.all():
+        suma = Percepcion.objects.filter(encuesta__in=encuestas, mensaje=hacer).count()
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[hacer.nombre] = (suma,tabla)
+    
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+    dict = {'dicc2':dicc2}
+    
+def percepcion_mensajes_xls(request):
+    dict = __percepcion_mensajes(request)
+    return write_xls('encuesta/percepcion/mensajes_xls.html', dict, 'mensajes.xls')
+#------------------------------------------------------------------------------- 
     
 def percepcion_reducir(request):
     encuestas = _query_set_filtrado(request)
     numero = encuestas.count()
     valores = []
-    leyenda = []    
+    leyenda = []
+    dicc = {}    
     for opcion in SI_NO_SABE:
         suma = Percepcion.objects.filter(encuesta__in=encuestas, defender=opcion[0]).count()
+        porcentaje = round(saca_porcentajes(suma,numero),2)        
         valores.append(suma)
         leyenda.append(opcion[1])        
+        dicc[opcion[1]] = (suma,porcentaje)
+        
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
 
     grafo_url = grafos.make_graph(valores, leyenda, '¿Cree usted que si la población se organizará para defender los derechos humanos, de niños/as y adolescentes, el abuso se disminuiría?', type=grafos.PIE_CHART_3D, pie_labels=True)
 
     return render_to_response('encuesta/percepcion/reducir.html', RequestContext(request, locals())) 
-    
+
+def __percepcion_reducir(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()
+    dicc = {}    
+    for opcion in SI_NO_SABE:
+        suma = Percepcion.objects.filter(encuesta__in=encuestas, defender=opcion[0]).count()
+        porcentaje = round(saca_porcentajes(suma,numero),2)               
+        dicc[opcion[1]] = (suma,porcentaje)
+        
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+    dict = {'dicc2':dicc2}
+    return dict
+
+def percepcion_mensajes_xls(request):
+    dict = __percepcion_reducir(request)
+    return write_xls('encuesta/percepcion/reducir_xls.html', dict, 'reducir.xls')
+#-------------------------------------------------------------------------------     
+       
 def percepcion_iglesia(request):
     encuestas = _query_set_filtrado(request)
     numero = encuestas.count()    
@@ -763,7 +1177,24 @@ def percepcion_iglesia(request):
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
     return render_to_response('encuesta/percepcion/iglesia.html', RequestContext(request, locals())) 
+
+def __percepcion_iglesia(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()    
+    dicc = {}
+    for hacer in RolIglesia.objects.all():
+        suma = Percepcion.objects.filter(encuesta__in=encuestas, rol_iglesia=hacer).count()
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[hacer.nombre] = (suma,tabla)
     
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+    dict = {'dicc2':dicc2}
+    return dict
+
+def percepcion_iglesia_xls(request):
+    dict = __percepcion_iglesia(request)
+    return write_xls('encuesta/percepcion/iglesia_xls.html', dict, 'iglesia.xls')
+#-------------------------------------------------------------------------------         
 def percepcion_medios(request):
     encuestas = _query_set_filtrado(request)
     numero = encuestas.count()
@@ -776,7 +1207,24 @@ def percepcion_medios(request):
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)    
 
     return render_to_response('encuesta/percepcion/medios.html', RequestContext(request, locals())) 
-    
+
+def __percepcion_medios(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()
+    dicc = {}  
+    for opcion in RolMedio.objects.all():
+        suma = Percepcion.objects.filter(encuesta__in=encuestas, rol_medios=opcion).count()
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[opcion.nombre] = (suma,tabla)         
+
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+    dict = {'dicc2':dicc2}
+    return dict
+
+def percepcion_medios_xls(request):
+    dict = __percepcion_medios(request)
+    return write_xls('encuesta/percepcion/medios_xls.html', dict, 'medios.xls')
+#-------------------------------------------------------------------------------     
 def percepcion_estado(request):
     encuestas = _query_set_filtrado(request)
     numero = encuestas.count()    
@@ -789,7 +1237,24 @@ def percepcion_estado(request):
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
     return render_to_response('encuesta/percepcion/estado.html', RequestContext(request, locals()))
+
+def __percepcion_estado(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()    
+    dicc = {}
+    for hacer in RolEstado.objects.all():
+        suma = Percepcion.objects.filter(encuesta__in=encuestas, rol_estado=hacer).count()
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[hacer.nombre] = (suma,tabla)
     
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+    dict = {'dicc2':dicc2}
+    return dict
+    
+def percepcion_estado_xls(request):
+    dict = __percepcion_estado(request)
+    return write_xls('encuesta/percepcion/estado_xls.html', dict, 'estado.xls')
+#-------------------------------------------------------------------------------     
 def percepcion_ong(request):
     encuestas = _query_set_filtrado(request)
     numero = encuestas.count()    
@@ -802,7 +1267,24 @@ def percepcion_ong(request):
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
     return render_to_response('encuesta/percepcion/ongs.html', RequestContext(request, locals()))
+
+def __percepcion_ong(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()    
+    dicc = {}
+    for hacer in RolOng.objects.all():
+        suma = Percepcion.objects.filter(encuesta__in=encuestas, rol_ongs=hacer).count()
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[hacer.nombre] = (suma,tabla)
     
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+    dict = {'dicc2':dicc2}
+    return dict
+    
+def percepcion_ong_xls(request):
+    dict = __percepcion_ong(request)
+    return write_xls('encuesta/percepcion/ong_xls.html', dict, 'ong.xls')
+#-------------------------------------------------------------------------------     
 def percepcion_empresa(request):
     encuestas = _query_set_filtrado(request)
     numero = encuestas.count()    
@@ -815,7 +1297,24 @@ def percepcion_empresa(request):
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
     return render_to_response('encuesta/percepcion/empresas.html', RequestContext(request, locals()))     
+
+def __percepcion_empresa(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()    
+    dicc = {}
+    for hacer in RolEmpresa.objects.all():
+        suma = Percepcion.objects.filter(encuesta__in=encuestas, rol_empresas=hacer).count()
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[hacer.nombre] = (suma,tabla)
     
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+    dict = {'dicc2':dicc2}
+    return dict
+    
+def percepcion_empresa_xls(request):
+    dict = __percepcion_empresa(request)
+    return write_xls('encuesta/percepcion/ong_xls.html', dict, 'ong.xls')
+#-------------------------------------------------------------------------------     
 #FUNCIONES UTILITARIAS
 
 def get_munis(request):
