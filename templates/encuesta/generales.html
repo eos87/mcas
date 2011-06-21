@@ -15,7 +15,7 @@ var chart1;
                 text: 'Datos generales de los Departamentos'
             },
             subtitle: {
-                text: ''
+                text: '{% if request.session.anio%}Año:{{request.session.anio}}{%endif%}{% if request.session.residencia%}Residencia:{%if request.session.residencia = '1'%}Urbano{%endif%}{%if request.session.residencia = '2'%}Rural{%endif%}{%endif%}{% if request.session.sexo%}Sexo:{%if request.session.sexo = '1'%}Mujer{%endif%}{%if request.session.sexo = '2'%}Hombre{%endif%}{%endif%}{%if request.session.edad%}Edad:{%if request.session.edad = '1'%}18 -24{%endif%}{%if request.session.edad = '2'%}25 - 44{%endif%}{%if request.session.edad = '3'%}45 - más{%endif%}{%endif%}{%if request.session.escolaridad%}Escolaridad:{%if request.session.escolaridad = '1'%}No sabe leer ni escribir{%endif%}{%if request.session.escolaridad = '2'%}Alfabetizado{%endif%}{%if request.session.escolaridad = '3'%}Primaria completa{%endif%}{%if request.session.escolaridad = '4'%}Primaria incompleta{%endif%}{%if request.session.escolaridad = '5'%}Secundaria completa{%endif%}{%if request.session.escolaridad = '6'%}Secundaria incompleta{%endif%}{%if request.session.escolaridad = '7'%}Técnico{%endif%}{%if request.session.escolaridad = '8'%}Universitario{%endif%}{%endif%}{%if request.session.estado_civil%}Estado civil:{%if request.session.estado_civil = '1'%}Soltero/a{%endif%}{%if request.session.estado_civil = '2'%}Casado/a{%endif%}{%if request.session.estado_civil = '3'%}Unión de hechos estables{%endif%}{%if request.session.estado_civil = '4'%}Divorciada/o{%endif%}{%if request.session.estado_civil = '5'%}Viuda/o{%endif%}{%endif%}{% if request.session.iglesia or request.session.importancia%}{% if request.session.iglesia%}Asiste a Iglesia:</b> {%if request.session.iglesia = '1'%}Si{%endif%}{%if request.session.iglesia = '2'%}No{%endif%}{%endif%}{%if request.session.importancia%}Importancia de la religión:{%if request.session.importancia = '1'%}Ninguna{%endif%}{%if request.session.importancia = '2'%}Poca{%endif%}{%if request.session.importancia = '3'%}Importante{%endif%}{%if request.session.importancia = '4'%}Muy importante{%endif%}{%endif%}{%endif%}'
             },
              exporting: {
                 enabled: true
@@ -49,10 +49,10 @@ var chart1;
                     minPointLength : 1
                 }
             },
-            series: [{% for value in depart %}
+            series: [{% for value in dicc4 %}
                 {
                     name: '{{value.0}}',
-                    data: [{{value.2}}],
+                    data: [{{value.1}}],
                     dataLabels: {
                         enabled: true,
                         rotation: 0,
@@ -161,10 +161,10 @@ var chart4;
                     minPointLength : 1
                 }
             },
-            series: [{% for value in civil %}
+            series: [{% for value in dicc3 %}
                 {
                     name: '{{value.0}}',
-                    data: [{{value.2}}],
+                    data: [{{value.1}}],
                     dataLabels: {
                         enabled: true,
                         rotation: 0,
@@ -229,10 +229,10 @@ var chart5;
                     minPointLength : 1
                 }
             },
-            series: [{% for value in escolaridad %}
+            series: [{% for value in dicc2 %}
                 {
                     name: '{{value.0}}',
-                    data: [{{value.2}}],
+                    data: [{{value.1}}],
                     dataLabels: {
                         enabled: true,
                         rotation: 0,
@@ -404,11 +404,12 @@ $(document).ready(function() {
             </tr>
         </thead>
         <tbody>
-            {%for algo in escolaridad %}
+            {%for key, value in dicc2 %}
             <tr>
-                <td>{{algo.0}}</td>
-                <td>{{algo.1}}</td>
-                <td>{{algo.2}}</td>
+                <td>{{key}}</td>
+                {%for a in value%}
+                <td>{{a}}</td>
+                {%endfor%}
             </tr>
            {%endfor%}
         </tbody>
@@ -428,11 +429,12 @@ $(document).ready(function() {
             </tr>
         </thead>
         <tbody>
-            {%for algo in civil %}
+            {%for key, value in dicc3 %}
             <tr>
-                <td>{{algo.0}}</td>
-                <td>{{algo.1}}</td>
-                <td>{{algo.2}}</td>
+                <td>{{key}}</td>
+                {%for a in value%}
+                <td>{{a}}</td>
+                {%endfor%}
             </tr>
            {%endfor%}
         </tbody>
@@ -476,10 +478,11 @@ $(document).ready(function() {
             </tr>
         </thead>
         <tbody>
-            {%for algo in depart %}
-                <td>{{algo.0}}</td>
-                <td>{{algo.1}}</td>
-                <td>{{algo.2}}</td>
+            {%for key, value in dicc4 %}
+                <td>{{key}}</td>
+                {%for a in value%}
+                <td>{{a}}</td>
+                {%endfor%}
             </tr>
            {%endfor%}
         </tbody>

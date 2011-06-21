@@ -106,17 +106,21 @@ def generales(request):
     iglesia_no = encuestas.filter(iglesia=2).count()
     
     #de los entrevistados cuantos tiene nivel de escolaridad
-    escolaridad = []
+    escolaridad = {}
     for escuela in NIVEL_EDUCATIVO:
         conteo = encuestas.filter(escolaridad=escuela[0]).aggregate(conteo=Count('escolaridad'))['conteo']
         porcentaje = round(saca_porcentajes(conteo,numero),2)
-        escolaridad.append([escuela[1],conteo,porcentaje])
+        escolaridad[escuela[1]] = (conteo,porcentaje)        
+    dicc2 = sorted(escolaridad.items(), key=lambda x: x[1], reverse=True)
+        #escolaridad.append([escuela[1],conteo,porcentaje])
         
-    civil = []
+    civil = {}
     for estado in ESTADO_CIVIL:
         conteo = encuestas.filter(estado_civil=estado[0]).aggregate(conteo=Count('estado_civil'))['conteo']
         porcentaje = round(saca_porcentajes(conteo,numero),2)
-        civil.append([estado[1],conteo,porcentaje])
+        civil[estado[1]] = (conteo,porcentaje)
+    dicc3 = sorted(civil.items(), key=lambda x: x[1], reverse=True)
+
          
     religion = []
     for re in IMPORTANCIA_RELIGION:
@@ -124,12 +128,13 @@ def generales(request):
         porcentaje = round(saca_porcentajes(conteo,numero),2)
         religion.append([re[1],conteo,porcentaje])
         
-    depart = []   
+    depart = {}   
     for depar in Departamento.objects.all():
         conteo = encuestas.filter(municipio__departamento=depar).aggregate(conteo=Count('municipio__departamento'))['conteo']
         porcentaje = round(saca_porcentajes(conteo,numero),2)
         if conteo != 0:
-            depart.append([depar.nombre,conteo,porcentaje])     
+            depart[depar.nombre] = (conteo,porcentaje)
+    dicc4 = sorted(depart.items(), key=lambda x: x[1], reverse=True)      
        
     munis = []
     for mun in Municipio.objects.all():
@@ -242,7 +247,7 @@ def familia_miembros(request):
     grafo_url = grafos.make_graph(valores, leyenda, '¿Miembros de la familia?', type=grafos.PIE_CHART_3D, size=(958, 313), pie_labels=True)
     return render_to_response('encuesta/familia/miembros.html', RequestContext(request, locals()))
     
-def __familia_miembros(request):
+def __familia_miembros_xls(request):
     encuestas = _query_set_filtrado(request)
     numero = encuestas.count()
 
@@ -318,6 +323,24 @@ def conocimiento_lugar(request):
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
     return render_to_response('encuesta/conocimiento/lugar.html', RequestContext(request, locals()))
+    
+def __conocimiento_lugar(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()
+    dicc = {}
+    for lugar in LugarAbuso.objects.all()[:12]:
+        suma = Conocimiento.objects.filter(encuesta__in=encuestas, lugares=lugar).count()
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[lugar.nombre] = (suma,tabla)
+    
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+    dict = {'dicc2':dicc2}
+    return dict
+    
+def conocimiento_lugar_xls(request):
+    dict = __conocimiento_lugar(request)
+    return write_xls('encuesta/conocimiento/lugar_xls.html', dict, 'lugar.xls')
+#-------------------------------------------------------------------------------
 
 def conocimiento_abusan_ninos(request):
     encuestas = _query_set_filtrado(request)
@@ -331,6 +354,24 @@ def conocimiento_abusan_ninos(request):
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
     return render_to_response('encuesta/conocimiento/abusan_ninos.html', RequestContext(request, locals()))
+
+def __conocimiento_abusan_ninos(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()
+    dicc = {}
+    for abuso in Abusador.objects.all():
+        suma = Conocimiento.objects.filter(encuesta__in=encuestas, quien_abusa=abuso).count()
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[abuso.nombre] = (suma,tabla)
+    
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+    dict = {'dicc2':dicc2}
+    return dict
+    
+def conocimiento_abusan_ninos_xls(request):
+    dict = __conocimiento_abusan_ninos(request)
+    return write_xls('encuesta/conocimiento/abusan_ninos_xls.html', dict, 'abusan_ninos.xls')
+#-------------------------------------------------------------------------------
     
 def conocimiento_prevenir(request):
     encuestas = _query_set_filtrado(request)
@@ -344,21 +385,60 @@ def conocimiento_prevenir(request):
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
     return render_to_response('encuesta/conocimiento/prevenir.html', RequestContext(request, locals()))
+
+def __conocimiento_prevenir(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()
+    dicc = {}
+    for hacer in QueHacer.objects.all():
+        suma = Conocimiento.objects.filter(encuesta__in=encuestas, que_hacer=hacer).count()
+        tabla = round(saca_porcentajes(suma,numero),1)
+        dicc[hacer.nombre] = (suma,tabla)
     
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+    dict = {'dicc2':dicc2}
+    return dict
+    
+def conocimiento_prevenir_xls(request):
+    dict = __conocimiento_prevenir(request)
+    return write_xls('encuesta/conocimiento/prevenir_xls.html', dict, 'prevenir.xls')
+#-------------------------------------------------------------------------------    
 
 def conocimiento_leyes(request):
     encuestas = _query_set_filtrado(request)
     numero = encuestas.count()
     valores = []
-    leyenda = []    
+    leyenda = []
+    dicc = {}    
     for opcion in SI_NO:
         suma = Conocimiento.objects.filter(encuesta__in=encuestas, conoce_ley=opcion[0]).count()
+        porcentaje = round(saca_porcentajes(suma,numero),1)
         valores.append(suma)
-        leyenda.append(opcion[1])        
+        leyenda.append(opcion[1])
+        dicc[opcion[1]] = (suma,porcentaje)
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)               
 
     grafo_url = grafos.make_graph(valores, leyenda, '¿Conoce sobre las leyes que castigan a las personas que abusan?', type=grafos.PIE_CHART_3D, pie_labels=True)
 
     return render_to_response('encuesta/conocimiento/leyes.html', RequestContext(request, locals()))
+
+def __conocimiento_leyes(request):
+    encuestas = _query_set_filtrado(request)
+    numero = encuestas.count()
+    dicc = {}   
+    for opcion in SI_NO:
+        suma = Conocimiento.objects.filter(encuesta__in=encuestas, conoce_ley=opcion[0]).count()
+        porcentaje = round(saca_porcentajes(suma,numero),1)
+        dicc[opcion[1]] = (suma,porcentaje)
+        
+    dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+    dict = {'dicc2':dicc2}
+    return dict
+        
+def conocimiento_leyes_xls(request):
+    dict = __conocimiento_leyes(request)
+    return write_xls('encuesta/conocimiento/leyes_xls.html', dict, 'leyes.xls')
+#-------------------------------------------------------------------------------
     
 def conocimiento_aprendio(request):
     encuestas = _query_set_filtrado(request)
