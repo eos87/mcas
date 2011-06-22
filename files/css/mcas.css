@@ -227,14 +227,14 @@ a{
     float: left;
     width: 146px;
     background: #dbdbc1;
-    min-height: 38px;
+    min-height: 28px;
     border-left: 1px #bbbb8a solid;
     border-right: 1px #bbbb8a solid;
     border-bottom: 1px #fff solid;
     border-top: 1px #dcdcc3 solid;
     font-size: 13px;
     color: #4c4c2c;
-    padding-top: 10px;
+    padding-top: 5px;
     font-family: "Arial", sans-serif;
     padding-left: 10px;
 }
@@ -242,10 +242,10 @@ a{
     float: left;
     width: 300px;
     background: #ececde;
-    min-height: 35px;
+    min-height: 30px;
     border-bottom: 1px #fff solid;
     border-top: 1px #dcdcc3 solid;
-    padding-top: 13px;
+    padding-top: 3px;
     padding-left: 10px;
 }
 .filtros select{

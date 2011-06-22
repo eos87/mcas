@@ -52,9 +52,15 @@ $(document).ready(function() {
 
 {% block content %}
 {% include "encuesta/filtro.html"%}
+<br>
+<div class="indicadores">
+<div class="titulo" style="float:left;">Indicadores</div><div class="titulo" style="float:left;">Estado Actual</div><div class="titulo" style="float:left;">Problema de la comunidad</div>
+<div class="botones-descarga"><a href="/estado-actual/problema_comunidad_xls"><img src="/files/img/doc.png"></a><a href="/estado_actual/problema_comunidad_xls"><img src="/files/img/pdf.png"></a></div>
+<div class="clean"></div>
+</div>
 {% include "encuesta/estado.html" %} 
 <table>
-        <caption>¿Usted considera que el abuso sexual es un problema en su comunidad?</caption>
+        <caption>¿Usted considera que el abuso sexual es un problema en su comunidad? <span class="numencuestas">Encuestas {{numero}}</span></caption>
         <thead>
             <tr>
                 <th>Categoria</th>
@@ -72,11 +78,10 @@ $(document).ready(function() {
            {%endfor%}
         </tbody>
     </table>
-    <br><br>
-    
+<div class="clean"></div>
 <div class="contenedor">
-    <div class="grafico-title">Gr&aacute;fico  personas encuestas =  {{numero}}</div>
-    <div id="container1" style="width: 958px; height: 500px;">
+    <div class="grafico-title">Gr&aacute;fico  <span class="numencuestas">Encuestas {{numero}}</span></div>
+    <div id="container1">
 
     </div>
 </div>
