@@ -3,6 +3,16 @@
 
 {% block content %}
 {% include "encuesta/filtro.html"%}
-{% include "encuesta/actitud.html" %} 
+<br>
+<div class="indicadores">
+<div class="titulo" style="float:left;">Indicadores</div><div class="titulo" style="float:left;">Actitud</div><div class="titulo" style="float:left;">Escuela Enseña</div>
+<div class="botones-descarga"><a href="/actitud/escuela_xls"><img src="/files/img/doc.png"></a><a href="/actitud/escuela_xls"><img src="/files/img/pdf.png"></a></div>
+<div class="clean"></div>
+</div>
+{% include "encuesta/actitud.html" %}
+<div class="clean"></div>
+<div class="contenedor">
+    <div class="grafico-title">Gr&aacute;fico  <span class="numencuestas">Encuestas {{numero}}</span></div>
 <img src="{{grafo_url}}" alt="¿Actitud escuela?" title="¿Actitud escuela?">
+</div>
 {% endblock %}
