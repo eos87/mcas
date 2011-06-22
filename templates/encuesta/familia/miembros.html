@@ -78,10 +78,16 @@ $(document).ready(function() {
 
 {% block content %}
 {% include "encuesta/filtro.html"%}
+<br>
+<div class="indicadores">
+<div class="titulo" style="float:left;">Indicadores</div><div class="titulo" style="float:left;">Familia</div><div class="titulo" style="float:left;">Miembros/as del hogar</div>
+<div class="botones-descarga"><a href="/familia/miembros_xls"><img src="/files/img/doc.png"></a><a href="/familia/miembros_xls"><img src="/files/img/pdf.png"></a></div>
+<div class="clean"></div>
+</div>
 {% include "encuesta/familia.html" %}
 
 <table>
-    <caption>Distribución de las familias según número de personas que viven en la casa</caption>
+    <caption>Distribución de las familias según número de personas que viven en la casa <span class="numencuestas">Encuestas {{numero}}</span></caption>
     <thead>
         <tr>
 		    <th>Categoria</th>
@@ -136,11 +142,10 @@ $(document).ready(function() {
         </tr>
               
 </table>
-
-<br></br>
+<div class="clean"></div>
 <div class="contenedor">
-    <div class="grafico-title">Gr&aacute;fico</div>
-    <div id="container" style="width: 958px; height: 500px;">
+    <div class="grafico-title">Gr&aacute;fico <span class="numencuestas">Encuestas {{numero}}</span></div>
+    <div id="container">
 
     </div>
 </div>

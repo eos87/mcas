@@ -1,12 +1,6 @@
 {% extends "base.html" %}
 {% block extrahead %}
-<script src="/files/js/cufon-yui.js" type="text/javascript"></script>
-<script src="/files/js/libel.font.js" type="text/javascript"></script>
-<script type="text/javascript">
-    $(document).ready(function($) {
-        Cufon.replace('.titulo');
-    });
-</script>
+
 {% endblock %}
 {% block content %}
 {% include "encuesta/filtro.html"%}
@@ -17,13 +11,13 @@
          <a href="/generales"><img align='right' src="/files/img/generales.jpg"></a><br><br>
     <div id="dashboard">
 
-        <ul>
+        <ul id="familia">
             <b>Familia</b>
             <li><a href="/familia/jefe/">Jefe/a</a></li>
             <li><a href="/familia/vivecon/">Con quién vive</a></li>
             <li><a href="/familia/miembros/">Miembros/as del hogar</a></li>
         </ul>
-        <ul>
+        <ul id="conocimiento">
             <b>Conocimiento</b>
             <li><a href="/conocimiento/que-es-abuso/">¿Qué es abuso sexual?</a></li>
             <li><a href="/conocimiento/en-que-lugar/">¿En qué lugar?</a></li>
@@ -33,7 +27,7 @@
             <li><a href="/conocimiento/donde-aprendio/">¿Dónde aprendió?</a></li>
             <li><a href="/conocimiento/donde-informarse/">¿Dónde informarse?</a></li>
         </ul>
-        <ul>
+        <ul  id="actitud">
             <b>Actitud</b>
             <li><a href="/actitud/porque-abuso/">Por qué sucede el abuso</a></li>
             <li><a href="/actitud/abusadores/">Sobre abusadores</a></li>
@@ -42,14 +36,14 @@
             <li><a href="/actitud/escuela-ensena/">Escuela enseña</a></li>
         </ul>
         <div class="clean"></div>
-        <ul>
+        <ul id="practica">
             <b>Pr&aacute;ctica</b>
             <li><a href="/practica/que-haria-en-caso/">¿Qué haría?</a></li>
             <li><a href="/practica/para-prevenir/">¿Cómo Prevenir?</a></li>
             <li><a href="/practica/participacion/">¿Participa en organizaciones?</a></li>
             <li><a href="/practica/como-participacion/">Como Participa</a></li>
         </ul>
-        <ul>
+        <ul  id="estado">
             <b>Estado Actual</b>
             <li><a href="/estado-actual/problema-comunidad/">Problema de la comunidad</a></li>
             <li><a href="/estado-actual/problema-pais/">Problema del pais</a></li>
@@ -58,7 +52,7 @@
             <li><a href="/estado-actual/tipo-atencion/">Tipo de Atención</a></li>
             <li><a href="/estado-actual/donde-ir/">Lugares de atención</a></li>
         </ul>
-        <ul>
+        <ul  id="percepcion">
             <b>Percepción</b>
             <li><a href="/percepcion/ninos-abusados/">Conoce niños abusados</a></li>
             <li><a href="/percepcion/donde-se-da/">Frecuencia en familias</a></li>

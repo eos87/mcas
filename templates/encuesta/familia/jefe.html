@@ -1,11 +1,16 @@
 {% extends "base.html" %}
 {% block extratitle %}¿Quién es el jefe/a de familia?{% endblock %}
-
 {% block content %}
 {% include "encuesta/filtro.html"%}
+<br>
+<div class="indicadores">
+<div class="titulo" style="float:left;">Indicadores</div><div class="titulo" style="float:left;">Familia</div><div class="titulo" style="float:left;">Jefe</div>
+<div class="botones-descarga"><a href="/familia/jefe_xls"><img src="/files/img/doc.png"></a><a href="/familia/jefe_xls"><img src="/files/img/pdf.png"></a></div>
+<div class="clean"></div>
+</div>
 {% include "encuesta/familia.html" %}
 <table>
-        <caption>¿Quién es el jefe de familia?</caption>
+        <caption>¿Quién es el jefe de familia? <span class="numencuestas">Encuestas {{numero}}</span></caption>
         <thead>
             <tr>
                 <th>Categoria</th>
@@ -22,8 +27,10 @@
                 {%endfor%}
            {%endfor%}
         </tbody>
-    </table> 
-<br></br><br></br><br></br>
+    </table>
+    <div class="clean"></div>
+<br>
+<div class="grafico-title">Gr&aacute;fico <span class="numencuestas">Encuestas {{numero}}</span></div>
 <img src="{{grafo_url}}" alt="¿Quiés es el jefe de familia?" title="¿Quién es el jefe de familia?">
 {% endblock %}
 

@@ -75,9 +75,15 @@
 
 {% block content %}
 {% include "encuesta/filtro.html"%}
+<br>
+<div class="indicadores">
+<div class="titulo" style="float:left;">Indicadores</div><div class="titulo" style="float:left;">Familia</div><div class="titulo" style="float:left;">Con quien vive</div>
+<div class="botones-descarga"><a href="/familia/vivecon_xls"><img src="/files/img/doc.png"></a><a href="/familia/vivecon_xls"><img src="/files/img/pdf.png"></a></div>
+<div class="clean"></div>
+</div>
 {% include "encuesta/familia.html" %}
 <table>
-        <caption>¿Con quién vive Usted en la casa?</caption>
+        <caption>¿Con quién vive Usted en la casa?  <span class="numencuestas">Encuestas {{numero}}</span></caption>
         <thead>
             <tr>
                 <th>Categoria</th>
@@ -95,11 +101,10 @@
            {%endfor%}
         </tbody>
     </table>
-
-<br></br><br></br><br></br>
+<div class="clean"></div>
 <div class="contenedor">
-    <div class="grafico-title">Gr&aacute;fico</div>
-    <div id="container" style="width: 958px; height: 500px;">
+    <div class="grafico-title">Gr&aacute;fico <span class="numencuestas">Encuestas {{numero}}</span></div>
+    <div id="container">
 
     </div>
 </div>
