@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% include "encuesta/filtro.html"%}
+<br></br>
+<table>
+        <caption>¿Usted participa o ha participado en algún tipo de organización que previene el abuso sexual?</caption>
+        <thead>
+            <tr>
+                <th>Categoria</th>
+                <th>Frecuencia</th>
+                <th>porcentajes(%)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in dicc2 %}
+            <tr>
+                <td>{{key}}</td>
+                {%for i in value%}
+                    <td>{{i|floatformat}}</td>    
+                {%endfor%}
+           {%endfor%}
+        </tbody>
+    </table>
+{% endblock %}

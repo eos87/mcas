@@ -1,0 +1,24 @@
+{% extends "base_xls.html" %}
+
+{% block content %}
+{% include "encuesta/filtro.html"%}
+<table>
+        <caption>¿Qué piensa sobre el rol de los medios de comunicación en cuanto al abuso sexual?</caption>
+        <thead>
+            <tr>
+                <th>Categoria</th>
+                <th>Frecuencia</th>
+                <th>porcentajes(%)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in dicc2 %}
+            <tr>
+                <td>{{key}}</td>
+                {%for i in value%}
+                    <td>{{i|floatformat}}</td>    
+                {%endfor%}
+           {%endfor%}
+        </tbody>
+    </table>
+{% endblock %}

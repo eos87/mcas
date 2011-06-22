@@ -19,7 +19,7 @@ COLORS = ['058DC7','50B432','ED561B','DDDF00','24CBE5','64E572','FF9655','FFF263
 
 def make_graph(data, legends, message=None, 
                axis_labels=None, steps=4, return_json = False,
-               type=PieChart2D, size=(920, 300), multiline=False, **kwargs):
+               type=PieChart2D, size=(960, 300), multiline=False, **kwargs):
 
     if (type in pie_types):
         graph = _pie_graph(data, legends, size, type, **kwargs)

@@ -293,19 +293,39 @@ a{
     padding-left: 15px;
 }
 
+.numencuestas{
+    float:right; margin-right:5px; font-size:13px;
+}
+
+#container{
+width: 956px; height: 500px; margin:2px;
+}
+
+.botones-descarga a{
+    margin:3px;
+    display:block;
+    float:right;
+}
+
 /*ESTO ES EL ESTILO DE LAS TABLAS*/
+table{
+    width:670px;
+    margin-left:10px;
+    float:right;
+    border-collapse: collapse;
+
+}
+
 caption {
     padding: 5px;
     margin:0 auto;
     width:auto;
-    margin-top:15px;
-    margin-bottom:5px;
+    margin-top:12px;
     text-align: left;
-    font-size:18px;
+    font-size:16px;
     color:#48311a;
-    font-family:Georgia, 'Times New Roman', Times, serif;
-    border-top:#3d3123 1px dotted;
-    border-bottom:#3d3123 1px dotted;
+    background:url(/files/img/caption-tabla.png) no-repeat;
+
 }
 
 th{
@@ -313,21 +333,21 @@ th{
     font-weight: bold;
     font-size: 10px;
     color: #473f31;
-    border-right: 1px solid #ded3ba;
-    border-bottom: 1px solid #ded3ba;
+    border: 1px solid #dcdcc3;
     letter-spacing: 1px;
     text-transform: uppercase;
     text-align: left;
     font-weight:bold;
-    padding: 10px 5px 4px 12px;
+    padding: 5px 5px 4px 12px;
 /*    background:url(../img/bg_header.png) repeat-x;*/
     vertical-align:middle;
+    background:#ebebdd;
 
 }
 td.total{
     border-top: 0;
     border-left: 0;
-    border-right: 1px solid #C1DAD7;
+    border: 1px solid #C1DAD7;
     background: none;
     text-align:right;
     font-weight:bold;
@@ -336,11 +356,10 @@ td.total{
 }
 td {
     font: normal 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
-    border-right: 1px solid #E0DDD2;
-    border-bottom: 1px solid #E0DDD2;
     padding: 6px 12px 6px 12px;
     color: #696969;
     background: #FFFFFF;
+    border: 1px solid #dcdcc3;
 }
 form {
     margin: 0 0;
@@ -360,13 +379,60 @@ pre { font-size: 130%; background: #f7f7f7; padding: 10px 10px; font-weight: bol
     font-size: 12px;
     width: 280px;
     list-style: none;
+    padding-left:0px;
 }
+
+.menu_indicadores ul li{
+    background:#fff;
+    height:30px;
+    line-height:30px;
+    border-bottom:#d2d2d2 1px solid;
+}
+
+.menu_indicadores ul li:hover{
+    background:#FFF9D0;
+}
+
+.menu_indicadores ul li a{
+    display:block;
+    background: url(/files/img/flechamenu.png) no-repeat;
+    background-position:center right;
+    text-decoration:none;
+    font-size:12px;
+    color:#5c5c5c;
+    padding-left:10px;
+    width:260px;
+}
+
+.menu_indicadores ul li a:hover{
+    background: url(/files/img/flechamenu2.png) no-repeat;
+    background-position:center right;
+}
+
 .titulo_menu {
     height: 30px;
     background: url(/files/img/bg_header.png) repeat-x;
     line-height: 35px;
     padding-left: 4px;
-    font-size: 20px;
+    font-size: 17px;
+    color:#fff;
+    line-height:30px;
+    font-weight:bold;
+}
+
+.titulo_menu a{
+    display:block;
+    float:right;
+    margin-right:5px;
+    width:85px;
+    height:24px;
+    background:url(/files/img/regresar.png) no-repeat;
+    background-position: top;
+    margin-top:3px;
+}
+
+.titulo_menu a:hover{
+    background-position: bottom;
 }
 
 /*CSS DE LAS CONSULTAS*/
@@ -452,6 +518,51 @@ pre { font-size: 130%; background: #f7f7f7; padding: 10px 10px; font-weight: bol
 
 #filtros a:hover{
     background: #eec116;
+}
+.menu_indicadores{
+    float:left;
+}
+
+#familia{
+    background:url(/files/img/familia.jpg) no-repeat;
+    background-position:bottom right;
+    padding-bottom:10px;
+    height:100px;  
+}
+
+#conocimiento{
+    background:url(/files/img/conocimiento.jpg) no-repeat;
+    background-position:bottom right;
+    padding-bottom:10px;
+    height:180px;
+}
+
+#practica{
+    background:url(/files/img/practica.jpg) no-repeat;
+    background-position:bottom right;
+    padding-bottom:10px;
+    height:160px; 
+}
+
+#estado{
+    background:url(/files/img/estado.jpg) no-repeat;
+    background-position:bottom right;
+    padding-bottom:10px;
+    height:160px; 
+}
+
+#actitud{
+    background:url(/files/img/actitud.jpg) no-repeat;
+    background-position:bottom right;
+    padding-bottom:10px;
+    height:180px;
+}
+
+#percepcion{
+    background:url(/files/img/percepcion.jpg) no-repeat;
+    background-position:bottom right;
+    padding-bottom:10px;
+    height:260px; 
 }
 
 /*EL NIVO PARA EL CARRUCEL DE LAS IMAGENES*/
