@@ -4,5 +4,24 @@
 {% block content %}
 {% include "encuesta/filtro.html"%}
 {% include "encuesta/percepcion.html" %} 
+<table>
+        <caption>¿Cree usted que si la población se organizará para defender los derechos humanos, de niños/as y adolescentes, el abuso se disminuiría?</caption>
+        <thead>
+            <tr>
+                <th>Categoria</th>
+                <th>Frecuencia</th>
+                <th>porcentajes(%)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in dicc2 %}
+            <tr>
+                <td>{{key}}</td>
+                {%for i in value%}
+                    <td>{{i|floatformat}}</td>    
+                {%endfor%}
+           {%endfor%}
+        </tbody>
+    </table>
 <img src="{{grafo_url}}" alt="¿Disminuir el abuso sexual?" title="¿Disminuir el abuso sexual?">
 {% endblock %}
