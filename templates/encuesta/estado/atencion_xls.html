@@ -1,11 +1,9 @@
-{% extends "base.html" %}
-{% block extratitle %}Estado Actual{% endblock %}
+{% extends "base_xls.html" %}
 
 {% block content %}
 {% include "encuesta/filtro.html"%}
-{% include "encuesta/estado.html" %} 
 <table>
-        <caption>¿Usted considera que el abuso sexual es un problema en el país?</caption>
+        <caption>¿Sabe si hay lugares o personas en esta comunidad que atienden a niños/as, adolescentes que vivieron abuso sexual?</caption>
         <thead>
             <tr>
                 <th>Categoria</th>
@@ -23,5 +21,4 @@
            {%endfor%}
         </tbody>
     </table> 
-<img src="{{grafo_url}}" alt="¿Abuso sexual problema en el pais?" title="¿Abuso sexual problema en el pais?">
 {% endblock %}

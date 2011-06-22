@@ -10,7 +10,26 @@
 <div class="clean"></div>
 </div>
 {% include "encuesta/actitud.html" %}
-<div class="clean"></div>
+<table>
+        <caption>¿Estaría usted de acuerdo que en la Familia se enseñe a los niños, niñas y adolescentes a prevenir el abuso sexual?</caption>
+        <thead>
+            <tr>
+                <th>Categoria</th>
+                <th>Frecuencia</th>
+                <th>porcentajes(%)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in dicc2 %}
+            <tr>
+                <td>{{key}}</td>
+                {%for i in value%}
+                    <td>{{i|floatformat}}</td>    
+                {%endfor%}
+           {%endfor%}
+        </tbody>
+    </table>
+    <div class="clean"></div>
 <div class="contenedor">
     <div class="grafico-title">Gr&aacute;fico  <span class="numencuestas">Encuestas {{numero}}</span></div>
 <img src="{{grafo_url}}" alt="¿Actitud de la familia?" title="¿actitud de la familia?">
