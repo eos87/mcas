@@ -301,6 +301,9 @@ a{
 width: 956px; height: 500px; margin:2px;
 }
 
+.botones-descarga {
+    float:right;
+}
 .botones-descarga a{
     margin:3px;
     display:block;
@@ -318,9 +321,7 @@ table{
 
 caption {
     padding: 5px;
-    margin:0 auto;
     width:auto;
-    margin-top:12px;
     text-align: left;
     font-size:16px;
     color:#48311a;
@@ -380,6 +381,7 @@ pre { font-size: 130%; background: #f7f7f7; padding: 10px 10px; font-weight: bol
     width: 280px;
     list-style: none;
     padding-left:0px;
+    margin-top:0px;
 }
 
 .menu_indicadores ul li{
