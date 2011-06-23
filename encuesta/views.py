@@ -81,9 +81,13 @@ def consultar(request):
             request.session['iglesia'] = form.cleaned_data['iglesia']
             request.session['importancia'] = form.cleaned_data['importancia_religion']
             request.session['centinel'] = 1
-            return HttpResponseRedirect('/indicadores/')
+            encuestas = _query_set_filtrado(request).count()
+            if encuestas != 0:
+                return HttpResponseRedirect('/indicadores/')
+            else:
+                nono = 2
     else:
-        form = ConsultarForm()        
+        form = ConsultarForm()       
     return render_to_response('encuesta/consultar.html', RequestContext(request, locals()))
 
 def index(request):
@@ -94,6 +98,7 @@ def index(request):
 def indicadores(request):
     encuestas = _query_set_filtrado(request)
     return render_to_response('encuesta/indicadores.html', RequestContext(request, locals()))
+    
 
 def generales(request):
     encuestas = _query_set_filtrado(request)

@@ -202,6 +202,11 @@
         </div>
         <button class="consultar">Consultar</button>
     </form>
+    {% if nono %}
+        <div id="mensaje">
+            <p> No hay datos para estas selecciones, vuelva a crear otra consulta por favor</p>
+        </div>
+    {% endif %}
 </div>
 <div class="clean"></div>
 {% endblock %}
