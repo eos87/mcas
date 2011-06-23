@@ -75,9 +75,15 @@
 
 {% block content %}
 {% include "encuesta/filtro.html"%}
+<br>
+<div class="indicadores">
+<div class="titulo" style="float:left;">Indicadores</div><div class="titulo" style="float:left;">Estado Actual</div><div class="titulo" style="float:left;">Tipo de Atención</div>
+<div class="botones-descarga"><a href="/estado-actual/problema_comunidad_xls"><img src="/files/img/doc.png"></a><a href="/estado_actual/problema_comunidad_xls"><img src="/files/img/pdf.png"></a></div>
+<div class="clean"></div>
+</div>
 {% include "encuesta/estado.html" %} 
 <table>
-        <caption>¿Usted sabe qué tipo de atención brindan en esos lugares?</caption>
+        <caption>¿Usted sabe qué tipo de atención brindan en esos lugares? <span class="numencuestas">Encuestas {{numero}}</span></caption>
         <thead>
             <tr>
                 <th>Categoria</th>
@@ -95,10 +101,10 @@
            {%endfor%}
         </tbody>
     </table>
-    <br><br>
+    <div class="clean"></div>
 <div class="contenedor">
-    <div class="grafico-title">Gr&aacute;fico  personas encuestas =  {{numero}}</div>
-    <div id="container" style="width: 958px; height: 500px;">
+    <div class="grafico-title">Gr&aacute;fico  <span class="numencuestas">Encuestas {{numero}}</span></div>
+    <div id="container" >
 
     </div>
 </div>

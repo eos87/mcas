@@ -3,9 +3,15 @@
 
 {% block content %}
 {% include "encuesta/filtro.html"%}
+<br>
+<div class="indicadores">
+<div class="titulo" style="float:left;">Indicadores</div><div class="titulo" style="float:left;">Estado Actual</div><div class="titulo" style="float:left;">Atención Comunidad</div>
+<div class="botones-descarga"><a href="/estado-actual/problema_comunidad_xls"><img src="/files/img/doc.png"></a><a href="/estado_actual/problema_comunidad_xls"><img src="/files/img/pdf.png"></a></div>
+<div class="clean"></div>
+</div>
 {% include "encuesta/estado.html" %}
 <table>
-        <caption>¿Sabe si hay lugares o personas en esta comunidad que atienden a niños/as, adolescentes que vivieron abuso sexual?</caption>
+        <caption>¿Sabe si hay lugares o personas en esta comunidad que atienden a niños/as, adolescentes que vivieron abuso sexual? <span class="numencuestas">Encuestas {{numero}}</span></caption>
         <thead>
             <tr>
                 <th>Categoria</th>
@@ -22,6 +28,10 @@
                 {%endfor%}
            {%endfor%}
         </tbody>
-    </table>  
+    </table>
+        <div class="clean"></div>
+    <div class="contenedor">
+    <div class="grafico-title">Gr&aacute;fico  <span class="numencuestas">Encuestas {{numero}}</span></div>
 <img src="{{grafo_url}}" alt="¿Personas que atienden a abusados sexuales?" title="¿Personas que atienden a abusados sexuales?">
+</div>
 {% endblock %}

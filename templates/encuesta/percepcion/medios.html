@@ -75,9 +75,15 @@
 
 {% block content %}
 {% include "encuesta/filtro.html"%}
+<br>
+<div class="indicadores">
+<div class="titulo" style="float:left;">Indicadores</div><div class="titulo" style="float:left;">Percepción</div><div class="titulo" style="float:left;">Rol de medios de comunicación</div>
+<div class="botones-descarga"><a href="/estado-actual/problema_comunidad_xls"><img src="/files/img/doc.png"></a><a href="/estado_actual/problema_comunidad_xls"><img src="/files/img/pdf.png"></a></div>
+<div class="clean"></div>
+</div>
 {% include "encuesta/percepcion.html" %} 
 <table>
-        <caption>¿Qué piensa sobre el rol de los medios de comunicación en cuanto al abuso sexual?</caption>
+        <caption>¿Qué piensa sobre el rol de los medios de comunicación en cuanto al abuso sexual? <span class="numencuestas">Encuestas {{numero}}</span></caption>
         <thead>
             <tr>
                 <th>Categoria</th>
@@ -95,9 +101,9 @@
            {%endfor%}
         </tbody>
     </table>
-    <br><br>
+<div class="clean"></div>
 <div class="contenedor">
-    <div class="grafico-title">Gr&aacute;fico  personas encuestas =  {{numero}}</div>
+    <div class="grafico-title">Gr&aacute;fico  <span class="numencuestas">Encuestas {{numero}}</span></div>
     <div id="container" style="width: 958px; height: 500px;">
 
     </div>
