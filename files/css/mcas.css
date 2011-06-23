@@ -329,6 +329,10 @@ caption {
 
 }
 
+.caption2{
+    background:url(/files/img/caption-tabla2.png) no-repeat !important;
+}
+
 th{
     font-family: "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
     font-weight: bold;

@@ -342,8 +342,12 @@ $(document).ready(function() {
 {%endblock%}
 
 {%block content%}
-<table style="width:100%;">
-        <caption>Hombre y mujeres</caption>
+<div class="indicadores">
+<div class="titulo" style="float:left;">Generales</div>
+<div class="clean"></div>
+</div>
+<table style="width:100%;" >
+        <caption class="caption2">Hombre y mujeres</caption>
         <thead>
             <tr>
                 <th>Categoria</th>
@@ -363,13 +367,14 @@ $(document).ready(function() {
             <td>{{ por_mujer }}</td>
         </tr>   
     </table>
+    <div class="clean"></div>
 <div class="contenedor">
     <div class="grafico-title">Gr&aacute;fico Hombres, Mujeres</div>
 <div id="container6" style="width: 958px; height: 500px;"></div>
 </div> 
 <br>
 <table style="width:100%;">
-        <caption>Rural y urbano</caption>
+        <caption class="caption2">Rural y urbano</caption>
         <thead>
             <tr>
                 <th>Categoria</th>
@@ -389,13 +394,14 @@ $(document).ready(function() {
             <td>{{ por_urbano }}</td>
         </tr>   
     </table>
+    <div class="clean"></div>
 <div class="contenedor">
     <div class="grafico-title">Gr&aacute;fico Urbano y Rural</div>
 <div id="container7" style="width: 958px; height: 500px;"></div>
 </div>   
 <br></br>
 <table style="width:100%;">
-        <caption>Escolaridad</caption>
+        <caption class="caption2">Escolaridad</caption>
         <thead>
             <tr>
                 <th>Categoria</th>
@@ -414,13 +420,14 @@ $(document).ready(function() {
            {%endfor%}
         </tbody>
     </table>
+    <div class="clean"></div>
 <div class="contenedor">
     <div class="grafico-title">Gr&aacute;fico Escolaridad</div>
 <div id="container5" style="width: 958px; height: 500px;"></div>
 </div>   
 <br></br>
 <table style="width:100%;">
-        <caption>Civil</caption>
+        <caption class="caption2">Civil</caption>
         <thead>
             <tr>
                 <th>Categoria</th>
@@ -439,13 +446,14 @@ $(document).ready(function() {
            {%endfor%}
         </tbody>
     </table>
+    <div class="clean"></div>
 <div class="contenedor">
     <div class="grafico-title">Gr&aacute;fico Estado civil</div>
 <div id="container4" style="width: 958px; height: 500px;"></div>
 </div>   
 <br></br>
 <table style="width:100%;">
-        <caption>Religión</caption>
+        <caption class="caption2">Religión</caption>
         <thead>
             <tr>
                 <th>Categoria</th>
@@ -463,13 +471,14 @@ $(document).ready(function() {
            {%endfor%}
         </tbody>
     </table>
+    <div class="clean"></div>
 <div class="contenedor">
     <div class="grafico-title">Gr&aacute;fico Religión</div>
 <div id="container3" style="width: 958px; height: 500px;"></div>
 </div>
 <br></br>
 <table style="width:100%;">
-        <caption>Departamento</caption>
+        <caption class="caption2">Departamento</caption>
         <thead>
             <tr>
                 <th>Categoria</th>
@@ -487,13 +496,14 @@ $(document).ready(function() {
            {%endfor%}
         </tbody>
     </table>
+    <div class="clean"></div>
 <div class="contenedor">
     <div class="grafico-title">Gr&aacute;fico Departamentos</div>
 <div id="container1" style="width: 958px; height: 500px;"></div>
 </div>
 <br></br>
 <table style="width:100%;">
-        <caption>Municipio</caption>
+        <caption class="caption2">Municipio</caption>
         <thead>
             <tr>
                 <th>Departamentos</th>
@@ -512,6 +522,6 @@ $(document).ready(function() {
            {%endfor%}
         </tbody>
     </table>
-
+<div class="clean"></div>
 
 {%endblock%}
