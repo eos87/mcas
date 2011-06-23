@@ -3,9 +3,15 @@
 
 {% block content %}
 {% include "encuesta/filtro.html"%}
+<br>
+<div class="indicadores">
+<div class="titulo" style="float:left;">Indicadores</div><div class="titulo" style="float:left;">Percepción</div><div class="titulo" style="float:left;">Conoce niños abusados</div>
+<div class="botones-descarga"><a href="/estado-actual/problema_comunidad_xls"><img src="/files/img/doc.png"></a><a href="/estado_actual/problema_comunidad_xls"><img src="/files/img/pdf.png"></a></div>
+<div class="clean"></div>
+</div>
 {% include "encuesta/percepcion.html" %} 
 <table>
-        <caption>¿Has conocido de niños, niñas o adolescentes que hayan sido abusados sexualmente?</caption>
+        <caption>¿Has conocido de niños, niñas o adolescentes que hayan sido abusados sexualmente? <span class="numencuestas">Encuestas {{numero}}</span></caption>
         <thead>
             <tr>
                 <th>Categoria</th>
@@ -23,6 +29,9 @@
            {%endfor%}
         </tbody>
     </table>
-    <br><br>
+    <div class="clean"></div>
+<div class="contenedor">
+    <div class="grafico-title">Gr&aacute;fico  <span class="numencuestas">Encuestas {{numero}}</span></div>
 <img src="{{grafo_url}}" alt="¿Conocer niños/as abusados sexualmente?" title="¿Conocer niños/as abusados sexualmente?">
+</div>
 {% endblock %}
