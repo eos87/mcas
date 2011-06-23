@@ -3,10 +3,15 @@
 
 {% block content %}
 {% include "encuesta/filtro.html"%}
+<br>
+<div class="indicadores">
+<div class="titulo" style="float:left;">Indicadores</div><div class="titulo" style="float:left;">Práctica</div><div class="titulo" style="float:left;">¿Participa Organizaciones?</div>
+<div class="botones-descarga"><a href="/practica/prevenir_xls"><img src="/files/img/doc.png"></a><a href="/practica/prevenir_xls"><img src="/files/img/pdf.png"></a></div>
+<div class="clean"></div>
+</div>
 {% include "encuesta/practica.html" %}
-<br></br>
 <table>
-        <caption>¿Usted participa o ha participado en algún tipo de organización que previene el abuso sexual?</caption>
+        <caption>¿Usted participa o ha participado en algún tipo de organización que previene el abuso sexual? <span class="numencuestas">Encuestas {{numero}}</span></caption>
         <thead>
             <tr>
                 <th>Categoria</th>
@@ -23,6 +28,10 @@
                 {%endfor%}
            {%endfor%}
         </tbody>
-    </table> 
+    </table>
+    <div class="clean"></div>
+    <div class="contenedor">
+    <div class="grafico-title">Gr&aacute;fico  <span class="numencuestas">Encuestas {{numero}}</span></div>
 <img src="{{grafo_url}}" alt="¿Participa para prevenir?" title="¿Participa para prevenir?">
+    </div>
 {% endblock %}
