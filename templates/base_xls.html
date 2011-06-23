@@ -4,6 +4,38 @@
         <title>MCAS | {% block extratitle %}{% endblock %}</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link type="text/css" rel="stylesheet"  href="/files/css/mcas.css">
+         <style type="text/css">
+            @page {
+                size: A4 portrait;
+                margin: 1cm;
+                @frame footer {
+                -pdf-frame-content: footerContent;
+                bottom: 0cm;
+                margin-left: 9cm;
+                margin-right: 9cm;
+                height: 1cm;
+            }
+            }
+            body{
+                font-size: 12px;
+                font-family: 'Trebuchet MS', sans-serif;
+            }
+            th{
+                background-color: #ded3ba;
+                font-family: 'Trebuchet MS', sans-serif;
+            }
+            td, th{
+                border: 1px solid #E0DDD2;
+                padding: 3px 2px -1px 8px;
+            }
+            .datos span{
+                font-weight: bold;
+                line-height: 16px;
+            }
+            .materiales{
+                font-size: 10px;
+            }
+        </style>
     </head>
     <body>
         <div id="contenido">
@@ -13,6 +45,11 @@
                 <div class="clean"></div>
             </div>
             <div class="clean"></div>
+        </div>
+        <div id="footerContent">
+            {%block page_foot%}
+            P&aacute;gina <pdf:pagenumber>
+                {%endblock%}
         </div>
     </body>
 </html>
