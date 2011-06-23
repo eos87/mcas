@@ -268,7 +268,7 @@ class Practica(models.Model):
         verbose_name_plural = u'Prácticas'
 
 PROBLEMA = ((1, 'No es un problema'), (2, 'Es un problema'), (3, 'Es un problema grave'), (4, 'Aquí no sucede'), (5, 'No sabe'),(6,'No sabe'))
-DONDE_VAN = ((1, 'A otro municipio o comunidad'), (2, 'Paga un abogado o un/a psicólogo/a particular'), (3, 'No hace nada'), (4, 'No sabe'), (5, 'ONG\'s'), (6, 'Instituciones del estado'))
+DONDE_VAN = ((1, 'A otro municipio o comunidad'), (2, 'Paga un abogado o un/a psicólogo/a particular'), (3, 'No hace nada'), (4, 'No sabe'), (5, 'ONGs'), (6, 'Instituciones del estado'))
 
 class LugarAtencion(models.Model):
     nombre = models.CharField(max_length=50)
