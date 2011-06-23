@@ -5,6 +5,11 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils import simplejson
+from django.template.loader import get_template
+from django.template import Context
+import ho.pisa as pisa
+import cStringIO as StringIO
+import cgi
 from forms import ConsultarForm
 from mcas import grafos
 from mcas.lugar.models import Comunidad
@@ -186,7 +191,11 @@ def __familia_jefe(request):
 def familia_jefe_xls(request):
     dict = __familia_jefe(request)
     print dict
-    return write_xls('encuesta/familia/jefe_xls.html', dict, 'jefe.xls')  
+    return write_xls('encuesta/familia/jefe_xls.html', dict, 'jefe.doc')
+    
+def familia_jefe_pdf(request):
+    dict = __familia_jefe(request)
+    return write_pdf('encuesta/familia/jefe_xls.html', dict)  
 #-------------------------------------------------------------------------------
 def familia_vivecon(request):
     encuestas = _query_set_filtrado(request)
@@ -219,8 +228,11 @@ def __vivencon_xls__(request):
     
 def vivencon_xls(request):
     dict = __vivencon_xls__(request)
-    print dict
-    return write_xls('encuesta/familia/vivecon_xls.html', dict, 'vive_con_quien.xls')
+    return write_xls('encuesta/familia/vivecon_xls.html', dict, 'vive_con_quien.doc')
+    
+def vivencon_pdf(request):
+    dict = __vivencon_xls__(request)
+    return write_pdf('encuesta/familia/vivecon_xls.html', dict)
 #-------------------------------------------------------------------------------    
 
 def familia_miembros(request):
@@ -274,7 +286,11 @@ def __familia_miembros_xls(request):
 
 def familia_miembros_xls(request):
     dict = __familia_miembros_xls(request)
-    return write_xls('encuesta/familia/miembros_xls.html', dict, 'miembros.xls')
+    return write_xls('encuesta/familia/miembros_xls.html', dict, 'miembros.doc')
+    
+def familia_miembros_pdf(request):
+    dict = __familia_miembros_xls(request)
+    return write_pdf('encuesta/familia/miembros_xls.html', dict)
 #-------------------------------------------------------------------------------        
 
 #SALIDAS DE CONOCIMIENTOS
@@ -309,7 +325,11 @@ def __conocimiento_abuso(request):
     
 def conocimiento_abuso_xls(request):
     dict = __conocimiento_abuso(request)
-    return write_xls('encuesta/conocimiento/abuso_xls.html', dict, 'conocimiento.xls')
+    return write_xls('encuesta/conocimiento/abuso_xls.html', dict, 'conocimiento.doc')
+    
+def conocimiento_abuso_pdf(request):
+    dict = __conocimiento_abuso(request)
+    return write_pdf('encuesta/conocimiento/abuso_xls.html', dict)
 #-------------------------------------------------------------------------------
 def conocimiento_lugar(request):
     encuestas = _query_set_filtrado(request)
@@ -339,7 +359,11 @@ def __conocimiento_lugar(request):
     
 def conocimiento_lugar_xls(request):
     dict = __conocimiento_lugar(request)
-    return write_xls('encuesta/conocimiento/lugar_xls.html', dict, 'lugar.xls')
+    return write_xls('encuesta/conocimiento/lugar_xls.html', dict, 'lugar.doc')
+    
+def conocimiento_lugar_pdf(request):
+    dict = __conocimiento_lugar(request)
+    return write_pdf('encuesta/conocimiento/lugar_xls.html', dict)
 #-------------------------------------------------------------------------------
 
 def conocimiento_abusan_ninos(request):
@@ -370,7 +394,11 @@ def __conocimiento_abusan_ninos(request):
     
 def conocimiento_abusan_ninos_xls(request):
     dict = __conocimiento_abusan_ninos(request)
-    return write_xls('encuesta/conocimiento/abusan_ninos_xls.html', dict, 'abusan_ninos.xls')
+    return write_xls('encuesta/conocimiento/abusan_ninos_xls.html', dict, 'abusan_ninos.doc')
+    
+def conocimiento_abusan_ninos_pdf(request):
+    dict = __conocimiento_abusan_ninos(request)
+    return write_pdf('encuesta/conocimiento/abusan_ninos_xls.html', dict)
 #-------------------------------------------------------------------------------
     
 def conocimiento_prevenir(request):
@@ -401,7 +429,11 @@ def __conocimiento_prevenir(request):
     
 def conocimiento_prevenir_xls(request):
     dict = __conocimiento_prevenir(request)
-    return write_xls('encuesta/conocimiento/prevenir_xls.html', dict, 'prevenir.xls')
+    return write_xls('encuesta/conocimiento/prevenir_xls.html', dict, 'prevenir.doc')
+    
+def conocimiento_prevenir_pdf(request):
+    dict = __conocimiento_prevenir(request)
+    return write_pdf('encuesta/conocimiento/prevenir_xls.html', dict)
 #-------------------------------------------------------------------------------    
 
 def conocimiento_leyes(request):
@@ -437,7 +469,11 @@ def __conocimiento_leyes(request):
         
 def conocimiento_leyes_xls(request):
     dict = __conocimiento_leyes(request)
-    return write_xls('encuesta/conocimiento/leyes_xls.html', dict, 'leyes.xls')
+    return write_xls('encuesta/conocimiento/leyes_xls.html', dict, 'leyes.doc')
+    
+def conocimiento_leyes_pdf(request):
+    dict = __conocimiento_leyes(request)
+    return write_pdf('encuesta/conocimiento/leyes_xls.html', dict)
 #-------------------------------------------------------------------------------
     
 def conocimiento_aprendio(request):
@@ -468,7 +504,11 @@ def __conocimiento_aprendio(request):
     
 def conocimiento_aprendio_xls(request):
     dict = __conocimiento_aprendio(request)
-    return write_xls('encuesta/conocimiento/aprendio_xls.html', dict, 'aprendio.xls')
+    return write_xls('encuesta/conocimiento/aprendio_xls.html', dict, 'aprendio.doc')
+    
+def conocimiento_aprendio_pdf(request):
+    dict = __conocimiento_aprendio(request)
+    return write_pdf('encuesta/conocimiento/aprendio_xls.html', dict)
 #-------------------------------------------------------------------------------
     
 def conocimiento_informarse(request):
@@ -499,7 +539,11 @@ def __conocimiento_informarse(request):
     
 def conocimiento_informarse_xls(request):
     dict = __conocimiento_informarse(request)
-    return write_xls('encuesta/conocimiento/informarse_xls.html', dict, 'informarse.xls')
+    return write_xls('encuesta/conocimiento/informarse_xls.html', dict, 'informarse.doc')
+    
+def conocimiento_informarse_pdf(request):
+    dict = __conocimiento_informarse(request)
+    return write_pdf('encuesta/conocimiento/informarse_xls.html', dict)
 #-------------------------------------------------------------------------------
 
 #SALIDAS DE ACTITUD
@@ -532,9 +576,12 @@ def __actitud_abuso(request):
 
 def actitud_abuso_xls(request):
     dict = __actitud_abuso(request)
-    return write_xls('encuesta/actitud/abuso_xls.html', dict, 'abuso.xls')
+    return write_xls('encuesta/actitud/abuso_xls.html', dict, 'abuso.doc')
+    
+def actitud_abuso_pdf(request):
+    dict = __actitud_abuso(request)
+    return write_pdf('encuesta/actitud/abuso_xls.html', dict)
 #-------------------------------------------------------------------------------    
-
 
 def actitud_piensa(request):
     encuestas = _query_set_filtrado(request)
@@ -564,7 +611,11 @@ def __actitud_piensa(request):
     
 def actitud_piensa_xls(request):
     dict = __actitud_piensa(request)
-    return write_xls('encuesta/actitud/piensa_xls.html', dict, 'piensa.xls')
+    return write_xls('encuesta/actitud/piensa_xls.html', dict, 'piensa.doc')
+    
+def actitud_piensa_pdf(request):
+    dict = __actitud_piensa(request)
+    return write_pdf('encuesta/actitud/piensa_xls.html', dict)
 #------------------------------------------------------------------------------- 
   
 def actitud_victimas(request):
@@ -595,7 +646,11 @@ def __actitud_victimas(request):
     
 def actitud_victimas_xls(request):
     dict = __actitud_victimas(request)
-    return write_xls('encuesta/actitud/victima_xls.html', dict, 'victima.xls')
+    return write_xls('encuesta/actitud/victima_xls.html', dict, 'victima.doc')
+    
+def actitud_victimas_pdf(request):
+    dict = __actitud_victimas(request)
+    return write_pdf('encuesta/actitud/victima_xls.html', dict)
 #-------------------------------------------------------------------------------     
 def actitud_familia(request):
     encuestas = _query_set_filtrado(request)
@@ -631,7 +686,11 @@ def __actitud_familia(request):
     
 def actitud_familia_xls(request):
     dict = __actitud_familia(request)
-    return write_xls('encuesta/actitud/familia_xls.html', dict, 'familia.xls')
+    return write_xls('encuesta/actitud/familia_xls.html', dict, 'familia.doc')
+    
+def actitud_familia_pdf(request):
+    dict = __actitud_familia(request)
+    return write_pdf('encuesta/actitud/familia_xls.html', dict)
 #-------------------------------------------------------------------------------       
 def actitud_escuela(request):
     encuestas = _query_set_filtrado(request)
@@ -665,7 +724,11 @@ def __actitud_escuela(request):
     
 def actitud_escuela_xls(request):
     dict = __actitud_escuela(request)
-    return write_xls('encuesta/actitud/escuela_xls.html', dict, 'escuela.xls')
+    return write_xls('encuesta/actitud/escuela_xls.html', dict, 'escuela.doc')
+    
+def actitud_escuela_pdf(request):
+    dict = __actitud_escuela(request)
+    return write_pdf('encuesta/actitud/escuela_xls.html', dict)
 #-------------------------------------------------------------------------------    
     
 #PRACTICA
@@ -698,7 +761,11 @@ def __practica_situacion(request):
 
 def practica_situacion_xls(request):
     dict = __practica_situacion(request)
-    return write_xls('encuesta/practica/situacion_xls.html', dict, 'situacion.xls')
+    return write_xls('encuesta/practica/situacion_xls.html', dict, 'situacion.doc')
+    
+def practica_situacion_pdf(request):
+    dict = __practica_situacion(request)
+    return write_pdf('encuesta/practica/situacion_xls.html', dict)
 #-------------------------------------------------------------------------------    
    
 def practica_prevenir(request):
@@ -729,7 +796,11 @@ def __practica_prevenir(request):
     
 def practica_prevenir_xls(request):
     dict = __practica_prevenir(request)
-    return write_xls('encuesta/practica/prevenir_xls.html', dict, 'prevenir.xls')
+    return write_xls('encuesta/practica/prevenir_xls.html', dict, 'prevenir.doc')
+    
+def practica_prevenir_pdf(request):
+    dict = __practica_prevenir(request)
+    return write_pdf('encuesta/practica/prevenir_xls.html', dict)
 #-------------------------------------------------------------------------------  
     
 def practica_participa_prevenir(request):
@@ -764,7 +835,11 @@ def __practica_participa_prevenir(request):
     
 def practica_participa_prevenir_xls(request):
     dict = __practica_participa_prevenir(request)
-    return write_xls('encuesta/practica/participa_prevenir_xls.html', dict, 'participa_prevenir.xls')
+    return write_xls('encuesta/practica/participa_prevenir_xls.html', dict, 'participa_prevenir.doc')
+    
+def practica_participa_prevenir_pdf(request):
+    dict = __practica_participa_prevenir(request)
+    return write_pdf('encuesta/practica/participa_prevenir_xls.html', dict)
 #-------------------------------------------------------------------------------     
     
 def practica_como(request):
@@ -795,7 +870,11 @@ def __practica_como(request):
     
 def practica_como_xls(request):
     dict = __practica_como(request)
-    return write_xls('encuesta/practica/como_xls.html', dict, 'como.xls')
+    return write_xls('encuesta/practica/como_xls.html', dict, 'como.doc')
+    
+def practica_como_pdf(request):
+    dict = __practica_como(request)
+    return write_pdf('encuesta/practica/como_xls.html', dict)
 #-------------------------------------------------------------------------------       
 #SALIDAS DE ESTADO ACTUAL
 
@@ -827,7 +906,11 @@ def __estado_problema(request):
     
 def estado_problema_xls(request):
     dict = __estado_problema(request)
-    return write_xls('encuesta/estado/problema_comunidad_xls.html', dict, 'problema_comunidad.xls')
+    return write_xls('encuesta/estado/problema_comunidad_xls.html', dict, 'problema_comunidad.doc')
+    
+def estado_problema_pdf(request):
+    dict = __estado_problema(request)
+    return write_pdf('encuesta/estado/problema_comunidad_xls.html', dict)
 #-------------------------------------------------------------------------------
     
 def estado_problema_pais(request):
@@ -864,7 +947,11 @@ def __estado_problema_pais(request):
     
 def estado_problema_pais_xls(request):
     dict = __estado_problema_pais(request)
-    return write_xls('encuesta/estado/problema_pais_xls.html', dict, 'problema_pais.xls')
+    return write_xls('encuesta/estado/problema_pais_xls.html', dict, 'problema_pais.doc')
+    
+def estado_problema_pais_pdf(request):
+    dict = __estado_problema_pais(request)
+    return write_pdf('encuesta/estado/problema_pais_xls.html', dict)
 #------------------------------------------------------------------------------- 
     
 def estado_atencion(request):
@@ -899,7 +986,11 @@ def __estado_atencion(request):
 
 def estado_atencion_xls(request):
     dict = __estado_atencion(request)
-    return write_xls('encuesta/estado/atencion_xls.html', dict, 'atencion.xls')
+    return write_xls('encuesta/estado/atencion_xls.html', dict, 'atencion.doc')
+    
+def estado_atencion_pdf(request):
+    dict = __estado_atencion(request)
+    return write_pdf('encuesta/estado/atencion_xls.html', dict)
 #-------------------------------------------------------------------------------     
     
 def estado_lugares(request):
@@ -930,7 +1021,11 @@ def __estado_lugares(request):
 
 def estado_lugares_xls(request):
     dict = __estado_lugares(request)
-    return write_xls('encuesta/estado/lugares_xls.html', dict, 'lugares.xls')
+    return write_xls('encuesta/estado/lugares_xls.html', dict, 'lugares.doc')
+    
+def estado_lugares_pdf(request):
+    dict = __estado_lugares(request)
+    return write_pdf('encuesta/estado/lugares_xls.html', dict)
 #-------------------------------------------------------------------------------    
     
 def estado_tipo_atencion(request):
@@ -961,7 +1056,11 @@ def __estado_tipo_atencion(request):
     
 def estado_tipo_atencion_xls(request):
     dict = __estado_tipo_atencion(request)
-    return write_xls('encuesta/estado/tipo_atencion_xls.html', dict, 'tipo_atencion.xls')
+    return write_xls('encuesta/estado/tipo_atencion_xls.html', dict, 'tipo_atencion.doc')
+    
+def estado_tipo_atencion_pdf(request):
+    dict = __estado_tipo_atencion(request)
+    return write_pdf('encuesta/estado/tipo_atencion_xls.html', dict)
 #------------------------------------------------------------------------------- 
     
 def estado_donde(request):
@@ -992,7 +1091,11 @@ def __estado_donde(request):
 
 def estado_donde_xls(request):
     dict = __estado_donde(request)
-    return write_xls('encuesta/estado/donde_xls.html', dict, 'donde.xls')
+    return write_xls('encuesta/estado/donde_xls.html', dict, 'donde.doc')
+    
+def estado_donde_pdf(request):
+    dict = __estado_donde(request)
+    return write_pdf('encuesta/estado/donde_xls.html', dict)
 #-------------------------------------------------------------------------------    
     
 # SALIDAS DE PERCEPCION
@@ -1031,7 +1134,11 @@ def __percepcion_ninos_abusados(request):
     
 def percepcion_ninos_xls(request):
     dict = __percepcion_ninos_abusados(request)
-    return write_xls('encuesta/percepcion/ninos_abusados_xls.html', dict, 'ninos_abusados.xls')
+    return write_xls('encuesta/percepcion/ninos_abusados_xls.html', dict, 'ninos_abusados.doc')
+    
+def percepcion_ninos_pdf(request):
+    dict = __percepcion_ninos_abusados(request)
+    return write_pdf('encuesta/percepcion/ninos_abusados_xls.html', dict)
 #-------------------------------------------------------------------------------  
     
 def percepcion_familia(request):
@@ -1066,7 +1173,11 @@ def __percepcion_familia(request):
     
 def percepcion_familia_xls(request):
     dict = __percepcion_familia(request)
-    return write_xls('encuesta/percepcion/familia_abuso_xls.html', dict, 'familia_abuso.xls')
+    return write_xls('encuesta/percepcion/familia_abuso_xls.html', dict, 'familia_abuso.doc')
+    
+def percepcion_familia_pdf(request):
+    dict = __percepcion_familia(request)
+    return write_pdf('encuesta/percepcion/familia_abuso_xls.html', dict)
 #-------------------------------------------------------------------------------      
 def percepcion_prevenir(request):
     encuestas = _query_set_filtrado(request)
@@ -1096,7 +1207,11 @@ def __percepcion_prevenir(request):
     
 def percepcion_prevenir_xls(request):
     dict = __percepcion_prevenir(request)
-    return write_xls('encuesta/percepcion/encargado_prevenir_xls.html', dict, 'encargado_prevenir.xls')
+    return write_xls('encuesta/percepcion/encargado_prevenir_xls.html', dict, 'encargado_prevenir.doc')
+    
+def percepcion_prevenir_pdf(request):
+    dict = __percepcion_prevenir(request)
+    return write_pdf('encuesta/percepcion/encargado_prevenir_xls.html', dict)
 #-------------------------------------------------------------------------------     
 def percepcion_mensajes(request):
     encuestas = _query_set_filtrado(request)
@@ -1125,7 +1240,11 @@ def __percepcion_mensajes(request):
     
 def percepcion_mensajes_xls(request):
     dict = __percepcion_mensajes(request)
-    return write_xls('encuesta/percepcion/mensajes_xls.html', dict, 'mensajes.xls')
+    return write_xls('encuesta/percepcion/mensajes_xls.html', dict, 'mensajes.doc')
+    
+def percepcion_mensajes_pdf(request):
+    dict = __percepcion_mensajes(request)
+    return write_pdf('encuesta/percepcion/mensajes_xls.html', dict)
 #------------------------------------------------------------------------------- 
     
 def percepcion_reducir(request):
@@ -1160,9 +1279,13 @@ def __percepcion_reducir(request):
     dict = {'dicc2':dicc2}
     return dict
 
-def percepcion_mensajes_xls(request):
+def percepcion_reducir_xls(request):
     dict = __percepcion_reducir(request)
-    return write_xls('encuesta/percepcion/reducir_xls.html', dict, 'reducir.xls')
+    return write_xls('encuesta/percepcion/reducir_xls.html', dict, 'reducir.doc')
+    
+def percepcion_reducir_pdf(request):
+    dict = __percepcion_reducir(request)
+    return write_pdf('encuesta/percepcion/reducir_xls.html', dict)
 #-------------------------------------------------------------------------------     
        
 def percepcion_iglesia(request):
@@ -1193,7 +1316,11 @@ def __percepcion_iglesia(request):
 
 def percepcion_iglesia_xls(request):
     dict = __percepcion_iglesia(request)
-    return write_xls('encuesta/percepcion/iglesia_xls.html', dict, 'iglesia.xls')
+    return write_xls('encuesta/percepcion/iglesia_xls.html', dict, 'iglesia.doc')
+    
+def percepcion_iglesia_pdf(request):
+    dict = __percepcion_iglesia(request)
+    return write_pdf('encuesta/percepcion/iglesia_xls.html', dict)
 #-------------------------------------------------------------------------------         
 def percepcion_medios(request):
     encuestas = _query_set_filtrado(request)
@@ -1223,7 +1350,11 @@ def __percepcion_medios(request):
 
 def percepcion_medios_xls(request):
     dict = __percepcion_medios(request)
-    return write_xls('encuesta/percepcion/medios_xls.html', dict, 'medios.xls')
+    return write_xls('encuesta/percepcion/medios_xls.html', dict, 'medios.doc')
+
+def percepcion_medios_pdf(request):
+    dict = __percepcion_medios(request)
+    return write_pdf('encuesta/percepcion/medios_xls.html', dict)
 #-------------------------------------------------------------------------------     
 def percepcion_estado(request):
     encuestas = _query_set_filtrado(request)
@@ -1253,7 +1384,11 @@ def __percepcion_estado(request):
     
 def percepcion_estado_xls(request):
     dict = __percepcion_estado(request)
-    return write_xls('encuesta/percepcion/estado_xls.html', dict, 'estado.xls')
+    return write_xls('encuesta/percepcion/estado_xls.html', dict, 'estado.doc')
+    
+def percepcion_estado_pdf(request):
+    dict = __percepcion_estado(request)
+    return write_pdf('encuesta/percepcion/estado_xls.html', dict)
 #-------------------------------------------------------------------------------     
 def percepcion_ong(request):
     encuestas = _query_set_filtrado(request)
@@ -1283,7 +1418,11 @@ def __percepcion_ong(request):
     
 def percepcion_ong_xls(request):
     dict = __percepcion_ong(request)
-    return write_xls('encuesta/percepcion/ong_xls.html', dict, 'ong.xls')
+    return write_xls('encuesta/percepcion/ong_xls.html', dict, 'ong.doc')
+    
+def percepcion_ong_pdf(request):
+    dict = __percepcion_ong(request)
+    return write_pdf('encuesta/percepcion/ong_xls.html', dict)
 #-------------------------------------------------------------------------------     
 def percepcion_empresa(request):
     encuestas = _query_set_filtrado(request)
@@ -1313,7 +1452,11 @@ def __percepcion_empresa(request):
     
 def percepcion_empresa_xls(request):
     dict = __percepcion_empresa(request)
-    return write_xls('encuesta/percepcion/ong_xls.html', dict, 'ong.xls')
+    return write_xls('encuesta/percepcion/empresa_xls.html', dict, 'empresas.doc')
+    
+def percepcion_empresa_pdf(request):
+    dict = __percepcion_empresa(request)
+    return write_pdf('encuesta/percepcion/empresa_xls.html', dict)
 #-------------------------------------------------------------------------------     
 #FUNCIONES UTILITARIAS
 
@@ -1468,6 +1611,17 @@ def saca_porcentajes(dato, total, formato=True):
 def write_xls(template_src, context_dict, filename):
     response = render_to_response(template_src, context_dict)
     response['Content-Disposition'] = 'attachment; filename='+filename
-    response['Content-Type'] = 'application/vnd.ms-excel'
+    response['Content-Type'] = 'application/vnd.ms-word'
     response['Charset']='UTF-8'
     return response
+    
+def write_pdf(template_src, context_dict):
+    template = get_template(template_src)
+    context = Context(context_dict)
+    html  = template.render(context)
+    result = StringIO.StringIO()
+    pdf = pisa.pisaDocument(StringIO.StringIO(
+    html.encode("utf-8")), result)
+    if not pdf.err:
+        return HttpResponse(result.getvalue(), mimetype='application/pdf')
+    return HttpResponse('Error al procesar pdf %s' % cgi.escape(html))
