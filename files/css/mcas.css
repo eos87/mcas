@@ -333,6 +333,19 @@ caption {
     background:url(/files/img/caption-tabla2.png) no-repeat !important;
 }
 
+#mensaje{
+    width:900px;
+    margin:8px 0px 8px 0px;
+    border:#d8843e 1px solid;
+    background:#f1edaf url(/files/img/mensaje.png) no-repeat;
+    background-position:center left;
+    color:#42423b;
+    font-size:15px;
+    font-weight:bold;
+    height:25px;
+    padding-left:35px;
+}
+
 th{
     font-family: "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
     font-weight: bold;
