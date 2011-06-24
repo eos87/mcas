@@ -200,13 +200,15 @@
             <div class="filtros"></div>
             <div class="clean"></div>
         </div>
-        <button class="consultar">Consultar</button>
-    </form>
-    {% if nono %}
+            {% if nono %}
+        <div class="clean"></div>
         <div id="mensaje">
-            <p> No hay datos para estas selecciones, vuelva a crear otra consulta por favor</p>
+             No hay datos para estas selecciones, vuelva a crear otra consulta por favor
         </div>
     {% endif %}
+        <button class="consultar">Consultar</button>
+    </form>
+
 </div>
 <div class="clean"></div>
 {% endblock %}
