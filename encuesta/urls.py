@@ -26,7 +26,7 @@ urlpatterns = patterns('mcas.encuesta.views',
      #conocimientos
      (r'^conocimiento_abuso.xls/$', 'conocimiento_abuso_xls'),
      (r'^conocimiento_lugar.xls/$', 'conocimiento_lugar_xls'),
-     (r'^conocimiento_abusan_ninos.xls.xls/$', 'conocimiento_abusan_ninos_xls'),
+     (r'^conocimiento_abusan_ninos.xls/$', 'conocimiento_abusan_ninos_xls'),
      (r'^conocimiento_prevenir.xls/$', 'conocimiento_prevenir_xls'),
      (r'^conocimiento_leyes.xls/$', 'conocimiento_leyes_xls'),
      (r'^conocimiento_aprendio.xls/$', 'conocimiento_aprendio_xls'),
