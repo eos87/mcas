@@ -1242,6 +1242,7 @@ def __percepcion_mensajes(request):
     
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     dict = {'dicc2':dicc2}
+    return dict
     
 def percepcion_mensajes_xls(request):
     dict = __percepcion_mensajes(request)
