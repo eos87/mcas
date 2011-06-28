@@ -208,7 +208,7 @@ def familia_vivecon(request):
     valores = []
     leyendas = []
     dicc = {}
-    for quien in ViveCon.objects.all()[:8]:        
+    for quien in ViveCon.objects.all()[:14]:        
         suma = Familia.objects.filter(encuesta__in=encuestas, vive_con=quien).count()
         tabla = round(saca_porcentajes(suma,numero),1)        
         dicc[quien.nombre] = (suma,tabla)
