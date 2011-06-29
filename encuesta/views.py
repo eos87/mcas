@@ -849,12 +849,13 @@ def practica_participa_prevenir_pdf(request):
     
 def practica_como(request):
     encuestas = _query_set_filtrado(request)
-    numero = encuestas.count()    
+    numero = encuestas.count()
+    practica_si = Practica.objects.filter(encuesta__in=encuestas, participa_prevenir=1)    
     dicc = {}
     for hacer in ComoParticipo.objects.all():
-        suma = Practica.objects.filter(encuesta__in=encuestas, como=hacer).count()
-        tabla = round(saca_porcentajes(suma,numero),1)
-        dicc[hacer.nombre] = (suma,tabla)
+        suma = practica_si.filter(como=hacer).count()
+        tabla = round(saca_porcentajes(suma, practica_si.count()), 1)
+        dicc[hacer.nombre] = (suma, tabla)
     
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
