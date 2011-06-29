@@ -208,7 +208,7 @@ def familia_vivecon(request):
     valores = []
     leyendas = []
     dicc = {}
-    for quien in ViveCon.objects.all()[:14]:        
+    for quien in ViveCon.objects.all()[:10]:        
         suma = Familia.objects.filter(encuesta__in=encuestas, vive_con=quien).count()
         tabla = round(saca_porcentajes(suma,numero),1)        
         dicc[quien.nombre] = (suma,tabla)
@@ -222,7 +222,7 @@ def __vivencon_xls__(request):
     encuestas = _query_set_filtrado(request)
     numero = encuestas.count()
     dicc = {}
-    for quien in ViveCon.objects.all()[:8]:        
+    for quien in ViveCon.objects.all()[:10]:        
         suma = Familia.objects.filter(encuesta__in=encuestas, vive_con=quien).count()
         tabla = round(saca_porcentajes(suma,numero),1)        
         dicc[quien.nombre] = (suma,tabla)
@@ -850,14 +850,23 @@ def practica_participa_prevenir_pdf(request):
 def practica_como(request):
     encuestas = _query_set_filtrado(request)
     numero = encuestas.count()
-    practica_si = Practica.objects.filter(encuesta__in=encuestas, participa_prevenir=1)    
+    practica_si = Practica.objects.filter(encuesta__in=encuestas, participa_prevenir=1)
+    
+    primer = encuestas.filter(practica__participa_prevenir=1,practica__como=10).count()
+    por_primer = round(saca_porcentajes(primer,practica_si.count()),1)
+    print por_primer    
     dicc = {}
-    for hacer in ComoParticipo.objects.all():
+    segundo=0
+    for hacer in ComoParticipo.objects.all().exclude(id=10):
         suma = practica_si.filter(como=hacer).count()
+        segundo += suma
         tabla = round(saca_porcentajes(suma, practica_si.count()), 1)
         dicc[hacer.nombre] = (suma, tabla)
     
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
+    por_segundo = round(saca_porcentajes(segundo,practica_si.count()),1)
+    
+    print por_segundo
     
     return render_to_response('encuesta/practica/como.html', RequestContext(request, locals())) 
 
