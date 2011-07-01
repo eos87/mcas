@@ -853,10 +853,10 @@ def practica_como(request):
     encuestas = _query_set_filtrado(request)
     numero = encuestas.count()
     practica_si = Practica.objects.filter(encuesta__in=encuestas, participa_prevenir=1)
-    
+    numero_si = practica_si.count()
     primer = encuestas.filter(practica__participa_prevenir=1,practica__como=10).count()
     por_primer = round(saca_porcentajes(primer,practica_si.count()),1)
-    print por_primer    
+       
     dicc = {}
     segundo=0
     for hacer in ComoParticipo.objects.all().exclude(id=10):
@@ -868,21 +868,28 @@ def practica_como(request):
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     por_segundo = round(saca_porcentajes(segundo,practica_si.count()),1)
     
-    print por_segundo
-    
     return render_to_response('encuesta/practica/como.html', RequestContext(request, locals())) 
 
 def __practica_como(request):
     encuestas = _query_set_filtrado(request)
-    numero = encuestas.count()    
+    numero = encuestas.count()
+    practica_si = Practica.objects.filter(encuesta__in=encuestas, participa_prevenir=1)
+    numero_si = practica_si.count()
+    primer = encuestas.filter(practica__participa_prevenir=1,practica__como=10).count()
+    por_primer = round(saca_porcentajes(primer,practica_si.count()),1)
+       
     dicc = {}
-    for hacer in ComoParticipo.objects.all():
-        suma = Practica.objects.filter(encuesta__in=encuestas, como=hacer).count()
-        tabla = round(saca_porcentajes(suma,numero),1)
-        dicc[hacer.nombre] = (suma,tabla)
+    segundo=0
+    for hacer in ComoParticipo.objects.all().exclude(id=10):
+        suma = practica_si.filter(como=hacer).count()
+        segundo += suma
+        tabla = round(saca_porcentajes(suma, practica_si.count()), 1)
+        dicc[hacer.nombre] = (suma, tabla)
     
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
-    dict = {'dicc2':dicc2}
+    por_segundo = round(saca_porcentajes(segundo,practica_si.count()),1)
+    dict = {'dicc2':dicc2,'primer':primer,'por_primer':por_primer,
+            'segundo':segundo,'por_segundo':por_segundo}
     return dict
     
 def practica_como_xls(request):
