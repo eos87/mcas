@@ -208,7 +208,8 @@ def familia_vivecon(request):
     valores = []
     leyendas = []
     dicc = {}
-    for quien in ViveCon.objects.all()[:10]:        
+    lista = [1,2,3,4,5,6,7,8,11]
+    for quien in ViveCon.objects.filter(id__in=lista):        
         suma = Familia.objects.filter(encuesta__in=encuestas, vive_con=quien).count()
         tabla = round(saca_porcentajes(suma,numero),1)        
         dicc[quien.nombre] = (suma,tabla)
@@ -222,7 +223,8 @@ def __vivencon_xls__(request):
     encuestas = _query_set_filtrado(request)
     numero = encuestas.count()
     dicc = {}
-    for quien in ViveCon.objects.all()[:10]:        
+    lista = [1,2,3,4,5,6,7,8,11]
+    for quien in ViveCon.objects.filter(id__in=lista):        
         suma = Familia.objects.filter(encuesta__in=encuestas, vive_con=quien).count()
         tabla = round(saca_porcentajes(suma,numero),1)        
         dicc[quien.nombre] = (suma,tabla)
