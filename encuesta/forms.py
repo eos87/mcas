@@ -18,7 +18,7 @@ NIVEL_EDUCATIVO = (('', 'Todos'),
                  (7, 'Técnico'),
                  (8, 'Universitario'))
 ESTADO_CIVIL = (('', 'Todos'), (1, 'Soltero/a'), (2, 'Casado/a'), (3, 'Unión de hecho estable'), (4, 'Divorciada/o'), (5, 'Viuda/o'))
-IGLESIA = (('', 'Todo'), (1, 'Si'), (2, 'No'))
+IGLESIA = (('', 'Todas'), (1, 'Si'), (2, 'No'))
 IMPORTANCIA_RELIGION = (('', 'Todo'), (1, 'Ninguna'), (2, 'Poca'), (3, 'Importante'), (4, 'Muy importante'))
 
 #mostrar solo los años donde hay informacion en BD
