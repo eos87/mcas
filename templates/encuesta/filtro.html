@@ -5,10 +5,10 @@
         <span class="variables_filtro"><b>Año:</b>{{request.session.anio}}</span>
         {%endif%}
         {% if request.session.residencia%}
-        <span class="variables_filtro"><b>Residencia:</b>{%if request.session.residencia = '1'%}Urbano{%endif%}
+        <span class="variables_filtro"><b>Área:</b>{%if request.session.residencia = '1'%}Urbano{%endif%}
         {%if request.session.residencia = '2'%}Rural{%endif%}</span>
         {%else%}
-            <span class="variables_filtro"><b>Residencia:</b>Todos</span>
+            <span class="variables_filtro"><b>Área:</b>Todos</span>
         {%endif%}
         
         {% if request.session.sexo%}
@@ -31,7 +31,7 @@
         <span class="variables_filtro"><b>Asiste a Iglesia:</b> {%if request.session.iglesia = '1'%}Si{%endif%}
         {%if request.session.iglesia = '2'%}No{%endif%}</span>
         {%else%}
-            <span class="variables_filtro"><b>Asiste a Iglesia:</b>Ambas</span>
+            <span class="variables_filtro"><b>Asiste a Iglesia:</b>Todas</span>
         {%endif%}
 
         {%if request.session.importancia%}
@@ -42,7 +42,7 @@
 
 
 <div id="filtrosbar">
-        <span class="variables">Lugares</span>
+        <span class="variables">Ubicación Geográfica</span>
         {% if request.session.departamento%}
         <span class="variables_filtro"><b>Departamento:</b> {% for a in request.session.departamento.all %}{{a}},{%endfor%}</span>
         {%else%}
