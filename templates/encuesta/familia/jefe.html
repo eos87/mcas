@@ -4,13 +4,13 @@
 {% include "encuesta/filtro.html"%}
 <br>
 <div class="indicadores">
-<div class="titulo" style="float:left;">Indicadores</div><div class="titulo" style="float:left;">Familia</div><div class="titulo" style="float:left;">Jefe</div>
+<div class="titulo" style="float:left;"><a href="/indicadores">Indicadores</a></div><div class="titulo" style="float:left;">Familia</div><div class="titulo" style="float:left;">Jefa/e</div>
 <div class="botones-descarga"><a href="/jefe.xls"><img src="/files/img/doc.png"></a><a href="/jefe.pdf"><img src="/files/img/pdf.png"></a></div>
 <div class="clean"></div>
 </div>
 {% include "encuesta/familia.html" %}
 <table>
-        <caption>¿Quién es el jefe de familia? <span class="numencuestas">Encuestas {{numero}}</span></caption>
+        <caption>¿Quién es el jefa/e de familia? <span class="numencuestas">Encuestas {{numero}}</span></caption>
         <thead>
             <tr>
                 <th>Categoria</th>
@@ -31,6 +31,6 @@
     <div class="clean"></div>
 <br>
 <div class="grafico-title">Gr&aacute;fico <span class="numencuestas">Encuestas {{numero}}</span></div>
-<img src="{{grafo_url}}" alt="¿Quiés es el jefe de familia?" title="¿Quién es el jefe de familia?">
+<img src="{{grafo_url}}" alt="¿Quiés es el jefa/e de familia?" title="¿Quién es el jefa/e de familia?">
 {% endblock %}
 
