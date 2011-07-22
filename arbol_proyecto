@@ -1,0 +1,232 @@
+mcas
+├── arbol_proyecto
+├── base.sql
+├── encuesta
+│   ├── admin.py
+│   ├── admin.pyc
+│   ├── forms.py
+│   ├── forms.pyc
+│   ├── __init__.py
+│   ├── __init__.pyc
+│   ├── migrations
+│   │   ├── 0001_initial.py
+│   │   ├── 0001_initial.pyc
+│   │   ├── 0002_auto__del_field_encuesta_departamento.py
+│   │   ├── 0002_auto__del_field_encuesta_departamento.pyc
+│   │   ├── 0003_auto__add_ley.py
+│   │   ├── 0003_auto__add_ley.pyc
+│   │   ├── 0004_auto__chg_field_quepiensavictima_nombre__chg_field_quepiensa_nombre__c.py
+│   │   ├── 0004_auto__chg_field_quepiensavictima_nombre__chg_field_quepiensa_nombre__c.pyc
+│   │   ├── 0005_auto__chg_field_mensajetransmiten_nombre.py
+│   │   ├── 0005_auto__chg_field_mensajetransmiten_nombre.pyc
+│   │   ├── 0006_auto__add_field_organizacion_usuario__add_field_encuesta_user.py
+│   │   ├── 0006_auto__add_field_organizacion_usuario__add_field_encuesta_user.pyc
+│   │   ├── __init__.py
+│   │   └── __init__.pyc
+│   ├── models.py
+│   ├── models.pyc
+│   ├── tests.py
+│   ├── urls.py
+│   ├── urls.pyc
+│   ├── views.py
+│   └── views.pyc
+├── files
+│   ├── css
+│   │   ├── anythingslider.css
+│   │   ├── anythingslider-ie.css
+│   │   ├── especial.css
+│   │   ├── jquery.multiselect.css
+│   │   ├── mcas.css
+│   │   ├── nivo-slider.css
+│   │   └── theme-metallic.css
+│   ├── img
+│   │   ├── actitud.jpg
+│   │   ├── arrow-back.png
+│   │   ├── arrows-metallic.png
+│   │   ├── arrows.png
+│   │   ├── back-tabla.png
+│   │   ├── bg_header.png
+│   │   ├── botonaprende.jpg
+│   │   ├── bullet-green.png
+│   │   ├── bullets.png
+│   │   ├── bullet-white.png
+│   │   ├── caption-tabla2.png
+│   │   ├── caption-tabla.png
+│   │   ├── conocimiento.jpg
+│   │   ├── doc.png
+│   │   ├── estado.jpg
+│   │   ├── familia.jpg
+│   │   ├── flechamenu2.png
+│   │   ├── flechamenu.png
+│   │   ├── fotos
+│   │   │   ├── portada1.png
+│   │   │   ├── portada2.png
+│   │   │   ├── portada3.png
+│   │   │   ├── portada4.png
+│   │   │   ├── portada5.png
+│   │   │   └── portada.png
+│   │   ├── generales.jpg
+│   │   ├── help.png
+│   │   ├── home.png
+│   │   ├── info-bar.png
+│   │   ├── line-back.png
+│   │   ├── loading.gif
+│   │   ├── logo-black.png
+│   │   ├── logo.jpg
+│   │   ├── logo.png
+│   │   ├── mcas-logo1.png
+│   │   ├── mcas.png
+│   │   ├── mensaje.png
+│   │   ├── monitoreo.png
+│   │   ├── pdf.png
+│   │   ├── percepcion.jpg
+│   │   ├── practica.jpg
+│   │   ├── regresar.png
+│   │   └── sprite.png
+│   ├── js
+│   │   ├── cholla.font.js
+│   │   ├── cufon-yui.js
+│   │   ├── exporting.js
+│   │   ├── exporting_patched.js
+│   │   ├── highcharts.js
+│   │   ├── jquery-1.6.1.min.js
+│   │   ├── jquery.anythingslider.js
+│   │   ├── jquery.multiselect.filter.js
+│   │   ├── jquery.multiselect.min.js
+│   │   ├── jquery.nivo.slider.js
+│   │   ├── jquery.nivo.slider.pack.js
+│   │   ├── libel.font2.js
+│   │   ├── libel.font.js
+│   │   └── thema.js
+│   └── manual.pdf
+├── grafos
+│   ├── grafos.py
+│   ├── grafos.pyc
+│   ├── __init__.py
+│   ├── __init__.pyc
+│   ├── pygooglechart.py
+│   ├── pygooglechart.pyc
+│   └── test.py
+├── __init__.py
+├── __init__.pyc
+├── lugar
+│   ├── admin.py
+│   ├── admin.pyc
+│   ├── fixtures
+│   │   └── lugar.json
+│   ├── __init__.py
+│   ├── __init__.pyc
+│   ├── models.py
+│   ├── models.pyc
+│   └── views.py
+├── manage.py
+├── mcas_29_06_2011.sql
+├── mcas-4-julio-2011.sql
+├── mcas_database.png
+├── mcas.db
+├── mcas.sql
+├── README
+├── settings_local.py
+├── settings_local.pyc
+├── settings_local.py_dist
+├── settings.py
+├── settings.pyc
+├── templates
+│   ├── admin
+│   │   └── base_site.html
+│   ├── base.html
+│   ├── base_xls.html
+│   ├── encuesta
+│   │   ├── actitud
+│   │   │   ├── abuso.html
+│   │   │   ├── abuso_xls.html
+│   │   │   ├── escuela.html
+│   │   │   ├── escuela_xls.html
+│   │   │   ├── familia.html
+│   │   │   ├── familia_xls.html
+│   │   │   ├── piensa.html
+│   │   │   ├── piensa_xls.html
+│   │   │   ├── victima.html
+│   │   │   └── victima_xls.html
+│   │   ├── actitud.html
+│   │   ├── conocimiento
+│   │   │   ├── abusan_ninos.html
+│   │   │   ├── abusan_ninos_xls.html
+│   │   │   ├── abuso.html
+│   │   │   ├── abuso_xls.html
+│   │   │   ├── aprendio.html
+│   │   │   ├── aprendio_xls.html
+│   │   │   ├── informarse.html
+│   │   │   ├── informarse_xls.html
+│   │   │   ├── leyes.html
+│   │   │   ├── leyes_xls.html
+│   │   │   ├── lugar.html
+│   │   │   ├── lugar_xls.html
+│   │   │   ├── prevenir.html
+│   │   │   └── prevenir_xls.html
+│   │   ├── conocimiento.html
+│   │   ├── consultar.html
+│   │   ├── estado
+│   │   │   ├── atencion.html
+│   │   │   ├── atencion_xls.html
+│   │   │   ├── donde.html
+│   │   │   ├── donde_xls.html
+│   │   │   ├── lugares.html
+│   │   │   ├── lugares_xls.html
+│   │   │   ├── problema_comunidad.html
+│   │   │   ├── problema_comunidad_xls.html
+│   │   │   ├── problema_pais.html
+│   │   │   ├── problema_pais_xls.html
+│   │   │   ├── tipo_atencion.html
+│   │   │   └── tipo_atencion_xls.html
+│   │   ├── estado.html
+│   │   ├── familia
+│   │   │   ├── jefe.html
+│   │   │   ├── jefe_xls.html
+│   │   │   ├── miembros.html
+│   │   │   ├── miembros_xls.html
+│   │   │   ├── vivecon.html
+│   │   │   └── vivecon_xls.html
+│   │   ├── familia.html
+│   │   ├── filtro.html
+│   │   ├── generales.html
+│   │   ├── indicadores.html
+│   │   ├── percepcion
+│   │   │   ├── empresas.html
+│   │   │   ├── empresa_xls.html
+│   │   │   ├── encargado_prevenir.html
+│   │   │   ├── encargado_prevenir_xls.html
+│   │   │   ├── estado.html
+│   │   │   ├── estado_xls.html
+│   │   │   ├── familia_abuso.html
+│   │   │   ├── familia_abuso_xls.html
+│   │   │   ├── iglesia.html
+│   │   │   ├── iglesia_xls.html
+│   │   │   ├── medios.html
+│   │   │   ├── medios_xls.html
+│   │   │   ├── mensajes.html
+│   │   │   ├── mensajes_xls.html
+│   │   │   ├── ninos_abusados.html
+│   │   │   ├── ninos_abusados_xls.html
+│   │   │   ├── ongs.html
+│   │   │   ├── ong_xls.html
+│   │   │   ├── reducir.html
+│   │   │   └── reducir_xls.html
+│   │   ├── percepcion.html
+│   │   ├── practica
+│   │   │   ├── como.html
+│   │   │   ├── como_xls.html
+│   │   │   ├── participa_prevenir.html
+│   │   │   ├── participa_prevenir_xls.html
+│   │   │   ├── prevenir.html
+│   │   │   ├── prevenir_xls.html
+│   │   │   ├── situacion.html
+│   │   │   └── situacion_xls.html
+│   │   └── practica.html
+│   ├── index1.html
+│   └── index.html
+├── urls.py
+└── urls.pyc
+
+19 directories, 209 files
+
