@@ -101,7 +101,7 @@ def indicadores(request):
     
 
 def generales(request):
-    encuestas = _query_set_filtrado(request)
+    encuestas = Encuesta.objects.all()
     numero = encuestas.count()
     #-----------------------------------------------
     urbano = encuestas.filter(area_reside=1).count()
@@ -779,7 +779,12 @@ def practica_prevenir(request):
     encuestas = _query_set_filtrado(request)
     numero = encuestas.count()    
     dicc = {}
-    for hacer in QueHacePrevenir.objects.all():
+    #lonuevo = [4,5]
+    #nuevo = {}
+    #for a in QueHacePrevenir.objects.filter(id__in=lonuevo):
+    #	s = Practica.objects.filter(encuesta__in=encuestas, que_hago_prevenir=a).count()
+    #	por = round(saca_porcentajes(s,numero),1)	
+    for hacer in QueHacePrevenir.objects.exclude(id__in=lonuevo):
         suma = Practica.objects.filter(encuesta__in=encuestas, que_hago_prevenir=hacer).count()
         tabla = round(saca_porcentajes(suma,numero),1)
         dicc[hacer.nombre] = (suma,tabla)
