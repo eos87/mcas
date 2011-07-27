@@ -28,7 +28,7 @@ def _query_set_filtrado(request):
         params['sexo'] = request.session['sexo']
         
     if request.session['edad']:
-        edad = int(request.session['edad'])
+        edad = int(request.session['edad']) 
         if edad == 1:
             params['edad__range'] = (18, 24)
         elif edad == 2:
@@ -101,7 +101,7 @@ def indicadores(request):
     
 
 def generales(request):
-    encuestas = _query_set_filtrado(request)
+    encuestas = Encuesta.objects.all()
     numero = encuestas.count()
     #-----------------------------------------------
     urbano = encuestas.filter(area_reside=1).count()
@@ -342,10 +342,51 @@ def conocimiento_lugar(request):
     encuestas = _query_set_filtrado(request)
     numero = encuestas.count()
     dicc = {}
-    for lugar in LugarAbuso.objects.all()[:12]:
-        suma = Conocimiento.objects.filter(encuesta__in=encuestas, lugares=lugar).count()
-        tabla = round(saca_porcentajes(suma,numero),1)
-        dicc[lugar.nombre] = (suma,tabla)
+    opcion1 = [1]
+    opcion2 = [2]
+    opcion3 = [3,7,8]
+    opcion4 = [4]
+    opcion5 = [5]
+    opcion6 = [6,12]
+    opcion7 = [9]
+    opcion8 = [10,11]
+	#opcion1 (En la casa)
+    casa = Conocimiento.objects.filter(encuesta__in=encuestas, lugares__in=opcion1).count()
+    por_casa = round(saca_porcentajes(casa,numero),1)
+	#opcion2 (En la escuela)
+    escuela = Conocimiento.objects.filter(encuesta__in=encuestas, lugares__in=opcion2).count()
+    por_escuela = round(saca_porcentajes(escuela,numero),1)
+	#opcion3 (En la comunidad/calle o predios vacíos,parques,Servicios higiénicos)
+    tercera = Conocimiento.objects.filter(encuesta__in=encuestas, lugares__in=opcion3).count()
+    por_tercera = round(saca_porcentajes(tercera,numero),1)
+	#opcion4 (En la iglesia)
+    iglesia = Conocimiento.objects.filter(encuesta__in=encuestas, lugares__in=opcion4).count()
+    por_iglesia = round(saca_porcentajes(iglesia,numero),1)
+	#opcion5 (Lugares públicos (centros de salud, ... etc))
+    lugares = Conocimiento.objects.filter(encuesta__in=encuestas, lugares__in=opcion5).count()
+    por_lugares = round(saca_porcentajes(lugares,numero),1)
+	#opcion6 (En todos los lugares,Todos los anteriores)
+    sexta = Conocimiento.objects.filter(encuesta__in=encuestas, lugares__in=opcion6).count()
+    por_sexta = round(saca_porcentajes(sexta,numero),1)
+	#opcion7 (Trabajo)
+    trabajo = Conocimiento.objects.filter(encuesta__in=encuestas, lugares__in=opcion7).count()
+    por_trabajo = round(saca_porcentajes(trabajo,numero),1)
+	#opcion8 (otros, carcel)
+    ocho = Conocimiento.objects.filter(encuesta__in=encuestas, lugares__in=opcion8).count()
+    por_ocho = round(saca_porcentajes(ocho,numero),1)
+	#fin fuck-jodedera
+    dicc = {'En la casa':(casa,por_casa),'En la escuela':(escuela,por_escuela),
+                   'En la comunidad (calle, predios vacios y parques, etc)':(tercera,por_tercera),
+                   'En la iglesía':(iglesia,por_iglesia),
+                   'Lugares públicos (centros de salud,guarderias,...etc)':(lugares,por_lugares),
+                   'En todos los lugares':(sexta,por_sexta),'Trabajo':(trabajo,por_trabajo),
+                   'Otros':(ocho,por_ocho)
+                  }
+    #dicc = {}
+    #for lugar in LugarAbuso.objects.all()[:12]:
+    #    suma = Conocimiento.objects.filter(encuesta__in=encuestas, lugares=lugar).count()
+    #    tabla = round(saca_porcentajes(suma,numero),1)
+    #    dicc[lugar.nombre] = (suma,tabla)
     
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
@@ -355,10 +396,46 @@ def __conocimiento_lugar(request):
     encuestas = _query_set_filtrado(request)
     numero = encuestas.count()
     dicc = {}
-    for lugar in LugarAbuso.objects.all()[:12]:
-        suma = Conocimiento.objects.filter(encuesta__in=encuestas, lugares=lugar).count()
-        tabla = round(saca_porcentajes(suma,numero),1)
-        dicc[lugar.nombre] = (suma,tabla)
+    opcion1 = [1]
+    opcion2 = [2]
+    opcion3 = [3,7,8]
+    opcion4 = [4]
+    opcion5 = [5]
+    opcion6 = [6,12]
+    opcion7 = [9]
+    opcion8 = [10,11]
+	#opcion1 (En la casa)
+    casa = Conocimiento.objects.filter(encuesta__in=encuestas, lugares__in=opcion1).count()
+    por_casa = round(saca_porcentajes(casa,numero),1)
+	#opcion2 (En la escuela)
+    escuela = Conocimiento.objects.filter(encuesta__in=encuestas, lugares__in=opcion2).count()
+    por_escuela = round(saca_porcentajes(escuela,numero),1)
+	#opcion3 (En la comunidad/calle o predios vacíos,parques,Servicios higiénicos)
+    tercera = Conocimiento.objects.filter(encuesta__in=encuestas, lugares__in=opcion3).count()
+    por_tercera = round(saca_porcentajes(tercera,numero),1)
+	#opcion4 (En la iglesia)
+    iglesia = Conocimiento.objects.filter(encuesta__in=encuestas, lugares__in=opcion4).count()
+    por_iglesia = round(saca_porcentajes(iglesia,numero),1)
+	#opcion5 (Lugares públicos (centros de salud, ... etc))
+    lugares = Conocimiento.objects.filter(encuesta__in=encuestas, lugares__in=opcion5).count()
+    por_lugares = round(saca_porcentajes(lugares,numero),1)
+	#opcion6 (En todos los lugares,Todos los anteriores)
+    sexta = Conocimiento.objects.filter(encuesta__in=encuestas, lugares__in=opcion6).count()
+    por_sexta = round(saca_porcentajes(sexta,numero),1)
+	#opcion7 (Trabajo)
+    trabajo = Conocimiento.objects.filter(encuesta__in=encuestas, lugares__in=opcion7).count()
+    por_trabajo = round(saca_porcentajes(trabajo,numero),1)
+	#opcion8 (otros, carcel)
+    ocho = Conocimiento.objects.filter(encuesta__in=encuestas, lugares__in=opcion8).count()
+    por_ocho = round(saca_porcentajes(ocho,numero),1)
+	#fin fuck-jodedera
+    dicc = {'En la casa':(casa,por_casa),'En la escuela':(escuela,por_escuela),
+                   'En la comunidad (calle, predios vacios y parques, etc)':(tercera,por_tercera),
+                   'En la iglesía':(iglesia,por_iglesia),
+                   'Lugares públicos (centros de salud,guarderias,...etc)':(lugares,por_lugares),
+                   'En todos los lugares':(sexta,por_sexta),'Trabajo':(trabajo,por_trabajo),
+                   'Otros':(ocho,por_ocho)
+                  }
     
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     dict = {'dicc2':dicc2}
@@ -779,11 +856,17 @@ def practica_prevenir(request):
     encuestas = _query_set_filtrado(request)
     numero = encuestas.count()    
     dicc = {}
-    for hacer in QueHacePrevenir.objects.all():
+    lonuevo = [4,5]
+    nuevo = Practica.objects.filter(encuesta__in=encuestas, que_hago_prevenir__in=lonuevo).count()
+    por_nuevo = round(saca_porcentajes(nuevo,numero),1)
+    #fin de la otra jodera
+    for hacer in QueHacePrevenir.objects.exclude(id__in=lonuevo):
         suma = Practica.objects.filter(encuesta__in=encuestas, que_hago_prevenir=hacer).count()
         tabla = round(saca_porcentajes(suma,numero),1)
         dicc[hacer.nombre] = (suma,tabla)
     
+    dicc['Protejo y/o vigilo a mis hijos/as'] = (nuevo,por_nuevo)
+    print dicc
     dicc2 = sorted(dicc.items(), key=lambda x: x[1], reverse=True)
     
     return render_to_response('encuesta/practica/prevenir.html', RequestContext(request, locals()))

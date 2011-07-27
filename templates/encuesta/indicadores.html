@@ -14,7 +14,9 @@
             <b>Información de la familia</b>
             <li><a href="/familia/jefe/">Jefa/e</a></li>
             <li><a href="/familia/vivecon/">¿Con quién vive?</a></li>
+            {% if user.is_authenticated %}
             <li><a href="/familia/miembros/">Miembros/as del hogar</a></li>
+            {% endif %}
         </ul>
         <ul id="conocimiento">
             <b>Conocimiento</b>
